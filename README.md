@@ -1,7 +1,7 @@
-# Lazy Harness Engineering — Use AI to Build a Knowledge Base for a Software Project
+# Lazy Harness — Use AI to Build a Knowledge Base for a Software Project
 
-> **Lazy harness engineering** — do the *boring* scaffolding once, so the
-> LLM-and-agent era doesn't catch you writing docs by hand.
+> **Lazy harness** — do the *boring* scaffolding once, so the LLM-and-agent era
+> doesn't catch you writing docs by hand.
 >
 > This repo holds the book *"Use AI to build a knowledge base for a software
 > project"*: a six-part field guide to building, maintaining, and operating a
@@ -19,7 +19,7 @@
 ## What's inside
 
 ```
-lazy-harness-engineering-book/
+lazy-harness-book/
 ├── Makefile              # setup / check / build / serve / pdf / i18n
 ├── pyproject.toml        # Poetry: Sphinx, MyST, bibtex, mermaid, intl
 ├── poetry.lock
@@ -195,7 +195,7 @@ make html-zh                # 中文（会自动先把 .po 编译成 .mo）
 
 - **`lazy-rabbit-wiki`** —— *Prose layer* 的参考实现：Go wiki-cli + Vue 前端，
   处理 Markdown + Git 型 wiki 的导入、校验、静态构建。
-- **`lazy-harness-engineering-book`**（本仓库）—— 设计笔记与教程的**文本载体**：
+- **`lazy-harness-book`**（本仓库）—— 设计笔记与教程的**文本载体**：
   把"用 AI 给软件项目造知识库"这件事的方法论、trade-off、工程纪律
   系统写下来。
 

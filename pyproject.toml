@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "lazy-harness-engineering-book"
+name = "lazy-harness-book"
 version = "0.1.0"
-description = "Sphinx + MyST toolchain for the book 'Use AI to build a knowledge base for a software project' (Lazy Harness Engineering series) and its content-validation tools."
-authors = ["Walter (Yamin) Fan <walter.fan@example.com>"]
+description = "Sphinx + MyST toolchain for the book 'Use AI to build a knowledge base for a software project' (Lazy Harness series) and its content-validation tools."
+authors = ["Walter (Yamin) Fan <waltefan@ustc.edu>"]
 license = "CC-BY-SA-4.0"
 readme = "README.md"
 package-mode = false
