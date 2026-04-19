@@ -1,0 +1,649 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 16:15+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:14
+#: 3ff0b45f13ca4bc4b4535fee0520cd98
+msgid "Chapter 18 — Document Layering L0–L4"
+msgstr "第 18 章 —— 文档分层 L0–L4"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:16
+#: e9ee453876434aed8f442bda3fb86732
+msgid "Why"
+msgstr "Why —— 为什么"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:18
+#: e99223f879654898990fcc5d84f1bde3
+msgid ""
+"A mature knowledge base contains pages that are not of the same *kind* even "
+"when they are of the same Diátaxis *type* (Chapter 3). A `runbook.md` "
+"written by an experienced on-call engineer and a `runbook.md` regenerated "
+"yesterday by an LLM are both how-tos. They both live under `content/`. They "
+"both have the same frontmatter schema. But they are not equally trustworthy,"
+" and a retrieval system that treats them as equals will eventually answer a "
+"3 am incident question with the wrong page."
+msgstr ""
+"一个成熟的知识库里，有些页面即便属于同一种 Diátaxis * 类型 * （第 3 章），也不是同一 * 种类 * 。一份由资深 on-call "
+"工程师写的 `runbook.md` 和一份昨晚由 LLM 重新生成的 `runbook.md` 都是 how-to，都住在 `content/` "
+"下，frontmatter schema 也一样 —— 但它们的可信程度并不等同。一个把它们一视同仁的检索系统，迟早会在凌晨 3 "
+"点的事故问询中拿错页面。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:27
+#: 26d0c6d2a97d41779a565f72c8a72e0a
+#, python-brace-format
+msgid ""
+"The blog post the book builds on {cite}`fanyamin2026deepwiki` introduces a "
+"five-tier **document-layer** model (L0 – L4) that distinguishes pages by "
+"their *authorial provenance* — who wrote the page and how much authority "
+"attaches to it. This chapter makes that model precise, shows why a single-"
+"axis layering is not enough, and upgrades it to a four-tuple that integrates"
+" the footer fields Chapter 5 introduced."
+msgstr ""
+"本书所基于的那篇博客 {cite}`fanyamin2026deepwiki` 引入了一个五层 **document-layer** 模型（L0 – "
+"L4），按 * 作者出处 * —— 页面是谁写的、它附带多少权威 —— "
+"来区分页面。本章把这个模型精确化，说明“单轴分层”为什么不够用，并把它升级为一个四元组，与第 5 章引入的 footer 字段整合起来。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:35
+#: e73fc02fd893494f87322b0f3c92382b
+msgid "What"
+msgstr "What —— 是什么"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:37
+#: df119978e9e8474bb90a1d8a1c5c76c3
+msgid "The single-axis L0 – L4 model"
+msgstr "单轴的 L0 – L4 模型"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:39
+#: 5a287792c7de47e8ba4564fe6319a136
+msgid "The blog's original L0–L4, stated compactly:"
+msgstr "博客原文里的 L0–L4，紧凑地重述一遍："
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: c50c0209cc1c46ee825d47fc7b371adb
+msgid "Tier"
+msgstr "层级"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: cc69768704614a92a743be6bf81befe0
+msgid "Authority"
+msgstr "权威度"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 3a7f59abb0684a56bfa3f87ea5b2703d
+msgid "Who writes"
+msgstr "由谁书写"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: a79fb5d8cc414077b9c4ce26fca84cb7
+msgid "Examples"
+msgstr "示例"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: afafa7cb54fa4be993cb42f8e8d1f246
+msgid "**L0**"
+msgstr "**L0**"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 32d17e0c4723446fa5723172184ca2e9
+msgid "Strongest"
+msgstr "最强"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 949d7329026b410d89935dfbe9e0f374
+msgid "Code and its comments"
+msgstr "代码及其注释"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: a0fbad8f9aa94cf7b91b7772ad83761e
+msgid "Function bodies, docstrings, OpenAPI specs"
+msgstr "函数体、docstring、OpenAPI 规格"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 19539e2f27e84e28b64428729cd62b93
+msgid "**L1**"
+msgstr "**L1**"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: b0c56269d546438092f82cf460e14b9a
+msgid "Strong"
+msgstr "强"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: a9c8871bc9a748618c4fc37ba7bfeffb
+msgid "Humans, committed"
+msgstr "人写，已提交"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: c076ea559ec94a31b896eae34658c562
+msgid "ADRs, architecture docs, hand-written runbooks"
+msgstr "ADR、架构文档、手写 runbook"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 81f26aa5569f4370a6d555e38c3f7ea6
+msgid "**L2**"
+msgstr "**L2**"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 7141bcb9c46c464cb49b620fb8d38778
+msgid "Moderate"
+msgstr "中等"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: c59766303fe6467cbb612e06eaffccd2
+msgid "Humans, collaborative"
+msgstr "人写，协作修订"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: ab87fe5b5c324489bdfc490b1a745979
+msgid "Wiki pages, design docs, retros"
+msgstr "wiki 页面、设计文档、复盘"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 7b0693fd200b484b91da1ae1e49b8d1d
+msgid "**L3**"
+msgstr "**L3**"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: ac003cbb47d94bac93abc1d4743f900f
+msgid "Weak"
+msgstr "弱"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 137ac307df0c4117bcf56a3803ea99f4
+msgid "AI, reviewed"
+msgstr "AI 产出，已评审"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: dd0748426b5b4d849078ded70915edf1
+msgid "LLM-generated summaries a human approved"
+msgstr "经人类批准的 LLM 生成摘要"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: b1670420fba041d7b530e3ff09f51028
+msgid "**L4**"
+msgstr "**L4**"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 8246789f0df740319cbd2021fbf7a9d9
+msgid "Conditional"
+msgstr "有条件（待评审）"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 6eb2c8ed3ae84759a73f06187c4c5cdd
+msgid "AI, unreviewed"
+msgstr "AI 产出，未评审"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 92fa63e0ec7e45df9e97af6e5729c1d6
+msgid "LLM-generated drafts waiting for review"
+msgstr "等待评审的 LLM 生成草稿"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:49
+#: a3ade99d8b9a431ca5a233f374fe2449
+msgid ""
+"The single-axis model is good as a first move. It correctly names the single"
+" most common confusion: that AI-drafted prose and human-written ADRs should "
+"not be retrieved with equal weight. A retrieval layer that weights results "
+"by tier — boost L0, boost L1, down-weight L4 — immediately behaves better "
+"than one that does not."
+msgstr ""
+"作为第一步，单轴模型已经相当好。它正确地点名了最常见的那种混淆：“AI 起草的文稿”和“人写的 "
+"ADR”不应该以相同权重被检索出来。一个按层级给结果加权的检索层 —— L0 加权、L1 加权、L4 降权 —— 立刻就会比不分层的检索层表现更好。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:55
+#: f3e564559b0c4c1f83ec86f9b715a184
+msgid "Why one axis is not enough"
+msgstr "为什么一根轴不够"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:57
+#: 5b4468c227a3492c86fb3cc04c3dfb2a
+msgid ""
+"The single-axis model still conflates two things a KB has to treat "
+"separately: **who wrote the current version** and **has anyone reviewed "
+"it**. They correlate but they are not the same. Consider four pages all of "
+"Diátaxis type `how-to`:"
+msgstr ""
+"单轴模型仍然把知识库必须分开处理的两件事混在了一起： **当前版本是谁写的** ，以及 **有没有人评审过它** 。两者相关但不等同。考虑四个都属于 "
+"Diátaxis `how-to` 类型的页面："
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:62
+#: 187660726eed4a7b9c244edaf659ccab
+msgid "A human wrote it three months ago; it has not been reviewed since."
+msgstr "人三个月前写的，从那以后无人再评审。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:64
+#: 2f8cdbd81d044f01be009e44a6c58bcd
+msgid "A human wrote it yesterday; another human reviewed it today."
+msgstr "人昨天写的，另一个人今天评审过了。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:65
+#: 371e12b7d5524486ae92a8c15951c275
+msgid ""
+"An LLM drafted it yesterday; a human reviewed and approved it today with a "
+"score of 4."
+msgstr "LLM 昨天起草，人今天评审并以 4 分通过。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:67
+#: 781a6f3ec66248179b86321d0ab4db84
+msgid "An LLM drafted it yesterday; no one has reviewed it."
+msgstr "LLM 昨天起草，没有人评审过。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:69
+#: 3e0c9f28b3ce4f2f9895e28257f8014b
+msgid ""
+"The single-axis model collapses (1) and (2) into L2 and (3) and (4) into "
+"L3/L4. But a working retrieval layer wants to treat (3) more like (2) than "
+"like (4): in case (3) a human has actually signed off, which is the signal "
+"that matters. The prose is AI-drafted, but the authority is human-verified."
+msgstr ""
+"单轴模型把 (1) 和 (2) 并入 L2，把 (3) 和 (4) 并入 L3/L4。但一个真正能用的检索层希望把 (3) 当作更像 (2)、而不是更像"
+" (4) 的东西 —— 因为在 (3) 这一场景里，确实有一个人签过字，这才是真正重要的信号。文稿是 AI 起草的，但权威已经由人核实过。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:75
+#: 088ad68ac1124ec9a8369a1e3fe30d9c
+msgid ""
+"This is the gap the footer's review fields close. Chapter 5's `PKB-metadata`"
+" footer gives every page four values that together identify its kind more "
+"precisely than any single axis can:"
+msgstr ""
+"这正是 footer 中的评审字段所填补的那道缝隙。第 5 章的 `PKB-metadata` footer "
+"给每个页面提供了四个值，它们合起来可以比任何单根轴更精确地指认该页面的种类："
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:79
+#: a7c54b6436684faf8179c57f6d2a3787
+#, python-brace-format
+msgid ""
+"`layer` ∈ {L0, L1, L2, L3, L4} — *where in the hierarchy does this page "
+"sit?*"
+msgstr "`layer` ∈ {L0, L1, L2, L3, L4} —— * 这个页面位于层级结构的哪里？ *"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:81
+#: 4de10cff1d80473eb61609011c304e4b
+#, python-brace-format
+msgid ""
+"`updated_by` ∈ {`human`, `ai`, `ai+human`} — *who authored the current "
+"version?*"
+msgstr "`updated_by` ∈ {`human`, `ai`, `ai+human`} —— * 当前版本是谁写的？ *"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:83
+#: 412a34dc106841cb95ec98aa15d17712
+#, python-brace-format
+msgid "`review_status` ∈ {`pending`, `approved`} — *has a human signed off?*"
+msgstr "`review_status` ∈ {`pending`, `approved`} —— * 有人签过字了吗？ *"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:85
+#: b8f46b6fb036452b98b0ab89834b17c5
+msgid ""
+"`review_score` ∈ [0, 5] — *how good is it, in the reviewer's judgement?*"
+msgstr "`review_score` ∈ [0, 5] —— * 在评审者的判断里，它有多好？ *"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:88
+#: 698d1e835bb24b439f3e7fef0f57bf9e
+msgid "The tuple model"
+msgstr "元组模型"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:90
+#: 5f4d8f4d3d43423f94f0eb9b6cf03176
+msgid "The upgraded document layer is the tuple"
+msgstr "升级后的文档层是这样一个元组："
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:92
+#: 6b4933b34bd340dead392952a528ba66
+#, python-brace-format
+msgid ""
+"\n"
+"\\text{layer} = \\langle L, U, R, S \\rangle\n"
+msgstr ""
+"\n"
+"\\text{layer} = \\langle L, U, R, S \\rangle\n"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:96
+#: 33aa7169b55045339ded290afacecddf
+#, python-brace-format
+msgid ""
+"where $L$ is the single-axis tier, $U$ is `updated_by`, $R$ is "
+"`review_status`, and $S$ is `review_score`. The author's private project-"
+"knowledge-base toolkit {cite}`fanyamin_pkb_skill` encodes exactly this four-"
+"valued stance. Two pages at \"the same layer\" on the old scale can now be "
+"distinguished:"
+msgstr ""
+"其中 $L$ 是单轴层级， $U$ 是 `updated_by`，$R$ 是 `review_status`，$S$ 是 "
+"`review_score`。作者的私有 project-knowledge-base 工具包 {cite}`fanyamin_pkb_skill` "
+"正是以这种“四值立场”编码。旧刻度上“同一层”的两个页面，现在可以被区分开来："
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 4034c464d6464b90abe185fd09ecfcd3
+msgid "Page"
+msgstr "页面"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 5ed3101254e546cebd700482a32a86ab
+msgid "Old tier"
+msgstr "旧层级"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: dd4f33ebcfb74c649918b3b5564485dd
+msgid "Tuple"
+msgstr "元组"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: b94e3efa5d234cf0b9f9ab5149340835
+msgid "Retrieval weight"
+msgstr "检索权重"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 1564820d6d6f459b8c1903e5e9f9e928
+msgid "L1 ADR, human-written, approved, score 4"
+msgstr "L1 的 ADR，人写，已批准，得分 4"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 5ffea68fe28844a0ae0dd4ac077447c6 8416acbbe62641d6ad8ff03d82d9884b
+msgid "L1"
+msgstr "L1"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: d6b49543446b488488de52f5a1a51f24
+msgid "⟨L1, human, approved, 4⟩"
+msgstr "⟨L1, human, approved, 4⟩"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 3a3b49c0655f49f68d02c7facf7c5b39
+msgid "1.0"
+msgstr "1.0"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 1120813790704e7d93f070b4419452aa
+msgid "L1 ADR, LLM-updated, pending review"
+msgstr "L1 的 ADR，LLM 更新过，待评审"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 5449f933c5444f989e407bd049efbb5b
+msgid "⟨L1, ai, pending, 0⟩"
+msgstr "⟨L1, ai, pending, 0⟩"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 2bf5018627584319ad3ebe3df8e43584
+msgid "0.3"
+msgstr "0.3"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: e11bd558c101437e8274e1522db8d4fe
+msgid "L3 summary, LLM-drafted, human-approved, score 4"
+msgstr "L3 摘要，LLM 起草，人已批准，得分 4"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 7c8e915370934fd9ac511048a049cf76 bc3d3e207df142688a1041d0f99e78dd
+msgid "L3"
+msgstr "L3"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 60c1fa5d6676420ebe3be5abbbd2505c
+msgid "⟨L3, ai+human, approved, 4⟩"
+msgstr "⟨L3, ai+human, approved, 4⟩"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: f29711c07e17485c9c23c4f70977ab55
+msgid "0.8"
+msgstr "0.8"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 69b1be8ecdd14b6ea1f0e96ba8353b7a
+msgid "L3 summary, LLM-drafted, no review"
+msgstr "L3 摘要，LLM 起草，未评审"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 8f46c08f50fe41cab6f3c18db1a31887
+msgid "⟨L3, ai, pending, 0⟩"
+msgstr "⟨L3, ai, pending, 0⟩"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md
+#: 1f41be7e985a4668bbd066dddd870261
+msgid "0.2"
+msgstr "0.2"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:109
+#: 893fc5a543be45218db27f340acde82f
+msgid ""
+"The retrieval weight is one plausible projection; Chapter 19's graph-guided "
+"context assembly uses a richer function, but the principle is the same. The "
+"tuple exposes four numbers the retrieval code can *actually use*, where the "
+"old single axis exposed one."
+msgstr ""
+"表中的“检索权重”只是一种合理的投影方式；第 19 章的图引导上下文组装用的是一个更丰富的函数，但原理相同。元组向检索代码暴露了四个 * "
+"可以真正用得上的 * 数值，而旧单轴只暴露一个。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:114
+#: d5e418a79c394efa901d11b16fbd98ab
+msgid "How"
+msgstr "How —— 怎么做"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:116
+#: 88b433201de744cb938a50e27fbe1ddd
+msgid "Assigning tuples at ingestion"
+msgstr "在入库阶段为页面指派元组"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:118
+#: d58b978f36354b8082edd41aaf089b9d
+msgid ""
+"The pipeline (Chapter 7) assigns $\\langle L, U, R, S \\rangle$ when a page "
+"is created or updated. Three rules cover almost every case:"
+msgstr "流水线（第 7 章）会在页面被创建或更新时指派 $\\langle L, U, R, S \\rangle$。三条规则几乎能覆盖所有情形："
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:121
+#: 2c05345bb5c84c26be6f0c782588426b
+msgid ""
+"**At creation**, $L$ is inferred from the path: `adr/` → L1; `architecture/`"
+" → L1; `content/` with `created_by: human` → L2; `content/` with "
+"`created_by: ai` → L4. $U$ mirrors `created_by`. $R$ is `pending` if "
+"`created_by: ai`, else `approved`. $S$ is `0` if `created_by: ai`, else a "
+"default set by the author."
+msgstr ""
+"**创建时** ， $L$ 从路径推断：`adr/` → L1；`architecture/` → L1；`content/` 且 "
+"`created_by: human` → L2；`content/` 且 `created_by: ai` → L4。 $U$ 镜像 "
+"`created_by`。当 `created_by: ai` 时 $R$ 为 `pending`，否则为 `approved`。当 "
+"`created_by: ai` 时 $S$ 为 `0`，否则由作者给一个默认值。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:126
+#: 8543c13a504843cbbe3d448e020eae03
+msgid ""
+"**On L1 mechanical update** (Chapter 16): $L$ is unchanged (a re-stamp does "
+"not move a page between tiers); $U$ set to `ai` (the automated actor); $R$ "
+"to `pending`; $S$ to `0`."
+msgstr ""
+"**L1 机械化更新时** （第 16 章）： $L$ 不变（一次重打时间戳不会把页面挪到别的层级）； $U$ 置为 `ai`（自动化执行者）； $R$"
+" 置为 `pending`； $S$ 置为 `0`。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:129
+#: 4fcfe51bc3b74fdb8fa8064df255c6d2
+msgid ""
+"**On L2 bounded-LLM update** (Chapter 16): $L$ is unchanged; $U$ set to "
+"`ai`; $R$ to `pending`; $S$ to `0`. If a human later approves, $U$ "
+"transitions to `ai+human`, $R$ to `approved`, $S$ to the reviewer's score."
+msgstr ""
+"**L2 有界 LLM 更新时** （第 16 章）： $L$ 不变； $U$ 置为 `ai`； $R$ 置为 `pending`； $S$ 置为 "
+"`0`。如果事后有人批准，则 $U$ 迁移到 `ai+human`， $R$ 迁移到 `approved`， $S$ 迁移到评审者给出的分数。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:134
+#: 90330de896e643888652776298eddcfe
+msgid ""
+"These rules are the **AI-always-sets-pending** rule (Chapter 5) and the **L3"
+" human review** path (Chapter 16), restated in the tuple's vocabulary. They "
+"are not new policy; they are consequences of the rules stated elsewhere, re-"
+"expressed as tuple transitions."
+msgstr ""
+"这些规则就是 **“AI 总是置 pending”** 规则（第 5 章）和 **L3 人类评审** 路径（第 16 "
+"章）在元组词汇下的重述。它们不是新政策 —— 只是其他地方规则的推论，被重新表达为“元组之间的状态迁移”。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:139
+#: a9d056700db74e8caab088e5cd65962a
+msgid "Using the tuple at retrieval"
+msgstr "在检索阶段使用元组"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:141
+#: 7b325d9d83d54169b373964f21400113
+msgid ""
+"A retrieval layer (Chapters 12, 19) scores a candidate page with a function "
+"roughly like:"
+msgstr "检索层（第 12 章、第 19 章）用一个大致如下的函数给候选页面打分："
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:153
+#: 2e5b5bf778c94e9092fb2d14939f1f79
+msgid ""
+"Exact weights are a tuning choice, not a claim of this book. The interesting"
+" move is *that the score depends on four values of the footer, not one*. A "
+"page whose layer is L1 but which is currently unreviewed after an L2 rewrite"
+" sinks below a truly approved L2 page. That is the behaviour a KB needs; the"
+" tuple makes it expressible in a few lines of code."
+msgstr ""
+"具体权重是一种调参选择，不是本书的主张。关键的一步是 * 得分依赖 footer 的四个值，而不是一个 * 。一个 layer 为 L1、但经过一次 "
+"L2 改写后仍处于 unreviewed 状态的页面，会下沉到一个真正 approved 的 L2 "
+"页面下面。这就是知识库需要的行为；元组让这一点可以用几行代码表达出来。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:160
+#: eed20bcba1894c5b9557b4ca48b54efe
+msgid "Using the tuple at publish time"
+msgstr "在发布阶段使用元组"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:162
+#: ddcd3e4ca18a433a96d49aba86d062cd
+#, python-brace-format
+msgid ""
+"The gates from Chapter 15 already read the footer fields directly, but the "
+"tuple formalises one additional check: **authority consistency.** A page "
+"whose $U = \\text{ai}$ and $R = \\text{approved}$ must have a non-empty "
+"`reviewed_by`; a page whose $L = \\text{L0}$ must have $U = \\text{human}$ "
+"because code is not LLM-generated at this layer. Checks like these are one "
+"line each; they catch mis-tagging before publish."
+msgstr ""
+"第 15 章的门禁其实已经直接读取 footer 字段，但元组把另外一类检查形式化： **权威一致性。** 一个 $U = \\text{ai}$ 且 "
+"$R = \\text{approved}$ 的页面必须有非空的 `reviewed_by`；一个 $L = \\text{L0}$ 的页面必须 $U "
+"= \\text{human}$ ，因为在这一层代码并不是 LLM 生成的。这类检查每条一行代码即可；它们能在发布前就把错误标签抓出来。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:170
+#: ca0e1293197e4c64aa41fd352fece626
+msgid "Example"
+msgstr "Example —— 范例"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:172
+#: d3ebd87242114dc8baa699224ea6ba23
+msgid "A before-and-after for the same page under the two models:"
+msgstr "同一个页面在两种模型下的“前”和“后”对比："
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:174
+#: b845f41dde68413db843d60ee4fe6195
+msgid ""
+"**Single-axis view.** A page `runbook/ingest-pipeline-failure.md` has "
+"frontmatter `doc_type: how-to, status: published, verification_status: "
+"unreviewed`. The blog's single-axis model would classify it as L3 (AI prose,"
+" notionally reviewable). Retrieval weights it at ~0.6. Problem: the page was"
+" actually written by a human two weeks ago; it says `unreviewed` only "
+"because a cron job flipped the status when no one had re-verified it. The "
+"single axis cannot tell the difference."
+msgstr ""
+"**单轴视角。** 一个页面 `runbook/ingest-pipeline-failure.md` 的 frontmatter 是 "
+"`doc_type: how-to, status: published, verification_status: "
+"unreviewed`。博客那套单轴模型会把它分类为 L3（AI 文稿，理论上可评审）。检索对它的加权约 "
+"0.6。问题是：这个页面其实是两周前由一个人写的，它之所以是 `unreviewed`，只是因为一个 cron "
+"任务在“没人再次核验它”时把状态翻转了。单根轴看不出这种差别。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:182
+#: 5be316ff7a584ee1b40b12a98606a7d1
+msgid "**Tuple view.** The same page's full footer reads:"
+msgstr "**元组视角。** 同一个页面完整的 footer 是这样的："
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:195
+#: 6983312a898b4a9ba4ec576028f7885f
+msgid ""
+"Tuple: ⟨L2, human, pending, 0⟩. The retrieval layer reads: human authored, "
+"not formally reviewed, score unknown. This is a different thing from ⟨L3, "
+"ai, pending, 0⟩ (AI drafted, never reviewed), and different again from ⟨L2, "
+"human, approved, 4⟩ (human authored, human approved, high score). All three "
+"would have been L2 or L3 in the old model. In the tuple model they each get "
+"a distinct score."
+msgstr ""
+"元组：⟨L2, human, pending, 0⟩。检索层读到的是：人作者，尚未被正式评审，分数未知。这与 ⟨L3, ai, pending, "
+"0⟩（AI 起草，从未评审）并不相同，也与 ⟨L2, human, approved, 4⟩（人写、人批、高分）不同。在旧模型里这三个本来都会被归到 "
+"L2 或 L3；在元组模型里它们各自得到一个不同的分数。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:202
+#: ab71ae66ff704edc9712c6ed4fd0540d
+msgid ""
+"A soft gate (Chapter 15 S2) flags the first page to the reviewer: *\"human-"
+"authored runbook, never reviewed; please check at least once. Takes a "
+"minute; prevents a 3 am problem.\"*"
+msgstr ""
+"一个软门禁（第 15 章 S2）会把第一个页面提交给评审者： * “人写的 runbook，从未被评审过；请至少看一次。花一分钟，防一次凌晨 3 "
+"点的问题。” *"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:206
+#: 824e7662e4194e7c849cf1e0410daef1
+msgid "Conclusion"
+msgstr "Conclusion —— 小结"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:208
+#: da4b153a73ce42608b7b1ad645b2e402
+msgid ""
+"The single-axis L0–L4 was a good first move: it made explicit that authorial"
+" provenance is a first-class attribute of a document. The tuple upgrade is "
+"the honest continuation: authorial provenance is itself two separate "
+"questions — *who wrote this* and *who signed off on it* — and a KB that "
+"wants to survive LLM-era editing has to answer both. The four-tuple fits in "
+"a footer; it is cheap to write, cheap to read, and cheap to enforce."
+msgstr ""
+"单轴的 L0–L4 是一个好的第一步：它明确把“作者出处”提为文档的一等属性。四元组升级是对这件事的诚实延续：“作者出处”本身其实是两个独立问题 —— "
+"* 这是谁写的 * 和 * 谁签了字 * —— 一个想在 LLM 时代编辑浪潮中活下来的知识库必须把两者都回答。四元组放得下一个 "
+"footer；写便宜、读便宜、强制执行也便宜。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:216
+#: fa4cb548bc3d419388eaf610ab0d0297
+msgid ""
+"The next chapter uses the tuple at retrieval time: Chapter 19's graph-guided"
+" context assembly uses $L$ to prioritise tier, $R$ and $S$ to filter "
+"unreviewed or low-quality pages out of an LLM's context window, and the "
+"relation graph to pull in whatever else the top-k pages reference."
+msgstr ""
+"下一章会在检索阶段使用这个元组：第 19 章的图引导上下文组装用 $L$ 决定层级优先级，用 $R$ 和 $S$ 把未评审或低质量的页面从 LLM "
+"上下文窗口里过滤掉，并用关系图把 top-k 页面所引用的其他内容一并拉进来。"
+
+#: ../../part5-hybrid-layer/ch18-document-layering-L0-L4.md:222
+#: 1500da46904a40378dbe24eff0609b76
+msgid "References"
+msgstr "参考文献"
+
+#~ msgid ""
+#~ "function score(page, query):\n"
+#~ "    base   = vector_score(page, query)       # cosine, etc.\n"
+#~ "    L_w    = tier_weight(page.layer)          # e.g. L0=1.0 … L4=0.4\n"
+#~ "    R_w    = 1.0 if page.review_status == approved else 0.4\n"
+#~ "    S_w    = max(0.5, page.review_score / 5)\n"
+#~ "    return base * L_w * R_w * S_w\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "<!-- PKB-metadata\n"
+#~ "last_updated: 2026-04-05\n"
+#~ "commit: a1b2c3d4\n"
+#~ "updated_by: human\n"
+#~ "review_status: pending\n"
+#~ "review_score: 0\n"
+#~ "reviewed_by:\n"
+#~ "-->\n"
+#~ msgstr ""

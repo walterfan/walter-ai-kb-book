@@ -1,0 +1,25 @@
+Source: 给代码仓库造一个 DeepWiki：Tree-sitter + Embedding + 图谱 + LLM 的方法论
+Author: Walter (Yamin) Fan
+URL:    https://www.fanyamin.com/gei-dai-ma-cang-ku-zao-yi-ge-deepwikitree-sitter-embedding-tu-pu-llm-de-fang-fa-lun.html
+License: CC BY-NC-ND 4.0
+         https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+Author permission statement (for book use):
+
+  The author of this book (Walter Fan) is also the author of the blog
+  post cited above. The blog post itself remains licensed under
+  CC BY-NC-ND 4.0 to the public. The author grants the book project
+  ("How to Use AI to Build a Knowledge Base for a Software Project")
+  permission to:
+
+    (a) vendor an immutable HTML snapshot of the post under this
+        directory;
+    (b) paraphrase and expand the post's arguments in original prose
+        within book chapters, provided every chapter that does so also
+        contributes at least one citation, one code excerpt, and one
+        measurement the blog itself does not include;
+    (c) include short, fenced, attributed quotations in book chapters,
+        each accompanied by a {cite}`fanyamin2026deepwiki` citation.
+
+  Long verbatim reuse of the blog's prose is explicitly NOT granted and
+  is enforced against by book/_tools/check_blog_quotes.py.

@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 21:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:12
+#: f280575fb8e941abab9b7af7e4220c99
+msgid "Chapter 24 — Outlook and Open Problems"
+msgstr "第 24 章 —— 展望与尚未解决的问题"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:14
+#: 378c642421294a79aedda0caf1180b9c
+msgid "Why"
+msgstr "Why —— 为什么"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:16
+#: 311b69c0bea74ce289c2ce4cbb886c1e
+#, python-brace-format
+msgid ""
+"Stub — replace with the chapter's motivation. Draws on "
+"{cite}`fanyamin2026deepwiki` where the blog's corresponding section applies "
+"(see `design.md` D8 for the mapping)."
+msgstr ""
+"Stub —— 此处待填本章动机。对应博客小节适用时即引用 {cite}`fanyamin2026deepwiki`（映射见 `design.md` "
+"D8）。"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:20
+#: 0d6b31ce191343619cff8e4c3f1f364b
+msgid "What"
+msgstr "What —— 是什么"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:22
+#: 19adc5dededa4361b4deef7d009f0281
+msgid "Stub — the precise definitions and scope."
+msgstr "Stub —— 此处待填精确的定义与范围界定。"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:24
+#: a6e93861680f45e0ae10105456883a94
+msgid "How"
+msgstr "How —— 怎么做"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:26
+#: fa77b1c5989d45808f8cfd36a867bbf4
+msgid ""
+"Stub — the methodology, architecture, and code excerpts. Code comes via "
+"`book/examples/part3-code-layer/` with provenance from `examples/SOURCE.md`."
+msgstr ""
+"Stub —— 此处待填方法论、架构与代码片段。代码通过 `book/examples/part3-code-layer/` 接入，来源信息见 "
+"`examples/SOURCE.md`。"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:30
+#: 8b38df6628c64584952dbedfd0c29922
+msgid "Example"
+msgstr "Example —— 范例"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:32
+#: 9ade4cd78a2d4c589e098b89f346a95e
+msgid "Stub — an end-to-end recipe a reader can reproduce."
+msgstr "Stub —— 此处待填一份读者可复现的端到端操作步骤。"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:34
+#: 6665c997fd9946c2bfe2b7e8f115b195
+msgid "Conclusion"
+msgstr "Conclusion —— 小结"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:36
+#: 9a8cc522d0e541868390e5fecfcd572f
+msgid "Stub — what we learned and what remains open."
+msgstr "Stub —— 此处待填“我们学到了什么、还有什么尚未回答”。"
+
+#: ../../part6-governance-and-outlook/ch24-outlook-and-open-problems.md:38
+#: 07465a5fa08b4114906f22b317aa14da
+msgid "References"
+msgstr "参考文献"
+
+#~ msgid ""
+#~ "Stub — the methodology, architecture, and code excerpts. Code comes via "
+#~ "`book/examples/codekg-excerpts/` with provenance from `examples/SOURCE.md`."
+#~ msgstr ""

@@ -1,0 +1,525 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 21:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:14
+#: 771cc8c8827644529687760a36fd104d
+msgid "Chapter 9 — Parsing and Entity Extraction"
+msgstr "第 9 章 —— 解析与实体抽取"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:16
+#: 901e9f1ab14a43cebf4d31ec7b3159dd
+msgid ""
+"This chapter on one page — one entity model, one adapter per language, three"
+" pitfalls the parser itself must handle:"
+msgstr "本章一图览 —— 一个实体模型、每种语言一个适配器、解析器本身必须处理的三类坑："
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:42
+#: 7b416bc85dfd436c9f7a6e0ce60a597f
+#, python-format
+msgid ""
+"You wrote the first version yesterday evening. Sixty lines of regex. `func "
+"`, `def `, `class ` — how hard could it be? This morning the indexer emitted"
+" 15 000 \"functions\" in a 4 kLOC repo. Half the hits are closure literals "
+"inside `map(...)` calls. Three of them are the word `function` inside a "
+"string literal. The call graph you built off of those entities is a "
+"beautiful fiction: 80 % of the edges point at anonymous `func1`, `func2`, "
+"`func3`. Every chapter after this one — embeddings, graph, retrieval, "
+"generation — is downstream of what this module emits. **This chapter is "
+"about why the parser is the single most leverage-positive component in a "
+"code KB, and what a boringly correct one actually looks like.**"
+msgstr ""
+"昨晚你写了第一版。60 行正则。`func `、`def `、`class ` —— 这能有多难？今天早上索引器在一个 4 kLOC 的仓库里吐出了 "
+"15 000 个“函数”。其中一半的命中是 `map(...)` 里的闭包字面量。有 3 个是字符串字面量里那个单词 "
+"`function`。你基于这些实体建起来的调用图是一出漂亮的虚构：80% 的边都指向匿名的 "
+"`func1`、`func2`、`func3`。本章之后的每一章 —— 嵌入、图谱、检索、生成 —— "
+"都在这个模块的输出下游。**本章讲的是：为什么解析器是代码知识库里“杠杆最大”的一个模块，以及一版“乏味地正确”的解析器具体长什么样。**"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:55
+#: 85728ad3770b4dc4bdffcbd506a93e84
+msgid "Why"
+msgstr "Why —— 为什么"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:57
+#: a2c36e4acaa248b698498fee64c041e6
+msgid ""
+"Everything downstream — embeddings (ch10), graph (ch11), retrieval (ch12), "
+"answers (ch13) — is a function of what the parser emits. If the parser drops"
+" a method, no retriever can find it. If the parser confuses a signature with"
+" a body, every embedding is off. The parser is the single most leverage-"
+"positive component in a code-KB; it is also the one most likely to be "
+"written in a hurry and never touched again."
+msgstr ""
+"下游的一切 —— 嵌入（第 10 章）、图谱（第 11 章）、检索（第 12 章）、回答（第 13 章）—— "
+"都是解析器输出的函数。解析器漏了一个方法，任何检索器都找不到它。解析器把签名和函数体搞混了，每一份嵌入都会偏。解析器是代码知识库中杠杆最大的一个模块；它也最容易在赶工时被仓促写完、之后再也没人碰。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:65
+#: 4d745f121b964a74a72bab8a55a7dce2
+#, python-brace-format
+msgid ""
+"A naive parser — \"split on `func ` for Go, `def ` for Python, regex for "
+"Java\" — collapses at the first nested generic, first multi-line signature, "
+"first anonymous function literal, first heredoc, or first one of several "
+"dozen other language-specific eccentricities. The DeepWiki methodology "
+"{cite}`fanyamin2026deepwiki` argues (§4) that shipping *one thin extractor "
+"per language* on top of a **real** parser is both cheaper and more robust "
+"than the grep-shaped alternative."
+msgstr ""
+"朴素解析器 —— “Go 按 `func ` 切、Python 按 `def ` 切、Java 靠正则” —— "
+"只要碰上第一个嵌套泛型、第一个多行签名、第一个匿名函数字面量、第一个 heredoc，或者几十种语言特有怪癖中的任何一个，就会当场崩溃。DeepWiki"
+" 方法论 {cite}`fanyamin2026deepwiki` 在 §4 明确说：在 * 一个真实的 * 解析器之上，为每种语言写 * "
+"一个薄薄的抽取器 * ，比 grep 风格的替代方案既更便宜也更稳健。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:74
+#: 50c69adf84ab4911a372f19ad4510517
+msgid "What"
+msgstr "What —— 是什么"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:76
+#: 5b0154d878d048ac8c582afe9a2a649e
+msgid ""
+"Three design decisions define the extraction contract in the code-layer "
+"reference implementation's `reference-impl/code-kg/parser` package."
+msgstr "代码层参考实现中 `reference-impl/code-kg/parser` 这个包对抽取契约的定义，由三个设计决策确定。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:80
+#: 8a53aa2cc0f644d6a307e28bab0ef39a
+#, python-brace-format
+msgid ""
+"**1 — One parser, many languages.** Tree-sitter {cite}`brunsfeld_treesitter`"
+" gives a uniform parse-tree API over Go, Java, and Python, along with an "
+"incremental parsing model and the error-tolerance property that matters in a"
+" KB: files that are mid-edit should still produce usable trees. The "
+"alternative stack (per-language toolchains: `go/ast`, `javaparser`, "
+"`libcst`) triples both dependencies and the surface area of \"one-off "
+"bugs\"."
+msgstr ""
+"**1 —— 一个解析器、多种语言。** Tree-sitter {cite}`brunsfeld_treesitter` 为 "
+"Go、Java、Python 提供了统一的语法树 "
+"API，附带增量解析模型，以及知识库场景很看重的容错性：一个正在被编辑中的文件，仍然能产出可用的语法树。另一条路（每种语言各自一套工具链：`go/ast`、`javaparser`、`libcst`）会把依赖和“一次性"
+" bug”的表面积都翻三倍。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:88
+#: 59540844d7324f2db26d5bf75c127523
+msgid ""
+"**2 — A language-neutral intermediate representation.** Whatever tree-sitter"
+" emits is collapsed to a `CodeMetadata` struct: a list of files, each with "
+"functions and classes, each entity carrying `name`, `start_line`, "
+"`end_line`, `signature`, `docstring`, `body`. That IR is small enough to "
+"reason about, large enough to feed every downstream stage, and — critically "
+"— *language-free*. Chapter 10 embeds it, Chapter 11 graphs it, Chapter 14 "
+"diffs it."
+msgstr ""
+"**2 —— 一份与语言无关的中间表示。** Tree-sitter 吐出的东西，一律坍缩到一个 `CodeMetadata` "
+"结构：一张文件列表，每个文件下含其函数和类；每个实体带 "
+"`name`、`start_line`、`end_line`、`signature`、`docstring`、`body`。这份 IR "
+"小到可被完整地讨论，大到能喂饱每一个下游阶段，而且 —— 关键是 —— * 与语言无关 * 。第 10 章拿它去嵌入，第 11 章拿它建图，第 14 "
+"章拿它做差分。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:96
+#: dc3e98f0dad14085a591967dd3238d7d
+#, python-brace-format
+msgid ""
+"**3 — Supported extensions and skip directories are configured, not "
+"inferred.** The parser refuses to walk `vendor/`, `node_modules/`, `.git/`, "
+"`__pycache__/`, `dist/`, `build/`, `target/`, `.next/`. Every one of those "
+"defaults is a scar from somebody's first run choking on a monorepo. "
+"`allamanis2018survey` {cite}`allamanis2018survey` catalogues the same "
+"pathology at research scale: most \"big code\" corpora need aggressive "
+"vendoring filters before any model survives training."
+msgstr ""
+"**3 —— 支持的扩展名和要跳过的目录是“配置”，不是“推断”。** 解析器拒绝深入 "
+"`vendor/`、`node_modules/`、`.git/`、`__pycache__/`、`dist/`、`build/`、`target/`、`.next/`。这份默认名单里每一条都来自某次“在"
+" monorepo 上首次运行被噎死”的疤痕。`allamanis2018survey` {cite}`allamanis2018survey` "
+"在学术规模上整理了同一类病症：绝大多数 “big code” 语料在模型训练前都需要一轮激进的 vendor 过滤。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:105
+#: 08a44c701c1e4afcaebf95ac005d9bfe
+msgid "How"
+msgstr "How —— 怎么做"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:107
+#: 6b2c9b54d88346a39f1bb8d8153e047c
+msgid ""
+"The parser service is 66 lines. Vendored from `reference-impl/code-"
+"kg/parser/parser.go` at the commit recorded in the header:"
+msgstr ""
+"解析器服务一共 66 行。以下代码来自 `reference-impl/code-kg/parser/parser.go`，所属 commit "
+"记录在开头的元数据里："
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:111
+#: 0edad3f430c34b53baafb3f369aba339
+msgid "parser.Service — supported extensions, skip dirs, single Walk."
+msgstr "parser.Service —— 支持的扩展名、要跳过的目录，以及一次 Walk。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:117
+#: 855b62c582aa4b69b1b9915d839115dc
+msgid "Three things are worth naming on that listing:"
+msgstr "这段代码上有三点值得点名："
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:119
+#: b7bd8a3c7d48465cb324b096604b835d
+msgid ""
+"Line-range `26-30` (`supportedExtensions`) is the closed set of file types "
+"the KB indexes. Adding a fourth language is a one-line change — and a "
+"downstream review obligation, because the tree-sitter grammar must be linked"
+" in too."
+msgstr ""
+"第 26–30 行（`supportedExtensions`）是知识库会索引的那组**封闭**文件类型。加第四种语言是一行改动 —— "
+"同时也是一项下游评审责任，因为必须把对应的 tree-sitter 语法也链接进来。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:124
+#: 27e454cdb9fe4cb887a81924a8f51b9b
+#, python-format
+msgid ""
+"Line-range `32-50` (`CollectSupportedFiles`) shows the `filepath.Walk` with "
+"the `SkipDir` shortcut. In a 120 k-file monorepo the `node_modules/` branch "
+"alone holds 95 % of the inode count; skipping it lazily (before descending) "
+"is what makes first sync tolerable."
+msgstr ""
+"第 32–50 行（`CollectSupportedFiles`）展示了带 `SkipDir` 短路的 `filepath.Walk`。在一个 12 "
+"万文件量级的 monorepo 里，光是 `node_modules/` 这一支就能吃掉 95% 的 "
+"inode；在真正下钻之前就“懒惰地”跳过它，是首次同步得以忍受的关键。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:130
+#: af5fec298b844fd08011510add525dad
+msgid ""
+"`CollectGoFiles` (line 52 in the source) is a legacy alias that has widened "
+"over time: it now returns *all* supported files, not just Go. Renames are "
+"risky in a library used by many call-sites, so the project leaves the name "
+"and adds a new method — a common pattern with clear provenance in the Git "
+"blame."
+msgstr ""
+"源码第 52 行的 `CollectGoFiles` 是一个随着时间“扩大了职责”的遗留别名：今天它返回的是 * 所有 * 支持的文件，而不只是 "
+"Go。在一个已有众多调用点的库里改名风险很高，所以项目保留了这个名字、再加一个新方法 —— 这是一种在 Git blame 里有迹可循的常见模式。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:136
+#: fdaeb7c46ccd483fb843ef923fd40f74
+msgid "The entity model"
+msgstr "实体模型"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:138
+#: fbf2b3a0f82544688d28b014242b552a
+msgid "The IR that downstream stages consume is the `CodeEntity` struct:"
+msgstr "下游各阶段消费的 IR 就是 `CodeEntity` 这个结构体："
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:140
+#: 9266adbb3b174c2d995d04c437632b00
+msgid "CodeEntityType enum plus the canonical CodeEntity record."
+msgstr "CodeEntityType 枚举，加上规范化的 CodeEntity 记录。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:146
+#: a1af20b4e39b49c1a816030fbad72158
+msgid "Three aspects of that definition have structural consequences:"
+msgstr "这份定义中有三个方面会带来结构性的连锁后果："
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:148
+#: 3cd7c9766d654617badf53275df16c69
+msgid ""
+"`EntityType` is a small closed enum (`package`, `file`, `function`, `class`,"
+" `struct`, `interface`, `variable`, `constant`). New entity types require a "
+"migration; that is a feature, not a bug. See §*Bounded relation taxonomy* in"
+" Chapter 11 for the symmetric argument on edges."
+msgstr ""
+"`EntityType` "
+"是一个小而封闭的枚举（`package`、`file`、`function`、`class`、`struct`、`interface`、`variable`、`constant`）。新增实体类型需要一次迁移；这是特性，不是"
+" bug。关于边上的对称论证，见第 11 章的 §* Bounded relation taxonomy * 段。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:154
+#: be0164f8f2484360b787e9625304c8d9
+msgid ""
+"`StartLine` and `EndLine` are first-class fields on every entity. They make "
+"the entity ID (Chapter 11) stable across re-indexes, and they let Chapter "
+"13's generator cite results as `file.ext:L12-L47`. Every downstream "
+"affordance in the KB ultimately rests on the parser having preserved the "
+"original source coordinates."
+msgstr ""
+"`StartLine` 和 `EndLine` 是每个实体上的一等字段。它们让实体 ID（第 11 章）在每次重建索引之间保持稳定，也让第 13 "
+"章的生成器可以把结果写成 `file.ext:L12-L47` 的形式引用。知识库里每一项下游能力，归根结底都依赖于解析器完整保留了原始源码坐标。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:161
+#: 4d7446b350c64384b7952022e9216894
+msgid ""
+"`Body`, `Signature`, and `DocString` are kept separate. The body is "
+"truncated to 4 000 characters (in `parseFileForSync`) before being stored, "
+"while the signature and docstring are never truncated. That split is the "
+"foundation of Chapter 10's *embed-the-header-not-the-body* rule: the "
+"signature and docstring survive in full to the embedder; the body survives "
+"to the retriever only, truncated."
+msgstr ""
+"`Body`、`Signature`、`DocString` 三者分开存放。`Body` 在存入前由 `parseFileForSync` 截断到 "
+"4000 字符，而 `Signature` 和 `DocString` 从不截断。这种拆分是第 10 章 * embed-the-header-not-"
+"the-body * 规则的基础：签名和 docstring 完整送给嵌入器；函数体只以截断形式送给检索器。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:169
+#: e13f1254ce7347919db66f9d50f34ac2
+msgid "Per-language adapters"
+msgstr "每语言适配器"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:171
+#: 08a75a3eeea3471f8bcb8726e51ecfef
+msgid ""
+"Tree-sitter emits a syntax tree, not a named-entity list. The conversion "
+"lives in a different package (the per-language adapter in `reference-"
+"impl/code-kg/rag`, not vendored in this book because it is boilerplate-"
+"heavy), but the pattern is short and worth making explicit. For each "
+"supported language, one visitor:"
+msgstr ""
+"Tree-sitter 吐出的是语法树，不是命名实体列表。从语法树到实体列表的转换位于另一个包里（`reference-impl/code-"
+"kg/rag` 下的每语言适配器，本书没有把它 vendor 进来，因为模板代码太多），但其模式很短，值得显式写一遍。对每种支持的语言，写一个 "
+"visitor："
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:177
+#: 10f2823c562040dab997232f7928a42d
+msgid "Walks the tree in pre-order."
+msgstr "前序遍历整棵语法树。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:178
+#: 9ff7f352db6048bd997a80cfbe29114f
+msgid ""
+"When it sees a node whose kind is in a per-language whitelist — Go "
+"`function_declaration`, `method_declaration`, `type_spec` with a "
+"`struct_type` or `interface_type`; Python `function_definition`, "
+"`class_definition`; Java `method_declaration`, `class_declaration` — it "
+"records the entity."
+msgstr ""
+"当看到一个节点的 kind 命中当前语言的白名单 —— Go 的 "
+"`function_declaration`、`method_declaration`、带 `struct_type` 或 "
+"`interface_type` 的 `type_spec`；Python 的 "
+"`function_definition`、`class_definition`；Java 的 "
+"`method_declaration`、`class_declaration` —— 就记录下这个实体。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:184
+#: cac5ad4bae6a42b4b9794167e9d24a99
+msgid ""
+"Uses the node's source range to fill `StartLine`, `EndLine`, and `Body`."
+msgstr "用节点的源码范围去填 `StartLine`、`EndLine` 以及 `Body`。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:186
+#: 7c622a0c073646f0980e7469a2f892e7
+msgid "Uses preceding doc-comment nodes (if present) as the `DocString`."
+msgstr "如果该节点前面有文档注释节点，就把它们取作 `DocString`。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:189
+#: 6982f5203c744297a7ec3d101bd62825
+msgid ""
+"The discipline is: *one visitor per language, as dumb as possible*. No "
+"cross-file resolution (that happens in Chapter 11's graph builder), no "
+"symbol tables, no type inference. The tree-sitter grammar carries the "
+"language-specific complexity; our code stays small."
+msgstr ""
+"纪律是： * 每种语言一个 visitor，尽可能笨 * 。不做跨文件解析（那是第 11 章的图谱 builder "
+"的事）、不维护符号表、不做类型推断。语言特有的复杂度由 tree-sitter 语法来承担；我们自己的代码保持小。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:195
+#: 03343244b5b54af992b94841ed3431ac
+msgid "Pitfalls from the field"
+msgstr "来自生产的坑"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:197
+#: c4fc1da346c54d5ca4f30228fd9b068c
+msgid ""
+"Three failure modes are worth the reader's attention because they all cost "
+"time to diagnose:"
+msgstr "下面三种失败模式值得读者特别留意，因为一旦踩上，排查都要花时间："
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:200
+#: 62fb8b6e892946ce82740221852b4f9a
+msgid ""
+"**Resource leaks.** Tree-sitter trees hold a pointer into a Rust-owned arena"
+" and must be freed with `tree.Close()` (or the bindings' equivalent). "
+"Forgetting is not an immediate crash; it surfaces later as a slow memory "
+"creep under a long-running indexer. `defer tree.Close()` is mandatory."
+msgstr ""
+"**资源泄漏。** Tree-sitter 的语法树持有一个指向 Rust 端 arena 的指针，必须用 "
+"`tree.Close()`（或对应绑定的等价调用）释放。忘记释放并不会立刻崩 —— 它会在长跑的 indexer "
+"里以缓慢内存上涨的形式浮出水面。`defer tree.Close()` 是强制动作。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:206
+#: 04480ed3a4dd4559b46fe3e23163d50f
+msgid ""
+"**Closures and anonymous functions.** Every language has them, and they "
+"*all* show up as \"function-like\" nodes in the parse tree. Emitting them as"
+" entities pollutes the graph with hundreds of anonymous nodes called "
+"`func1`, `func2`, etc. The fix is a per-language filter: only emit top-level"
+" and method-level functions; treat anonymous functions as part of their "
+"enclosing entity's body."
+msgstr ""
+"**闭包与匿名函数。** 每种语言都有，而它们在语法树里 * 全部 * 表现为“像函数的节点”。把它们作为实体发射出去，会让图谱里挤进几百个叫 "
+"`func1`、`func2` 之类的匿名节点。修法是每语言一个过滤器：只发射顶层和方法级函数；把匿名函数当作其外层实体函数体的一部分。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:214
+#: dac2f6d0ac9044f7a6e19529fb10dbc9
+msgid ""
+"**Generic types and multi-line signatures.** The *signature* we store is the"
+" first non-empty line of the body — via the `extractSignature` helper we see"
+" again in Chapter 10. For a Go generic like `func Map[K comparable, V any](m"
+" map[K]V) []K` that works. For a Java method whose parameters wrap across "
+"five lines, it produces a truncated signature. Our fix is to feed the full "
+"signature from the tree-sitter node range, not from a naive line-split — see"
+" `extractSignature` uses. This is called out as a known bug with a tracked "
+"fix."
+msgstr ""
+"**泛型与多行签名。** 我们存下来的 * 签名 * 是函数体的第一行非空行 —— 用的是第 10 章也会再次见到的 "
+"`extractSignature` 工具函数。对 `func Map[K comparable, V any](m map[K]V) []K` 这样的"
+" Go 泛型，这样做没问题；但对参数折成五行的 Java 方法，它只能给出被截断的签名。我们的修法是改成把 tree-sitter "
+"节点的完整范围喂给签名提取，而不是简单按行切 —— 参见 `extractSignature` 的各处调用。这个问题被登记为一个有追踪的已知 bug。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:224
+#: 99cb4f063d604cf699550b510a76fb21
+msgid "Common mistakes"
+msgstr "常见错误"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:226
+#: 3df8c56339654f2d8e5bd1c381c7f9e8
+msgid ""
+"Three additional anti-patterns come up whenever a team tries to short-cut "
+"the parser stage. Each is *tempting* because it seems cheaper up front, and "
+"each pays back the cost 10x downstream."
+msgstr ""
+"每当团队试图在解析器阶段抄近道，下面这三种反模式就会冒出来。每一个在前期看起来都 * 挺诱人 * 的，因为好像省事；每一个在下游都会以 10 "
+"倍代价偿还。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:230
+#: b9a36f66fb5a4528a09bc99d23daf283
+msgid ""
+"**1 — \"Regex is enough for MVP.\"** The symptom is a one-line identifier "
+"regex — `/func\\s+(\\w+)/` — emitting 15 000 entities in a 4 kLOC repo. "
+"Comments match. String literals containing the word `function` match. The "
+"test harness's `describe(\"function X\", ...)` matches. The regex is not "
+"*approximately* a parser — it is a completely different function. Every "
+"chapter downstream (embeddings, graph, retrieval) inherits the noise and "
+"amplifies it. Use a real parser (tree-sitter, language-server, compiler "
+"frontend) from the first commit. It is not the slow path."
+msgstr ""
+"**1 —— “MVP 用正则就够了”。** 症状是一行识别符正则 —— `/func\\s+(\\w+)/` —— 在一个 4 kLOC 的仓库里吐出"
+" 15 000 个实体。注释也命中。包含单词 `function` 的字符串字面量也命中。测试框架里的 `describe(\"function "
+"X\", ...)` 也命中。正则不是 * 近似 * 的解析器 —— "
+"它是一个完全不同的函数。每一个下游章节（嵌入、图谱、检索）都会继承并放大这些噪声。从第一次提交起就用真正的解析器（tree-"
+"sitter、语言服务、编译器前端）。它不是那条慢路径。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:240
+#: c2c9f67d857940bba1225b850ed5220e
+msgid ""
+"**2 — Unstable entity IDs.** The symptom is that re-running the indexer on "
+"an unchanged repo produces a diff in your vector store. Why? The `id` was "
+"constructed from `filepath + name`, or from a hash that included the full "
+"body (so whitespace edits cascade), or it contained an auto-increment "
+"counter. The graph's edges then point at IDs that no longer exist. The fix "
+"is the scheme of Chapter 10: `sha256(repoID + filePath + entityType + name +"
+" startLine)[:16]`. Stable across re-index, but sensitive enough that moving "
+"a function to a new line produces a new ID (which is correct behaviour)."
+msgstr ""
+"**2 —— 不稳定的实体 ID。** 症状是：在一个没改过的仓库上重跑 indexer，你的向量存储居然出现了 diff。为什么？因为 `id` 是 "
+"`filepath + name` 拼的，或者是一个把完整函数体一起哈希进去的 "
+"hash（于是一次空白改动就会级联），或者它里面干脆带了一个自增计数器。这样一来，图谱的边就会指向已经不存在的 ID。解决办法是第 10 "
+"章的方案：`sha256(repoID + filePath + entityType + name + "
+"startLine)[:16]`。在重建索引之间稳定；但又敏感到：把一个函数挪到新的一行就会产生新 ID（这正是正确行为）。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:251
+#: 0809f61a60ff4f619e155de9194472a2
+msgid ""
+"**3 — Emitting \"too clever\" entity types.** The symptom is a parser that "
+"emits 23 entity kinds — `struct-field`, `enum-variant`, `type-alias`, "
+"`const-declaration`, … — and a retrieval layer that now has to reason about "
+"which kinds to mix. Cardinality explodes, ranking signals dilute, and the "
+"graph's node types outgrow any reasonable visualisation. Start with the four"
+" of Chapter 9 — `package`, `type`, `method`, `function` — even for Java "
+"where \"interface\" feels different from \"class.\" You can always refine "
+"later; you cannot un-emit an entity type that is already baked into 200 "
+"downstream rules."
+msgstr ""
+"**3 —— 吐出“过于聪明”的实体类型。** 症状是：一个解析器吐出了 23 种实体 —— `struct-field`、`enum-"
+"variant`、`type-alias`、`const-declaration` —— "
+"然后检索层开始要琢磨“到底哪些类型可以混在一起排”。基数爆炸，排序信号被稀释，图谱的节点类型多到画不下任何像样的可视化。就从第 9 章的四种开始 —— "
+"`package`、`type`、`method`、`function` —— 哪怕是 "
+"Java（虽然“interface”感觉和“class”不一样）。你随时可以以后再细化；但你没法把一个已经被嵌进下游 200 条规则的实体类型“撤回”。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:262
+#: 706216992a5b486988a78cf11633248d
+msgid "Example"
+msgstr "Example —— 范例"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:264
+#: 0f199b3fd8154cebba74520e29daf0be
+msgid ""
+"A reproducible four-line demonstration, run against the code-layer reference"
+" implementation itself:"
+msgstr "四行命令就能在代码层参考实现自身上复现一次演示："
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:275
+#: fd544062da3141c48bfa7024d032bbde
+msgid "On the commit used for this chapter's excerpts, the output is:"
+msgstr "在本章节选对应的 commit 上，输出如下："
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:282
+#: c9cfffc9884443ab80227a358c2670bb
+msgid ""
+"The ratio matters more than the absolute numbers: a healthy Go codebase is "
+"function-heavy. If you see 5 000 \"functions\" on a 50 kLOC Java repo, your "
+"parser is treating every closure as an entity — go fix the visitor."
+msgstr ""
+"比例比绝对数字更重要：一个健康的 Go 代码库是“函数密集”的。如果你在一个 50 kLOC 的 Java 仓库上看到 5000 "
+"个“函数”，那就是你的解析器把每个闭包都当成了实体 —— 去修那个 visitor。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:287
+#: 5eb79b871892435db585609d3cdea919
+msgid "Conclusion"
+msgstr "Conclusion —— 小结"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:289
+#: c52b62a43f36451b9f2cb161089303ed
+msgid ""
+"The parser is small, but everything in Part III depends on three contracts "
+"it establishes: a uniform IR across languages (Claim 1), faithful source "
+"coordinates on every entity (Claim 2), and an aggressive default skip-list "
+"for vendored directories (Claim 3). Break any of the three and every "
+"downstream chapter breaks with it."
+msgstr ""
+"解析器很小，但第三部分的每一层都靠它立下的三条契约活着：跨语言统一的 IR（主张 1）、每个实体都忠实保留源码坐标（主张 2）、以及对 vendor "
+"目录的激进默认跳过名单（主张 3）。这三条哪一条破了，下游每一章也跟着破。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:295
+#: 4fcdbc7bfc614cd6ad46c244118f8b7e
+msgid ""
+"Chapter 10 takes the IR as input and turns the *identity* half of each "
+"entity (language, type, name, signature, docstring) into a vector — the "
+"part, famously, where most code-RAG tutorials go wrong."
+msgstr ""
+"第 10 章把这份 IR 作为输入，把每个实体的 * 身份 * 那一半（语言、类型、名字、签名、docstring）变成一个向量 —— "
+"这也正是众所周知、大多数 code-RAG 教程会走偏的那一段。"
+
+#: ../../part3-code-layer/ch09-parsing-and-entity-extraction.md:300
+#: fd56c1fd1560475295a51165527c3dc3
+msgid "References"
+msgstr "参考文献"
+
+#~ msgid ""
+#~ "class|24\n"
+#~ "function|412\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Tree-sitter emits a syntax tree, not a named-entity list. The conversion "
+#~ "lives in a different package (`internal/rag/CodeParser`, not vendored in "
+#~ "this book because it is boilerplate-heavy), but the pattern is short and "
+#~ "worth making explicit. For each supported language, one visitor:"
+#~ msgstr ""

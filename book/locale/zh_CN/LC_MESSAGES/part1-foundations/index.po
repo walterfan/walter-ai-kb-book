@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 12:41+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../part1-foundations/index.md:12 bdc8d32f3be548df971aa253a7402a18
+msgid "Part I — Foundations"
+msgstr "第一部分 —— 基础"
+
+#: ../../part1-foundations/index.md:22 137bc087da394d7c80b6e8a923298a74
+msgid "Why"
+msgstr "为什么"
+
+#: ../../part1-foundations/index.md:24 ddd38902fbbb4e6f89df1f1e58d0ca90
+msgid ""
+"Software teams accumulate fragmented knowledge — code, tickets, chats, "
+"design docs, runbooks — faster than humans can curate it. Traditional "
+"documentation cannot keep up. Part I establishes *what a software knowledge "
+"base is*, *why AI changes the economics of building one*, and *what prior IR"
+" / RAG / documentation research we will be standing on* throughout the rest "
+"of the book."
+msgstr ""
+"软件团队积累的碎片化知识 —— 代码、工单、聊天、设计文档、runbook —— "
+"堆积的速度远远快过人工能整理的速度。传统意义上的“写文档”根本跟不上。第一部分要把三件事讲清楚：*什么是软件知识库*、*为什么 AI "
+"改变了构建知识库的经济账*，以及 *本书后文要站在哪些 IR / RAG / 文档研究的肩膀上*。"
+
+#: ../../part1-foundations/index.md:31 7cd4482ef2b74b9f8995124db334a85f
+msgid "What"
+msgstr "是什么"
+
+#: ../../part1-foundations/index.md:33 0a4f582007384cf4b83eee08f85fba09
+#, python-brace-format
+msgid ""
+"A working definition of \"software knowledge base\", a primer on the "
+"relevant information-retrieval and retrieval-augmented-generation building "
+"blocks, and the Diátaxis {cite}`procida_diataxis` doc-type model we will "
+"reuse when classifying prose content."
+msgstr ""
+"一份可用的“软件知识库”定义、一份关于信息检索（IR）与检索增强生成（RAG）基础组件的入门介绍，以及本书在分类文本内容时会反复使用的 Diátaxis"
+" {cite}`procida_diataxis` 文档类型模型。"
+
+#: ../../part1-foundations/index.md:38 ae0150e8ec6a4019bb04a649668eba47
+msgid "How"
+msgstr "怎么做"
+
+#: ../../part1-foundations/index.md:40 ea3f6df807344befaef6918a9815799c
+#, python-brace-format
+msgid ""
+"A short methodological overview of the book: three anchor sources (the "
+"prose-layer reference implementation, the code-layer reference "
+"implementation, and the author's methodology blog post "
+"{cite}`fanyamin2026deepwiki`), the theory→practice ratio, and how each Part "
+"applies the same Why → What → How → Example → Conclusion → Reference arc."
+msgstr ""
+"本书方法论的一个速写：三条锚定来源（文本层参考实现、代码层参考实现、作者那篇方法论博客 "
+"{cite}`fanyamin2026deepwiki`），理论与实践的配比，以及每一部分如何套用同一条 “Why → What → How → "
+"Example → Conclusion → Reference” 的骨架。"
+
+#: ../../part1-foundations/index.md:47 385bf88df3e24f74a266ccabd68b186a
+msgid "Example"
+msgstr "示例"
+
+#: ../../part1-foundations/index.md:49 8826f47f4f624083b9aa2a5710687fca
+msgid ""
+"A one-page walkthrough illustrating what \"ask the KB\" feels like once the "
+"full stack is in place, deferring implementation details to later Parts."
+msgstr "用一页纸演示一下：当整套技术栈都就位时，“向知识库提问”大致是什么体感 —— 具体实现细节留给后面的章节展开。"
+
+#: ../../part1-foundations/index.md:52 3fce421364dc430baaa582dafcd83a20
+msgid "Conclusion"
+msgstr "小结"
+
+#: ../../part1-foundations/index.md:54 9ed7a0b4a4e1468fba477434a90d7086
+msgid ""
+"Part I gives the vocabulary and the reading order. It does not build "
+"anything yet — that starts in Part II."
+msgstr "第一部分给出术语表和阅读顺序，这里还没开始“造东西” —— 动手造是从第二部分开始的。"
+
+#: ../../part1-foundations/index.md:57 d9ae6e4dde864a788901c89df268054e
+msgid "References"
+msgstr "参考文献"
+
+#~ msgid ""
+#~ "A short methodological overview of the book: three anchor sources (`lazy-"
+#~ "rabbit-wiki`, `lazy-ai-coder/internal/codekg`, the author's methodology blog"
+#~ " post {cite}`fanyamin2026deepwiki`), the theory→practice ratio, and how each"
+#~ " Part applies the same Why → What → How → Example → Conclusion → Reference "
+#~ "arc."
+#~ msgstr ""

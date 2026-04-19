@@ -1,0 +1,118 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software "
+"project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 11:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../appendix-c-deepwiki-checklist.md:14 49c78e5e003e447aa6e82c1ff81e82c8
+msgid "Appendix C — Build-your-own-DeepWiki Checklist"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:16 058bee1b2cf44f9ab88f9cdf3632ae47
+#, python-brace-format
+msgid ""
+"Executable, testable form of the checklist from blog §13 "
+"{cite}`fanyamin2026deepwiki`. Each bullet begins with an imperative verb "
+"and ends with either a command, a code snippet, or a concrete numeric "
+"threshold."
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:21 b81dbbf9c3d04ad3a7aa3bba25c6b664
+msgid "Parse"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:23 667f7f760ca0456a88be35726a65bd55
+msgid "*Stub — fill from `ch09-parsing-and-entity-extraction`*"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:25 ff44a79f67c14773af90c56fda477865
+msgid "Embed"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:27
+#: ../../appendix-c-deepwiki-checklist.md:31 0d6e1ccdf5234191b79a82b69f37517e
+#: 41705af99c124f88be1baf74cb39fece
+msgid "*Stub — fill from `ch10-embeddings-and-vector-stores`*"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:29 e036980910cd4fd3aa7e8ba2e395e788
+msgid "Vector Store"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:33 f4ba4eb720d64cee9cbeb9467f14cb7b
+msgid "Graph"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:35 fcb01e7d50f54aab95df201a8cfb6d1b
+msgid "*Stub — fill from `ch11-code-knowledge-graph`*"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:37 a9a3698f575d45cfa28233e3b32493b0
+msgid "Retrieval"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:39 1847fe5ea9c84ab28c6aa748e721f80d
+msgid "*Stub — fill from `ch12-hybrid-retrieval-and-rrf`*"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:41 5d08462d10f941038c0fe90678445547
+msgid "Prompting"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:43 7cc9647982314c7aa5fc448a391b8fdd
+msgid "*Stub — fill from `ch13-prompt-and-generation`*"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:45 6345d25135fd407d9ac919f485d8a27d
+msgid "Incremental Sync"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:47 e929d4212c1d468d91aecc81730a3bde
+msgid "*Stub — fill from `ch14-incremental-sync`*"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:49 1d59456c62514c94ad87b588cbdc23e0
+msgid "Document Layering"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:51 879ba2558d674950bcbd96e7cfb09dcf
+msgid "*Stub — fill from `ch18-document-layering-L0-L4`*"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:53 b67045d2949b46beb779951762d98051
+msgid "AI Coding Harness"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:55 dea923fcbcae44cc9af877e2fcb00fcb
+msgid "*Stub — fill from `ch20-harnessing-ai-coding`*"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:57 79157785de1447d78c07ff2f8d0d5355
+msgid "Operations"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:59 fcabe3d8be1945aab8b19b0d9e36207c
+msgid "*Stub — fill from `ch16-maintenance-drift-and-link-rot`*"
+msgstr ""
+
+#: ../../appendix-c-deepwiki-checklist.md:61 19e92ff4204e4ae7887042e07ffa0a2b
+msgid "References"
+msgstr ""
+

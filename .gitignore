@@ -1,0 +1,29 @@
+# ── Python / Poetry ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+.python-version
+
+# ── Sphinx build artifacts ───────────────────────────────────────────
+book/_build/
+
+# ── Compiled i18n catalogs (regenerate with `make intl-build`) ───────
+book/locale/**/*.mo
+
+# ── Editor / OS noise ────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# ── Drafts / secrets ─────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Ad-hoc outputs ───────────────────────────────────────────────────
+*.log

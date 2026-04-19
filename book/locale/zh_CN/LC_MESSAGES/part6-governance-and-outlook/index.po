@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 11:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../part6-governance-and-outlook/index.md:12
+#: 2ee098860aa14467bbc141df4a9e81b0
+msgid "Part VI — Governance & Outlook"
+msgstr "第六部分 —— 治理与展望"
+
+#: ../../part6-governance-and-outlook/index.md:22
+#: 64b1ede4fc0042ba81134b5e2d78cef0
+msgid "Why"
+msgstr "Why —— 为什么"
+
+#: ../../part6-governance-and-outlook/index.md:24
+#: f26b819bdbfc49c2ab83e32f95c06e69
+msgid "Trust, cost, privacy, and where this is all going."
+msgstr "信任、成本、隐私，以及这一切将走向何处。"
+
+#: ../../part6-governance-and-outlook/index.md:26
+#: 27d139d647224bb0a2a4cdce973afd1c
+msgid "What"
+msgstr "What —— 是什么"
+
+#: ../../part6-governance-and-outlook/index.md:28
+#: bdc987d6b6f14be4b1fd35f6ea6fa257
+msgid ""
+"Cost models, red-teaming, provenance discipline, and the open research "
+"questions."
+msgstr "成本模型、红队演练、出处纪律，以及仍然开放的研究问题。"
+
+#: ../../part6-governance-and-outlook/index.md:30
+#: 22bd3c5ef86c494b890223df82831c3d
+msgid "How"
+msgstr "How —— 怎么做"
+
+#: ../../part6-governance-and-outlook/index.md:32
+#: ec153e6460574c75b61009e1ce3d3dbd
+msgid "Three chapters closing the book."
+msgstr "三章内容为全书收尾。"
+
+#: ../../part6-governance-and-outlook/index.md:34
+#: dabcee2d41ae48949e66b4831b0eab8c
+msgid "Example"
+msgstr "Example —— 范例"
+
+#: ../../part6-governance-and-outlook/index.md:36
+#: 2d03423120434517a90f37948ddf3ec3
+msgid "A checklist of failure modes the maintainer should rehearse."
+msgstr "一份维护者应当反复演练的失败模式清单。"
+
+#: ../../part6-governance-and-outlook/index.md:38
+#: 69f9c8a459cf49829023c1235ffd2c0a
+msgid "Conclusion"
+msgstr "Conclusion —— 小结"
+
+#: ../../part6-governance-and-outlook/index.md:40
+#: 89c5382ac57b41ed90420832874d273e
+msgid "The KB is never done; it is maintained. This Part says how."
+msgstr "知识库永远没有“做完”的一天；它只有被持续维护。这一部分讲的就是如何维护。"
+
+#: ../../part6-governance-and-outlook/index.md:42
+#: 570528badf1d4a81877bc5907f872399
+msgid "References"
+msgstr "参考文献"

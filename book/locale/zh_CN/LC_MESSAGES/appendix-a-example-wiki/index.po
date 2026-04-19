@@ -1,0 +1,517 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software "
+"project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 16:15+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../appendix-a-example-wiki/index.md:13 dfe0c090e68a46aa875f06ac16c54727
+msgid "Appendix A — End-to-End: From Messy Folder to Published Wiki"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:15 519b0a0ebdf248519aa541d99e63eea5
+msgid ""
+"This appendix reproduces, step by step, the promise of Part II: turn a "
+"few hand-written files into a well-formed wiki, with frontmatter, "
+"classification, a trust audit, and a live HTTP server. Every command here"
+" was run against the commit that ships with this book; every piece of "
+"output is real, captured from a clean `/tmp` directory, not fabricated."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:22 e325ad9b3ba243828c26efb9c30573a5
+msgid ""
+"Run it yourself in fifteen minutes, and you will have a working mental "
+"model for everything Chapter 4 through Chapter 7 described."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:25 77618751f974463db4f9c9a0aa033a8c
+msgid "Why"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:27 7f68184dd2164861acd733fb0282f8e9
+msgid ""
+"The prose-layer chapters argued *that* a file-based, pipeline-validated "
+"wiki is the right substrate for a software KB. This appendix shows the "
+"argument running end-to-end, with:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:31 b055823be8fd4c56bcb0761badc813c5
+msgid "a deliberately small input (three files of different shapes);"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:32 9b8ba03c15a44f34958db258cc51cecf
+msgid "zero network dependencies (the heuristic classifier is forced on);"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:33 26f91079e74a43e58eecb164d2319b44
+msgid "zero hidden state (every output is a file you can `cat`)."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:35 9369919b2bda4a1b850632d700061bff
+msgid ""
+"If this walkthrough fails on your machine, something in the tooling is "
+"wrong *before* any of the deeper book chapters can mean what they say. "
+"Fix that first."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:39 928a93c7061f4c45bfd227c4e81f1fc2
+msgid "What"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:41 e4912eb1d6e34f95a8d4251f0a9d0ff2
+msgid "A three-stage transcript:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:43 a128bbdfca3645288705bbf3bd498667
+msgid "Prepare three input files of mixed shape (`.md`, `.txt`)."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:44 666752a83dc3460c968610a6204f2764
+msgid ""
+"Run the six CLI verbs: `init → import dir → verify → build → status → "
+"serve`."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:46 8217b929968f4765be00d5d3fad1a99b
+msgid ""
+"Observe that each stage wrote something real to disk, and that the final "
+"`content/` directory is a legitimate, hand-readable wiki."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:49 641b7720dcea4480b8a0be8aafab9da3
+msgid "How"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:51 4552cd73adb44c138702984a5df565f4
+msgid "Prerequisites"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:59 0e3f70d4c82240118ae6c8edfd2017f0
+msgid ""
+"For this appendix we disable the LLM classifier to keep the output byte-"
+"identical across machines. The heuristic classifier is the fallback path "
+"Chapter 6 described; it is strictly less clever than a real LLM, which "
+"makes it perfect for a book."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:69 197e7e0be4ee4126960baf3326ecb979
+msgid "Stage 1 — the messy input"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:116 df5bbbb218bb4aa9bdf66b56b85ac277
+msgid ""
+"Three files, three shapes. One is a how-to (title starts with \"How "
+"to\"); one is a reference (structured endpoints); one is an explanation "
+"(`.txt`, no Markdown heading). A good pipeline should correctly place at "
+"least the first two into their Diátaxis buckets."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:121 790d1577501a48e9ad620c5712ff378d
+msgid "Stage 2 — run the six verbs"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:123 477d760bc1d54eb585c9c79a94a479f2
+msgid ""
+"**`init`** scaffolds a fresh wiki, copies the template, and creates an "
+"admin account:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:146 6d0b8ac06cdc47e49f4e14a01d94e731
+msgid ""
+"`content/` has a few seeded pages from the template. `metadata/` has the "
+"`SCHEMA.md` contract (Chapter 5), `users.yaml` with the generated admin "
+"hash, and a skeleton `wiki.yaml` config. Every byte is plain text."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:151 ce48892ed615450598baf58d28b77438
+msgid ""
+"**`import dir`** walks the input tree, classifies each file, writes a "
+"page under `content/`, and logs the import:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:159 088fa6fcece34a5aaae585b2c46604bc
+msgid "Three input files, three created pages. Let's inspect one:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:191 da6d444ebbbc41a2857ce633549eeaa7
+msgid ""
+"Notice what the pipeline got *exactly right* and what it got only "
+"*approximately right* — both are useful to see, because they tell you "
+"where the heuristic stops helping:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:195 840d93c18df246c0bf14ff63d1763e89
+msgid ""
+"Right: `title` pulled from the first `# ` heading; `slug` derived from "
+"the filename; `summary` snipped to the first 100 characters; "
+"`source.path` recording the exact input file; `verification_status` set "
+"to `unreviewed` (Chapter 5's trust default, applied even for human-"
+"authored input)."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:200 1c2e31296e524d63b1a1a8fafc994273
+msgid ""
+"Approximate: `doc_type: reference`. A real LLM classifier would have "
+"picked `how-to` from the \"How to install…\" title. The heuristic does "
+"not cross-check the title against the Diátaxis buckets. This is a "
+"finding, not a bug: humans (or a smarter classifier, later) can promote "
+"the `doc_type`, and `verify` below will flag it."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:206 71770e42e6254e53a4c5467bc99dbf23
+msgid "**`verify`** audits every page and emits a structured report:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:222 cf4173f701d24013abe77f0765b7b1dd
+msgid ""
+"Six issues, all of type `consistency`: the *template-seeded* sample pages"
+" ship with slugs that do not match their filenames (e.g. a file called "
+"`concurrency.md` whose slug says `go-concurrency-patterns`), which is the"
+" seed author's style. None of our three imported pages triggered any "
+"issue. Production use would either rename the seeds or use `verify "
+"--auto-fix`."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:229 b1c817f3b8ce4afab8b919bc49273783
+msgid ""
+"The important thing is that `verify` ran in well under a second and "
+"emitted a machine-readable report. Wiring this into CI as `wiki-cli "
+"verify | jq '.summary.total_issues'` and failing the build when the "
+"number climbs is the obvious next step."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:234 edb79bfdcb0f4cdb9ac717de4a53b40f
+msgid ""
+"**`build`** rebuilds the in-memory index and the INDEX.md file that feeds"
+" the static-publishing path (Chapter 7):"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:242 1670d5a25b2646b68063672fe2266b81
+msgid "**`status`** reports the top-level health numbers as JSON:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:262 7de0c1a5b27f473193edea187815926a
+msgid ""
+"Ten pages (seven from the template + three we imported), no raw sources "
+"pending. `git_available: false` because `/tmp/book-appx-a/wiki` is not a "
+"Git repository — running `git init` inside it would flip this to `true` "
+"and unlock the auto-commit behaviour described in Chapter 5."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:267 4d1ef563b90c4e02996ee0932a1e5870
+msgid "**`serve`** starts the HTTP server against the same tree:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:277 41e72b0a5ddd41b3a53df45b20b5a71b
+msgid ""
+"Visit `http://localhost:7500/pages/install` in a browser; the page from "
+"`content/install.md` renders with its frontmatter hidden and the Markdown"
+" body converted to HTML. Query "
+"`http://localhost:7500/api/v1/search?q=port` and the tokeniser described "
+"in Chapter 7 will return both the `install` page and any seeded page that"
+" mentions \"port\" — because the in-memory index now has everything under"
+" `content/` in its postings list."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:285 225f8a3cb0fc45a2b11cf1d51bc768bc
+msgid "Stage 3 — make it a Git repository"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:287 9488894965fa40969f5a04c9f8616d63
+msgid ""
+"The reason file-based wikis exist is so that everything you just built "
+"can be versioned as code. Two commands:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:297 77ef7d3fc7854f4ea142d69a050e7188
+msgid "Re-run `status` and observe:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:305 5326c6d24cb54046b72cebe0c7909b34
+msgid ""
+"The wiki now carries its commit SHA in the status output, and any future "
+"write through the API will auto-commit with a descriptive message and "
+"write the new commit SHA into the affected page's `frontmatter.commit` "
+"field — the where-provenance claim of Chapter 5 becomes operational."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:311 7318844a17034e919bdfeea91473f347
+msgid "Example"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:313 955e6989186845f59cdc53663c00c5ca
+msgid "A concrete artefact from this run, re-examined:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:333 c7d237340d2a4ed9a1db5fb98d01ca6f
+msgid ""
+"Seven of the fields encode the Chapter 5 provenance record. "
+"`verification_status: unreviewed` is the trust default that survives the "
+"roundtrip. `source.path` carries the exact disk location of the input. "
+"None of this took a database; none of it required a vendor."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:338 537134247a7743d5823821d01233beac
+msgid "Conclusion"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:340 aee279dd02e243cc8674d53ebc743218
+msgid ""
+"Part II's four chapters described the prose layer in the abstract; this "
+"appendix demonstrated that the abstraction is *small enough to hold in "
+"your hand*. A single binary, four commands, three input files, and "
+"fifteen minutes later, you have a working, auditable, searchable, "
+"publishable wiki."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:346 6083962e958645e0bb045029989d99d2
+msgid "Two takeaways worth stating explicitly:"
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:348 84cd54d1463e441ea0d36d2168d654dd
+msgid ""
+"**The heuristic classifier is a feature, not a weakness.** It guarantees "
+"the pipeline works in air-gapped environments, makes test reproduction "
+"trivial, and sets a clear performance floor that an LLM classifier has to"
+" *beat* to justify its cost."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:352 0a29f69b2c2d49859ef65e371b4ebd19
+msgid ""
+"**Every stage committed to disk.** Nothing in the walkthrough lives only "
+"in memory. Turn off the server, turn off the laptop, come back tomorrow —"
+" the wiki is still there in `/tmp/book-appx-a/wiki/`, still valid, still "
+"reviewable in Git."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:357 f9d49d47f7f0431e82f20992bdaa5b25
+msgid ""
+"From here, the book moves to the code layer. Part III will take *the same"
+" file-based discipline* and apply it to what the compiler knows about the"
+" source tree: embeddings, a code graph, and the hybrid retrieval that "
+"lets an AI assistant reason about both the prose in this appendix and the"
+" code it describes."
+msgstr ""
+
+#: ../../appendix-a-example-wiki/index.md:363 33dd7e920ccd4a229d3b014b4be107a0
+msgid "References"
+msgstr ""
+
+#~ msgid ""
+#~ "# From the repo root.\n"
+#~ "$ make build-backend\n"
+#~ "# → produces ./backend/wiki-cli (~35 MB statically linked Go binary)\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ export LLM_API_KEY=   # empty — force heuristic classifier\n"
+#~ "$ export LLM_BASE_URL=\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ mkdir -p /tmp/book-appx-a/input\n"
+#~ "$ cat > /tmp/book-appx-a/input/install.md <<'MD'\n"
+#~ "# How to install the service\n"
+#~ "\n"
+#~ "Run `make build` and then `./bin/service --port 7500`. The binary\n"
+#~ "listens on the given port, reads config from `/etc/service.yaml`, and\n"
+#~ "emits structured JSON logs to stdout.\n"
+#~ "\n"
+#~ "## Prerequisites\n"
+#~ "\n"
+#~ "- Go 1.22 or later\n"
+#~ "- Make\n"
+#~ "MD\n"
+#~ "\n"
+#~ "$ cat > /tmp/book-appx-a/input/api-reference.md <<'MD'\n"
+#~ "# API Reference\n"
+#~ "\n"
+#~ "## GET /health\n"
+#~ "Returns 200 OK with JSON body `{\"status\":\"ok\"}`.\n"
+#~ "\n"
+#~ "## POST /pages\n"
+#~ "Creates a wiki page. Body:\n"
+#~ "\n"
+#~ "` ` ` json\n"
+#~ "{ \"title\": \"...\", \"body\": \"...\", "
+#~ "\"doc_type\": \"reference\" }\n"
+#~ "` ` `\n"
+#~ "\n"
+#~ "## DELETE /pages/{slug}\n"
+#~ "Removes a page. Requires `admin` role.\n"
+#~ "MD\n"
+#~ "\n"
+#~ "$ cat > /tmp/book-appx-a/input/architecture-notes.txt <<'MD'\n"
+#~ "Why we chose file-based storage\n"
+#~ "\n"
+#~ "Database-backed wikis couple the content to the database lifecycle.\n"
+#~ "We want the wiki tree to be a plain Git repository so every page is\n"
+#~ "diffable, reviewable, and auditable via git blame. That leaves the\n"
+#~ "search and pipeline layers as the only thing the server needs to add.\n"
+#~ "MD\n"
+#~ "\n"
+#~ "$ ls /tmp/book-appx-a/input/\n"
+#~ "api-reference.md    architecture-notes.txt    install.md\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ ./backend/wiki-cli --wiki-dir=/tmp/book-appx-a/wiki init kb\n"
+#~ "2026/04/18 05:26:55 Copying wiki template "
+#~ "from wiki-template to /tmp/book-"
+#~ "appx-a/wiki\n"
+#~ "========================================\n"
+#~ "  Default admin account created\n"
+#~ "  Username: admin\n"
+#~ "  Password: 9b65b923a6f2980b\n"
+#~ "  Please change the password after login.\n"
+#~ "========================================\n"
+#~ "Wiki initialized (kind=kb) in /tmp/book-appx-a/wiki\n"
+#~ "\n"
+#~ "$ ls /tmp/book-appx-a/wiki/\n"
+#~ "content    metadata\n"
+#~ "\n"
+#~ "$ ls /tmp/book-appx-a/wiki/content/\n"
+#~ "_assets    devops    home.md    productivity    programming\n"
+#~ "$ ls /tmp/book-appx-a/wiki/metadata/\n"
+#~ "SCHEMA.md   index.md   log.md    skills/    "
+#~ "sources/    users.yaml    wiki.yaml\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ ./backend/wiki-cli --wiki-dir=/tmp/book-"
+#~ "appx-a/wiki import dir /tmp/book-appx-a/input"
+#~ "\n"
+#~ "ImportDir complete: 3 created, 0 skipped, 0 errors\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ cat /tmp/book-appx-a/wiki/content/install.md\n"
+#~ "---\n"
+#~ "title: How to install the service\n"
+#~ "slug: install\n"
+#~ "summary: |-\n"
+#~ "    Run `make build` and then `./bin/service --port 7500`. The binary\n"
+#~ "    listens on the given port, reads c\n"
+#~ "created: 2026-04-17T21:26:55.152331Z\n"
+#~ "created_by: human\n"
+#~ "updated: 2026-04-17T21:26:55.152331Z\n"
+#~ "status: published\n"
+#~ "doc_type: reference\n"
+#~ "verification_status: unreviewed\n"
+#~ "source:\n"
+#~ "    type: doc\n"
+#~ "    path: /tmp/book-appx-a/input/install.md\n"
+#~ "---\n"
+#~ "# How to install the service\n"
+#~ "\n"
+#~ "Run `make build` and then `./bin/service --port 7500`. The binary\n"
+#~ "listens on the given port, reads config from `/etc/service.yaml`, and\n"
+#~ "emits structured JSON logs to stdout.\n"
+#~ "\n"
+#~ "## Prerequisites\n"
+#~ "\n"
+#~ "- Go 1.22 or later\n"
+#~ "- Make\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ ./backend/wiki-cli --wiki-dir=/tmp/book-"
+#~ "appx-a/wiki verify | python3 -c \\\n"
+#~ ""
+#~ "    'import sys,json; r=json.load(sys.stdin); \\\n"
+#~ "     print(json.dumps(r[\"summary\"], indent=2)); \\\n"
+#~ "     print(\"categories used:\", \\\n"
+#~ "           sorted([k for k,v in "
+#~ "r.items() if isinstance(v,list) and v]))'\n"
+#~ ""
+#~ "{\n"
+#~ "  \"total_issues\": 6,\n"
+#~ "  \"auto_fixable\": 0,\n"
+#~ "  \"categories\": 1\n"
+#~ "}\n"
+#~ "categories used: ['consistency']\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ ./backend/wiki-cli --wiki-dir=/tmp/book-appx-a/wiki build\n"
+#~ "Build complete\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ ./backend/wiki-cli --wiki-dir=/tmp/book-appx-a/wiki status\n"
+#~ "{\n"
+#~ "  \"kind\": \"kb\",\n"
+#~ "  \"wiki_root\": \"/tmp/book-appx-a/wiki\",\n"
+#~ "  \"content_dir\": \"/tmp/book-appx-a/wiki/content\",\n"
+#~ "  \"page_count\": 10,\n"
+#~ "  \"source_count\": 0,\n"
+#~ "  \"last_init\": \"0001-01-01T00:00:00Z\",\n"
+#~ "  \"last_update\": \"0001-01-01T00:00:00Z\",\n"
+#~ "  \"last_verify\": \"0001-01-01T00:00:00Z\",\n"
+#~ "  \"last_build\": \"0001-01-01T00:00:00Z\",\n"
+#~ "  \"wiki_base_url\": \"http://localhost:8080\",\n"
+#~ "  \"git_available\": false,\n"
+#~ "  \"last_commit\": \"\"\n"
+#~ "}\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ ./backend/wiki-cli --wiki-dir=/tmp/book-"
+#~ "appx-a/wiki serve --port=7500\n"
+#~ "# → http://localhost:7500\n"
+#~ "#   pages listed at /api/v1/pages\n"
+#~ "#   single page at /pages/{slug}\n"
+#~ "#   search at /api/v1/search?q=<tokens>\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ cd /tmp/book-appx-a/wiki\n"
+#~ "$ git init -q && git add -A"
+#~ " && git commit -q -m \"init: 3"
+#~ " imported pages\"\n"
+#~ "$ git log --oneline\n"
+#~ "4a1b2c3 init: 3 imported pages\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ ./backend/wiki-cli --wiki-dir=/tmp/book-"
+#~ "appx-a/wiki status | jq '.git_available, "
+#~ ".last_commit'\n"
+#~ "true\n"
+#~ "\"4a1b2c34d5e6\"\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "# /tmp/book-appx-a/wiki/content/install.md (frontmatter only)\n"
+#~ "title: How to install the service\n"
+#~ "slug: install\n"
+#~ "summary: |-\n"
+#~ "    Run `make build` and then `./bin/service --port 7500`. The binary\n"
+#~ "    listens on the given port, reads c\n"
+#~ "created: 2026-04-17T21:26:55.152331Z\n"
+#~ "created_by: human\n"
+#~ "updated: 2026-04-17T21:26:55.152331Z\n"
+#~ "status: published\n"
+#~ "doc_type: reference          # a smarter classifier would say how-to\n"
+#~ "verification_status: unreviewed\n"
+#~ "source:\n"
+#~ "    type: doc\n"
+#~ "    path: /tmp/book-appx-a/input/install.md\n"
+#~ msgstr ""
+

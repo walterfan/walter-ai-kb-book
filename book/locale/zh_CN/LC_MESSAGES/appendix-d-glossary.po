@@ -1,0 +1,334 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 16:22+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../appendix-d-glossary.md:13 9866aa12391145ceb22840fa5af96f49
+msgid "Appendix D — Glossary"
+msgstr "附录 D —— 术语表"
+
+#: ../../appendix-d-glossary.md:15 89c4a901dbe74631a14f66ba3c49fa3a
+msgid ""
+"**Translator's note on *prose* vs. *document*.** English has two perfectly "
+"good words that English-speaking engineers do not usually conflate: *prose* "
+"(the human-authored narrative content) and *document* (the file object that "
+"carries content, which may be prose or code or both). Chinese-language "
+"software engineering tends to flatten both words to 「文档」 , which collapses a"
+" distinction this book relies on throughout Parts II and III. The Chinese "
+"edition therefore adopts the convention:"
+msgstr ""
+"**译者按：关于 *prose* 与 *document* 。** 英文里有两个**意思完全不一样**的词 —— 一个是 *prose* "
+"（**人写的叙述性内容本身**），一个是 *document* （**承载内容的文件对象** —— 里面可以是 "
+"prose、可以是代码、也可以二者皆有）—— **英文工程界并不把这两个词混为一谈**。而中文软件工程界的习惯是**把两者一并压扁成**「文档」 —— "
+"这会**直接踩塌**本书第二、三部分都依赖的一个区分。因此，中文版采用以下约定："
+
+#: ../../appendix-d-glossary.md:24 ca145820e6bd4b97843db870cdce7dbc
+msgid "**prose → 文稿** (the narrative content itself; 文稿层 = the prose layer)"
+msgstr "**prose → 文稿** （叙述性内容本身；**文稿层** = prose layer）"
+
+#: ../../appendix-d-glossary.md:26 3abb922b473a4eafbc7120ca91a4733c
+msgid ""
+"**document → 文档** (the file object, Diátaxis category, or classified "
+"artefact — as in document-layering)"
+msgstr ""
+"**document → 文档** （文件对象、Diátaxis 分类、或被分级的制品 —— 例如 document-layering 中的 "
+"document）"
+
+#: ../../appendix-d-glossary.md:28 b3a00cedc46d47cda61b9249b9c5954a
+msgid "**documentation → 文档工作 / 文档体系** (the engineering activity)"
+msgstr "**documentation → 文档工作 / 文档体系** （作为一项**工程活动**）"
+
+#: ../../appendix-d-glossary.md:30 4aaa9ed672d24b019517d0df3606231b
+msgid ""
+"Every glossary entry and cross-reference below honours this distinction; "
+"watch for it in particular in *Prose*, *Document*, and *L0–L4*."
+msgstr "下面每一条术语和交叉引用都**遵循这套区分**；特别留意 *Prose* 、 *Document* 、以及 *L0–L4* 这三条。"
+
+#: ../../appendix-d-glossary.md e0d34fee555c4003a36fcd4a18a60844
+msgid "ADR"
+msgstr "ADR"
+
+#: ../../appendix-d-glossary.md:36 affa39d4670d457fbe97b209f43b969d
+#, python-brace-format
+msgid ""
+"Architecture Decision Record. A short, append-only document that records the"
+" context, decision, and consequences of a single architectural choice. See "
+"MADR for a specific template. {cite}`nygard_adr` {cite}`madr`"
+msgstr ""
+"**架构决策记录**（Architecture Decision "
+"Record）。一份**简短、只追加**的文档，记录**单一架构决策**的背景、决策本身、以及其后果。MADR 是一个具体的模板。 "
+"{cite}`nygard_adr` {cite}`madr`"
+
+#: ../../appendix-d-glossary.md:6 77548b669770490cbfe7954b1b19d190
+msgid "BM25"
+msgstr "BM25"
+
+#: ../../appendix-d-glossary.md:42 b74dfaa85d1247a294b0172123acfade
+#, python-brace-format
+msgid ""
+"A tf-idf-descended ranking function widely used in full-text search. "
+"{cite}`robertson2009probabilistic`"
+msgstr ""
+"一族**从 tf-idf 发展而来**的排序函数，在全文检索里广泛使用。 {cite}`robertson2009probabilistic`"
+
+#: ../../appendix-d-glossary.md:10 dbd127999b264d209bb3d36d765de833
+msgid "Diátaxis"
+msgstr "Diátaxis"
+
+#: ../../appendix-d-glossary.md:46 251d53c6d7ab406a8d7b3fd37b96a959
+#, python-brace-format
+msgid ""
+"A four-type documentation taxonomy (Tutorial, How-to, Reference, "
+"Explanation) used throughout Part II. {cite}`procida_diataxis`"
+msgstr ""
+"一种把文档分为**四类**的分类法 —— 教程（Tutorial）、操作指南（How-"
+"to）、参考（Reference）、解释（Explanation）—— 第二部分通篇使用。 {cite}`procida_diataxis`"
+
+#: ../../appendix-d-glossary.md:14 f7727ab37fd446db8647f42b79cfb23f
+msgid "Entity"
+msgstr "Entity"
+
+#: ../../appendix-d-glossary.md:50 6cfbe39f8b7c44c5b8c2c2d69ade9797
+msgid ""
+"In the Code Knowledge Graph, a hashable unit — file, function, class, "
+"package — with a stable content-addressed ID."
+msgstr ""
+"在**代码知识图谱**（Code Knowledge Graph）中，一个**可哈希的单元** —— 文件、函数、类、包 —— "
+"拥有稳定的、**内容寻址**的 ID。"
+
+#: ../../appendix-d-glossary.md:18 1ad12c06d81e498386e866292df8370e
+msgid "HNSW"
+msgstr "HNSW"
+
+#: ../../appendix-d-glossary.md:54 8f915d675fe64ae4b2b99f719a3e0259
+#, python-brace-format
+msgid ""
+"Hierarchical Navigable Small World. The ANN index backing most modern vector"
+" stores, including pgvector. {cite}`malkov2020hnsw`"
+msgstr ""
+"**Hierarchical Navigable Small "
+"World**（分层可导航小世界）。一种**近似最近邻**（ANN）索引，是当下多数向量存储（包括 pgvector）**底层采用的算法**。 "
+"{cite}`malkov2020hnsw`"
+
+#: ../../appendix-d-glossary.md:22 8aec40cb9f3f418c85ae5c20f2947140
+msgid "KB"
+msgstr "KB"
+
+#: ../../appendix-d-glossary.md:58 ebee22f3ff4c454792b81164ee7bec43
+msgid ""
+"Knowledge Base. In this book, the union of prose, code, embeddings, and "
+"graph that a team queries to do its job."
+msgstr "**知识库**（Knowledge Base）。在本书中，指一个团队为了完成日常工作而查询的**文稿、代码、向量、以及图**的并集。"
+
+#: ../../appendix-d-glossary.md:26 f0f3a97844e04d0aa84acab42fc14951
+msgid "L0–L4"
+msgstr "L0–L4"
+
+#: ../../appendix-d-glossary.md:62 607dab1ee9514bef91e5dbb3a3e58967
+msgid ""
+"The five-tier document-layer model introduced in Chapter 18 (L0 code and "
+"comments; L1 committed human prose such as ADRs; L2 collaborative human "
+"prose such as wiki pages; L3 reviewed AI-drafted prose; L4 unreviewed AI "
+"drafts). Chapter 18 upgrades the single-axis model to the four-tuple ⟨L, U, "
+"R, S⟩."
+msgstr ""
+"第 18 章引入的**五层文档模型** —— L0 代码与注释；L1 已提交的人写文稿（如 ADR）；L2 协作式人写文稿（如 wiki 页面）；L3 "
+"经人复核的 AI 草稿；L4 未经复核的 AI 草稿。第 18 章把这个**单轴模型**升级为四元组 ⟨L, U, R, S⟩ 。"
+
+#: ../../appendix-d-glossary.md:33 713e497ebd1348178cfe7a4844d5f972
+msgid "Layer tuple"
+msgstr "Layer tuple"
+
+#: ../../appendix-d-glossary.md:69 d2d915bfd80b43d6896dcd840d2ffe00
+msgid ""
+"The four-valued classification ⟨L, U, R, S⟩ — document layer, updated-by, "
+"review-status, review-score — introduced in Chapter 18 as the operational "
+"replacement for single-axis document tiering."
+msgstr ""
+"**四元分级** ⟨L, U, R, S⟩ —— 文档层（Layer）、由谁更新（Updated-by）、复核状态（Review-"
+"status）、复核评分（Review-score）—— 第 18 章引入，**在工程上替代**单轴文档分级。"
+
+#: ../../appendix-d-glossary.md:38 823c2b6f10554a24802250e0765d5278
+msgid "L1 / L2 / L3 (update strategy)"
+msgstr "L1 / L2 / L3 （更新策略）"
+
+#: ../../appendix-d-glossary.md:74 8d59eda040e142e99bcf87a62c903566
+msgid ""
+"The three update levels from Chapter 16. **L1 mechanical**: rules only, zero"
+" LLM tokens. **L2 bounded-LLM**: one page's body plus one diff fed to an "
+"LLM, bounded to a few kilobytes. **L3 human-led**: human writes, LLM copy-"
+"edits. Not to be confused with the document-layer L0–L4 above; the number "
+"line is different."
+msgstr ""
+"第 16 章提出的**三级更新策略**。 **L1 机械式** ：**只走规则**，零 LLM token。 **L2 受控 LLM** "
+"：**只喂一页正文加一份 diff** 给 LLM，总量控制在几 KB 以内。 **L3 人主导** ：**人来写**，LLM "
+"做文字润色。**切勿**与上面的文档层 L0–L4 混淆 —— 两条数轴**不是一回事**。"
+
+#: ../../appendix-d-glossary.md:45 db4b9b53faf140409e2c8d92af992179
+msgid "MCP"
+msgstr "MCP"
+
+#: ../../appendix-d-glossary.md:81 d9e62dd388984d75b00e5306b444b382
+#, python-brace-format
+msgid ""
+"Model Context Protocol — the standard the book uses to let IDE agents query "
+"the KB. {cite}`mcp_spec`"
+msgstr ""
+"**Model Context Protocol** —— 本书选用的标准协议，用来让**IDE 里的 agent** 查询知识库。 "
+"{cite}`mcp_spec`"
+
+#: ../../appendix-d-glossary.md:49 f14b9942439f4eb4bf4b09a874b0cf6e
+msgid "MyST"
+msgstr "MyST"
+
+#: ../../appendix-d-glossary.md:85 514e81bf59af45108b41f21a87cc9d77
+msgid ""
+"Markedly Structured Text — the Markdown flavour Sphinx understands natively "
+"via `myst-parser`."
+msgstr ""
+"**Markedly Structured Text** —— 一种 Markdown 方言，Sphinx 通过 `myst-parser` "
+"**原生支持**。"
+
+#: ../../appendix-d-glossary.md:53 b519664c5c1c4c0d8a680119a39b56ee
+msgid "PKB"
+msgstr "PKB"
+
+#: ../../appendix-d-glossary.md:89 7f13773caeca4fedb556d4623b7f1d15
+msgid ""
+"Project Knowledge Base — a KB scoped to a single software project, in "
+"contrast to a team- or organisation-wide KB. This book's opinionated ten-"
+"page set (`00-overview` through `09-runbook`) is a typical PKB shape."
+msgstr ""
+"**Project Knowledge Base** —— "
+"范围**只覆盖单个软件项目**的知识库，与**团队级**或**组织级**知识库相对。本书推荐的**十页骨架**（从 `00-overview` 到 "
+"`09-runbook`）就是一个典型的 PKB 形态。"
+
+#: ../../appendix-d-glossary.md:59 6a3292c1508c48719b905e74a5ebe17c
+msgid "PKB-metadata footer"
+msgstr "PKB 元数据页脚"
+
+#: ../../appendix-d-glossary.md:95 3f994be1a7354b9591f3387f9d5ebca3
+msgid ""
+"The HTML-comment block at the foot of every content page, carrying six "
+"fields (`last_updated`, `commit`, `updated_by`, `review_status`, "
+"`review_score`, `reviewed_by`). Introduced in Chapter 5 as the operational "
+"counterpart to the YAML frontmatter: frontmatter carries provenance (who "
+"created the page, at what commit); the footer carries review state (who "
+"signed off, with what score, when)."
+msgstr ""
+"**每一页内容页底部**的一段 HTML 注释块，携带六个字段 —— `last_updated` 、`commit` 、`updated_by` "
+"、`review_status` 、`review_score` 、`reviewed_by` 。第 5 章把它作为**与 YAML "
+"frontmatter 配对**的运维侧记录引入：frontmatter 记录**来源**（谁在哪个 commit "
+"创建了这页），页脚记录**复核状态**（谁、几分、何时签字）。"
+
+#: ../../appendix-d-glossary.md:68 6773f5b1bcb740a0a106292d7c0bc066
+msgid "Prose (zh: 文稿)"
+msgstr "Prose / 文稿"
+
+#: ../../appendix-d-glossary.md:104 812532881993430e93d478742d83809c
+msgid ""
+"Human-authored narrative text — tutorials, how-tos, reference pages, "
+"explanations, ADRs, runbooks. In this book, *prose* is the material the "
+"**prose layer** (Part II) handles and is deliberately contrasted with *code*"
+" (which the **code layer** in Part III handles via parsing and embeddings). "
+"The distinction matters because prose has paragraphs as its natural chunking"
+" unit, drifts against the code it describes, and updates when a human "
+"decides it is wrong; code has functions as its natural unit, does not drift "
+"(it is the source of truth), and updates every commit. Chapter 8 opens with "
+"exactly this split. Contrast with *Document*."
+msgstr ""
+"**人写的叙述性文本** —— 教程、how-to、参考页、解释、ADR、运维手册。在本书里， *prose* "
+"（**文稿**）是第二部分**文稿层**所处理的对象，**刻意与** *code* （**代码**）对照 —— "
+"后者由第三部分的**代码层**通过解析和向量化处理。这个区分**之所以重要**，是因为文稿的**自然切块单位**是段落，它**相对于所描述的代码会漂移**，由人在**判断它不对**时更新；代码的自然单位是函数，**不会漂移**（它就是真理本身），**每一次"
+" commit 都在更新**。第 8 章以**这一对比**开篇。与 *Document* 对照。"
+
+#: ../../appendix-d-glossary.md:80 9d841530fb014cd892a2abecde5c9156
+msgid "Document (zh: 文档)"
+msgstr "Document / 文档"
+
+#: ../../appendix-d-glossary.md:116 a0749ae4e57d4003b21b68a086cb6d23
+msgid ""
+"The *container* for content, independent of whether the content is prose or "
+"code. A markdown file with YAML frontmatter is a document; its body may be "
+"prose, a code block, or both. *Document-layering* (Chapter 18, L0–L4) "
+"classifies documents by provenance and authority, not by their internal "
+"content type. Rule of thumb: *prose* (文稿) when we mean the readable content,"
+" *document* (文档) when we mean the file object that carries it."
+msgstr ""
+"**承载内容的容器** —— 与容器里装的是 prose 还是 code 无关。一个带 YAML frontmatter 的 markdown "
+"文件就是一个 document；它的正文**可以是文稿**、**可以是一段代码**、也**可以两者都有**。 *Document-layering* "
+"（第 18 章， L0–L4 ）**按来源和权威度给 document 分级**，而**不是**按其内部的内容类型。**记忆口诀** "
+"：当我们指**可读的内容本身**时，用 *prose* （文稿）；当我们指**承载它的那个文件对象**时，用 *document* （文档）。"
+
+#: ../../appendix-d-glossary.md:89 2d50aecbd0a649829e6d801b880bc968
+msgid "RAG"
+msgstr "RAG"
+
+#: ../../appendix-d-glossary.md:125 d4271202de1d438a93f8ee0eebd75b97
+#, python-brace-format
+msgid ""
+"Retrieval-Augmented Generation. The pattern of grounding an LLM's output in "
+"retrieved context. {cite}`lewis2020rag` {cite}`gao2023retrieval`"
+msgstr ""
+"**检索增强生成**（Retrieval-Augmented Generation）。把 LLM 的输出**锚定在被检索出来的上下文之上**的一种模式。"
+" {cite}`lewis2020rag` {cite}`gao2023retrieval`"
+
+#: ../../appendix-d-glossary.md:93 e6266e7c753243d2b38a60bfca814a57
+msgid "RRF"
+msgstr "RRF"
+
+#: ../../appendix-d-glossary.md:129 089985d58f7c4f39b814c6937020af89
+#, python-brace-format
+msgid ""
+"Reciprocal Rank Fusion. A rank-combination method used in hybrid retrieval. "
+"{cite}`cormack2009rrf`"
+msgstr ""
+"**倒数排名融合**（Reciprocal Rank Fusion）。一种**把多路排序合并**的方法，在混合检索中常用。 "
+"{cite}`cormack2009rrf`"
+
+#: ../../appendix-d-glossary.md:97 4adf8fa4531d4115affa0b915c2d31b4
+msgid "tree-sitter"
+msgstr "tree-sitter"
+
+#: ../../appendix-d-glossary.md:133 d01b5a5a3a084c8092ccdbdb0e9cb2d6
+#, python-brace-format
+msgid ""
+"Incremental, multi-language parser powering the code-KB parse stage. "
+"{cite}`brunsfeld2018treesitter`"
+msgstr "一个**增量式、多语言**的解析器，**支撑**代码知识库的解析阶段。 {cite}`brunsfeld2018treesitter`"
+
+#: ../../appendix-d-glossary.md:137 6c847d833a0f468d884e9abd9f9cb702
+msgid "References"
+msgstr "参考文献"
+
+#~ msgid "Prose"
+#~ msgstr ""
+
+#~ msgid "Document"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The *container* for content, independent of whether the content is prose or "
+#~ "code. A markdown file with YAML frontmatter is a document; its body may be "
+#~ "prose, a code block, or both. *Document-layering* (Chapter 18, L0–L4) "
+#~ "classifies documents by provenance and authority, not by their internal "
+#~ "content type. Rule of thumb: *prose* when we mean the readable content, "
+#~ "*document* when we mean the file object that carries it."
+#~ msgstr ""

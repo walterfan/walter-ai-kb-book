@@ -1,0 +1,6 @@
+# Dependencies for the book build are now managed by Poetry at the repo root.
+#
+#   Install:  poetry install --no-root         (or: make book-setup)
+#   Build:    make book-build
+#
+# See ../pyproject.toml for the canonical dependency list.

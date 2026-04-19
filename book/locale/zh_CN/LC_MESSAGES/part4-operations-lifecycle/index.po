@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 11:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../part4-operations-lifecycle/index.md:12
+#: b7f53654a7f0482e9dcd0e2cbbd791a3
+msgid "Part IV — Operations & Lifecycle"
+msgstr "第四部分 —— 运维与生命周期"
+
+#: ../../part4-operations-lifecycle/index.md:22
+#: 78e429df6ece4e58a358045bb7b70141
+msgid "Why"
+msgstr "Why —— 为什么"
+
+#: ../../part4-operations-lifecycle/index.md:24
+#: 0d66728cc1464335b31625b9389fe8d7
+msgid "Keeping a code KB healthy is harder than building one."
+msgstr "让一个代码知识库一直保持健康，比从零搭出一个更难。"
+
+#: ../../part4-operations-lifecycle/index.md:26
+#: b486dd8ce4b7497a8fc878fa0e913188
+msgid "What"
+msgstr "What —— 是什么"
+
+#: ../../part4-operations-lifecycle/index.md:28
+#: 945b2214ed5b40a1a3e4a28e55f794c1
+msgid "Git-diff-driven incremental sync, RAG evaluation, drift and link rot."
+msgstr "由 git diff 驱动的增量同步、RAG 评测、漂移与链接腐化。"
+
+#: ../../part4-operations-lifecycle/index.md:30
+#: fee903781d334f7cb8c3d52809e7298e
+msgid "How"
+msgstr "How —— 怎么做"
+
+#: ../../part4-operations-lifecycle/index.md:32
+#: 728e17df54ed477fba5929022ca28ced
+#, python-brace-format
+msgid ""
+"Three chapters, anchored in blog §10 {cite}`fanyamin2026deepwiki` and in the"
+" `SyncJob` state machine."
+msgstr "三章内容，锚定在博客 §10 {cite}`fanyamin2026deepwiki` 以及 `SyncJob` 状态机上。"
+
+#: ../../part4-operations-lifecycle/index.md:34
+#: 29fc3699353141769d084a58c7d9890b
+msgid "Example"
+msgstr "Example —— 范例"
+
+#: ../../part4-operations-lifecycle/index.md:36
+#: 569192b757be4840b64b1e46130827f2
+msgid ""
+"A worked incremental-sync run reproducing the 36×/180×/9× speedups reported "
+"in the blog."
+msgstr "一次完整走完的增量同步过程，复现博客中报告的 36×/180×/9× 提速。"
+
+#: ../../part4-operations-lifecycle/index.md:38
+#: 8eb8471a714d4577a63bb1ebfb371582
+msgid "Conclusion"
+msgstr "Conclusion —— 小结"
+
+#: ../../part4-operations-lifecycle/index.md:40
+#: 31c3df01a02a4b4c8e0a997d24b4906a
+msgid ""
+"Operations discipline is the line between a prototype KB and one a team "
+"actually relies on."
+msgstr "运维纪律是“原型级知识库”与“一个团队真正敢依赖的知识库”之间的那条分界线。"
+
+#: ../../part4-operations-lifecycle/index.md:42
+#: 98c0a984a5aa4498b546f97f46334e08
+msgid "References"
+msgstr "参考文献"

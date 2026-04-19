@@ -1,0 +1,791 @@
+% =============================================================================
+%  references.bib — single source of truth for every citation in the book.
+%  Add entries here, cite with {cite}`key`. Per-chapter sections render with
+%  .. bibliography:: filtered by :keyword: tags to avoid duplication.
+% =============================================================================
+
+% ----- The author's blog post (narrative spine) -----------------------------
+
+@misc{fanyamin2026deepwiki,
+  author  = {Fan, Walter (Yamin)},
+  title   = {给代码仓库造一个 {DeepWiki}：{Tree-sitter} + Embedding + 图谱 + {LLM} 的方法论},
+  year    = {2026},
+  month   = apr,
+  note    = {v1.2, CC-BY-NC-ND 4.0},
+  url     = {https://www.fanyamin.com/gei-dai-ma-cang-ku-zao-yi-ge-deepwikitree-sitter-embedding-tu-pu-llm-de-fang-fa-lun.html},
+  keywords = {rag, code-kb, methodology, deepwiki}
+}
+
+@misc{fanyamin2026kb_pipeline,
+  author  = {Fan, Walter (Yamin)},
+  title   = {如何打造个人与项目知识库：从全文搜索到 {RAG}，再到 {Claude Skill}},
+  year    = {2026},
+  month   = feb,
+  note    = {v1.0, CC-BY-NC-ND 4.0},
+  url     = {https://www.fanyamin.com/2026-02-05-rag-claude-skill-knowledge-base.html},
+  keywords = {ir-rag, foundations, methodology}
+}
+
+@misc{fanyamin2026elasticsearch_rag,
+  author  = {Fan, Walter (Yamin)},
+  title   = {{RAG} 进阶指南：别只盯着向量数据库，{Elasticsearch} 才是扫地僧},
+  year    = {2026},
+  month   = jan,
+  note    = {v1.0, CC-BY-NC-ND 4.0},
+  url     = {https://www.fanyamin.com/2026-01-15-rag-elasticsearch-database.html},
+  keywords = {ir-rag, fusion, hybrid-retrieval}
+}
+
+@misc{fanyamin2026pgvector_rag,
+  author  = {Fan, Walter (Yamin)},
+  title   = {用 {pgvector} 做 {RAG}：别急着上 {Pinecone}，你的 {PostgreSQL} 就够了},
+  year    = {2026},
+  month   = mar,
+  note    = {v1.0, CC-BY-NC-ND 4.0},
+  url     = {https://www.fanyamin.com/2026-03-10-pgvector-rag.html},
+  keywords = {ir-rag, pgvector, substrate-choice}
+}
+
+% ----- Documentation & software engineering ---------------------------------
+
+@article{parnas1986rational,
+  author  = {Parnas, David L. and Clements, Paul C.},
+  title   = {A Rational Design Process: How and Why to Fake It},
+  journal = {IEEE Transactions on Software Engineering},
+  volume  = {SE-12},
+  number  = {2},
+  pages   = {251--257},
+  year    = {1986},
+  keywords = {foundations, software-docs}
+}
+
+@article{lethbridge2003software,
+  author  = {Lethbridge, Timothy C. and Singer, Janice and Forward, Andrew},
+  title   = {How Software Engineers Use Documentation: The State of the Practice},
+  journal = {IEEE Software},
+  volume  = {20},
+  number  = {6},
+  pages   = {35--39},
+  year    = {2003},
+  keywords = {foundations, software-docs}
+}
+
+@article{aghajani2019software,
+  author  = {Aghajani, Emad and Nagy, Csaba and Vega-M{\'a}rquez, Olga Lucero and Linares-V{\'a}squez, Mario and Moreno, Laura and Bavota, Gabriele and Lanza, Michele},
+  title   = {Software Documentation Issues Unveiled},
+  journal = {Proc.\ IEEE/ACM ICSE},
+  year    = {2019},
+  keywords = {foundations, software-docs, drift}
+}
+
+@misc{procida_diataxis,
+  author = {Procida, Daniele},
+  title  = {Di{\'a}taxis: A Systematic Approach to Technical Documentation Authoring},
+  year   = {2017--present},
+  url    = {https://diataxis.fr/},
+  keywords = {foundations, diataxis}
+}
+
+@misc{oasis_dita,
+  author = {{OASIS}},
+  title  = {Darwin Information Typing Architecture ({DITA}) 2.0 Specification},
+  year   = {2022},
+  url    = {https://docs.oasis-open.org/dita/dita/v2.0/dita-v2.0.html},
+  keywords = {foundations, diataxis, competitor}
+}
+
+@misc{cognition_deepwiki,
+  author = {{Cognition Labs}},
+  title  = {{DeepWiki}: AI-generated Wikis for any Repository},
+  year   = {2025},
+  url    = {https://deepwiki.com/},
+  note   = {Closed-source SaaS; auto-generates wiki-style pages from public GitHub repositories.},
+  keywords = {software-docs, competitor, deepwiki}
+}
+
+@misc{sourcegraph_cody,
+  author = {{Sourcegraph}},
+  title  = {Cody: An {AI} Coding Assistant That Knows Your Codebase},
+  year   = {2023--present},
+  url    = {https://sourcegraph.com/cody},
+  note   = {Closed-source IDE assistant; uses Sourcegraph's code-graph and embedding index.},
+  keywords = {software-docs, competitor, agents}
+}
+
+@misc{notion_ai,
+  author = {{Notion Labs}},
+  title  = {Notion {AI}: Ask, Find, Write with Your Wiki},
+  year   = {2023--present},
+  url    = {https://www.notion.com/product/ai},
+  note   = {Closed-source SaaS; LLM-assisted authoring and Q\&A over Notion workspaces.},
+  keywords = {software-docs, competitor}
+}
+
+@misc{obsidian,
+  author = {{Obsidian.md}},
+  title  = {Obsidian: A Knowledge Base That Works on Local {Markdown} Files},
+  year   = {2020--present},
+  url    = {https://obsidian.md/},
+  keywords = {software-docs, competitor, prose-layer}
+}
+
+@misc{mkdocs,
+  author = {Christie, Tom and contributors},
+  title  = {{MkDocs}: Project Documentation with {Markdown}},
+  year   = {2014--present},
+  url    = {https://www.mkdocs.org/},
+  keywords = {software-docs, competitor, prose-layer}
+}
+
+@misc{wtd_write_the_docs,
+  author = {{Write the Docs community}},
+  title  = {Documentation Style Guides and Principles},
+  year   = {2011--present},
+  url    = {https://www.writethedocs.org/guide/},
+  keywords = {foundations, software-docs}
+}
+
+% ----- IR & RAG foundations -------------------------------------------------
+
+@book{manning2008introduction,
+  author    = {Manning, Christopher D. and Raghavan, Prabhakar and Sch{\"u}tze, Hinrich},
+  title     = {Introduction to Information Retrieval},
+  publisher = {Cambridge University Press},
+  year      = {2008},
+  keywords = {ir-rag, foundations}
+}
+
+@article{robertson2009probabilistic,
+  author  = {Robertson, Stephen and Zaragoza, Hugo},
+  title   = {The Probabilistic Relevance Framework: {BM25} and Beyond},
+  journal = {Foundations and Trends in Information Retrieval},
+  volume  = {3},
+  number  = {4},
+  pages   = {333--389},
+  year    = {2009},
+  keywords = {ir-rag}
+}
+
+@inproceedings{lewis2020rag,
+  author    = {Lewis, Patrick and Perez, Ethan and Piktus, Aleksandra and Petroni, Fabio and Karpukhin, Vladimir and Goyal, Naman and K{\"u}ttler, Heinrich and Lewis, Mike and Yih, Wen-tau and Rockt{\"a}schel, Tim and Riedel, Sebastian and Kiela, Douwe},
+  title     = {Retrieval-Augmented Generation for Knowledge-Intensive {NLP} Tasks},
+  booktitle = {NeurIPS},
+  year      = {2020},
+  keywords = {ir-rag}
+}
+
+@article{gao2023retrieval,
+  author  = {Gao, Yunfan and Xiong, Yun and Gao, Xinyu and Jia, Kangxiang and Pan, Jinliu and Bi, Yuxi and Dai, Yi and Sun, Jiawei and Wang, Meng and Wang, Haofen},
+  title   = {Retrieval-Augmented Generation for Large Language Models: A Survey},
+  journal = {arXiv preprint arXiv:2312.10997},
+  year    = {2023},
+  keywords = {ir-rag, survey}
+}
+
+@inproceedings{cormack2009rrf,
+  author    = {Cormack, Gordon V. and Clarke, Charles L. A. and B{\"u}ttcher, Stefan},
+  title     = {Reciprocal Rank Fusion Outperforms {Condorcet} and Individual Rank Learning Methods},
+  booktitle = {SIGIR},
+  year      = {2009},
+  keywords = {ir-rag, fusion}
+}
+
+@inproceedings{thakur2021beir,
+  author    = {Thakur, Nandan and Reimers, Nils and R{\"u}ckl{\'e}, Andreas and Srivastava, Abhishek and Gurevych, Iryna},
+  title     = {{BEIR}: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models},
+  booktitle = {NeurIPS Datasets and Benchmarks},
+  year      = {2021},
+  keywords  = {ir-rag, evaluation}
+}
+
+@article{karpukhin2020dpr,
+  author  = {Karpukhin, Vladimir and O\u{g}uz, Barlas and Min, Sewon and Lewis, Patrick and Wu, Ledell and Edunov, Sergey and Chen, Danqi and Yih, Wen-tau},
+  title   = {Dense Passage Retrieval for Open-Domain Question Answering},
+  journal = {EMNLP},
+  year    = {2020},
+  keywords = {ir-rag}
+}
+
+% ----- Embeddings & vector search -------------------------------------------
+
+@article{malkov2020hnsw,
+  author  = {Malkov, Yury A. and Yashunin, Dmitry A.},
+  title   = {Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  volume  = {42},
+  number  = {4},
+  pages   = {824--836},
+  year    = {2020},
+  doi     = {10.1109/TPAMI.2018.2889473},
+  keywords = {vector, ann, code-layer, embeddings}
+}
+
+% ----- Graph-RAG & related --------------------------------------------------
+
+@article{edge2024graphrag,
+  author  = {Edge, Darren and Trinh, Ha and Cheng, Newman and Bradley, Joshua and Chao, Alex and Mody, Apurva and Truitt, Steven and Larson, Jonathan},
+  title   = {From Local to Global: A Graph {RAG} Approach to Query-Focused Summarization},
+  journal = {arXiv preprint arXiv:2404.16130},
+  year    = {2024},
+  keywords = {graph-rag}
+}
+
+@article{gutierrez2024hipporag,
+  author  = {Guti{\'e}rrez, Bernal Jim{\'e}nez and Shu, Yiheng and Gu, Yu and Yasunaga, Michihiro and Su, Yu},
+  title   = {{HippoRAG}: Neurobiologically Inspired Long-Term Memory for Large Language Models},
+  journal = {arXiv preprint arXiv:2405.14831},
+  year    = {2024},
+  keywords = {graph-rag}
+}
+
+% ----- LLMs for software KBs -------------------------------------------------
+
+@misc{zhu2024llmsknowledgegraphconstruction,
+  author  = {Zhu, Yuqi and Wang, Xiaohan and Chen, Jing and Qiao, Shuofei and Ou, Yixin and Yao, Yunzhi and Deng, Shumin and Chen, Huajun and Zhang, Ningyu},
+  title   = {{LLMs} for Knowledge Graph Construction and Reasoning: Recent Capabilities and Future Opportunities},
+  year    = {2024},
+  eprint  = {2305.13168},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CL},
+  url     = {https://arxiv.org/abs/2305.13168},
+  keywords = {foundations, survey, graph, code-layer, governance, hybrid, agents}
+}
+
+@misc{luo2024repoagentllmpoweredopensourceframework,
+  author  = {Luo, Qinyu and Ye, Yining and Liang, Shihao and Zhang, Zhong and Qin, Yujia and Lu, Yaxi and Wu, Yesai and Cong, Xin and Lin, Yankai and Zhang, Yingli and Che, Xiaoyin and Liu, Zhiyuan and Sun, Maosong},
+  title   = {RepoAgent: An {LLM}-Powered Open-Source Framework for Repository-level Code Documentation Generation},
+  year    = {2024},
+  eprint  = {2402.16667},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CL},
+  url     = {https://arxiv.org/abs/2402.16667},
+  keywords = {software-docs, code-layer, operations, governance, hybrid, agents}
+}
+
+@misc{tao2025codegraphmodelcgm,
+  author  = {Tao, Hongyuan and Zhang, Ying and Tang, Zhenhao and Peng, Hongen and Zhu, Xukun and Liu, Bingchang and Yang, Yingguang and Zhang, Ziyin and Xu, Zhaogui and Zhang, Haipeng and Zhu, Linchao and Wang, Rui and Yu, Hang and Li, Jianguo and Di, Peng},
+  title   = {Code Graph Model ({CGM}): A Graph-Integrated Large Language Model for Repository-Level Software Engineering Tasks},
+  year    = {2025},
+  eprint  = {2505.16901},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.SE},
+  url     = {https://arxiv.org/abs/2505.16901},
+  keywords = {graph, code-layer, governance, hybrid, agents, graph-rag}
+}
+
+% ----- Tree-sitter & code parsing -------------------------------------------
+
+@misc{brunsfeld2018treesitter,
+  author = {Brunsfeld, Max},
+  title  = {Tree-sitter: An Incremental Parsing System for Programming Tools},
+  year   = {2018--present},
+  url    = {https://tree-sitter.github.io/tree-sitter/},
+  keywords = {parsing, code-kb}
+}
+
+% ----- Provenance -----------------------------------------------------------
+
+@article{buneman2001provenance,
+  author  = {Buneman, Peter and Khanna, Sanjeev and Tan, Wang-Chiew},
+  title   = {Why and Where: A Characterization of Data Provenance},
+  journal = {ICDT},
+  year    = {2001},
+  keywords = {provenance}
+}
+
+@misc{w3c_prov,
+  author = {{W3C}},
+  title  = {{PROV-Overview}: An Overview of the {PROV} Family of Documents},
+  year   = {2013},
+  url    = {https://www.w3.org/TR/prov-overview/},
+  keywords = {provenance}
+}
+
+% ----- Agents, tool use, MCP ------------------------------------------------
+
+@article{yao2023react,
+  author  = {Yao, Shunyu and Zhao, Jeffrey and Yu, Dian and Du, Nan and Shafran, Izhak and Narasimhan, Karthik and Cao, Yuan},
+  title   = {{ReAct}: Synergizing Reasoning and Acting in Language Models},
+  journal = {ICLR},
+  year    = {2023},
+  keywords = {agents}
+}
+
+@article{schick2023toolformer,
+  author  = {Schick, Timo and Dwivedi-Yu, Janvijay and Dess{\`\i}, Roberto and Raileanu, Roberta and Lomeli, Maria and Zettlemoyer, Luke and Cancedda, Nicola and Scialom, Thomas},
+  title   = {{Toolformer}: Language Models Can Teach Themselves to Use Tools},
+  journal = {arXiv preprint arXiv:2302.04761},
+  year    = {2023},
+  keywords = {agents}
+}
+
+@misc{mcp_spec,
+  author = {{Anthropic}},
+  title  = {Model Context Protocol ({MCP}) Specification},
+  year   = {2024--present},
+  url    = {https://modelcontextprotocol.io/},
+  keywords = {agents, mcp}
+}
+
+% ----- ADR / decision records -----------------------------------------------
+
+@misc{nygard_adr,
+  author = {Nygard, Michael},
+  title  = {Documenting Architecture Decisions},
+  year   = {2011},
+  url    = {https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions},
+  keywords = {adr, governance}
+}
+
+@misc{madr,
+  author = {{MADR contributors}},
+  title  = {Markdown Any Decision Records ({MADR})},
+  year   = {2018--present},
+  url    = {https://adr.github.io/madr/},
+  keywords = {adr, governance}
+}
+
+% ===========================================================================
+% Part II — file-based wikis, docs-as-code, provenance, classification, search
+% ===========================================================================
+
+@misc{dokuwiki,
+  author = {{DokuWiki contributors}},
+  title  = {{DokuWiki}: a simple to use and highly versatile open source wiki software without a database},
+  year   = {2004--present},
+  url    = {https://www.dokuwiki.org/},
+  note   = {File-based wiki storing each page as a plain-text file on disk.},
+  keywords = {prose-layer, competing-tools}
+}
+
+@misc{moinmoin,
+  author = {{MoinMoin contributors}},
+  title  = {{MoinMoin} Wiki},
+  year   = {2000--present},
+  url    = {https://moinmo.in/},
+  note   = {Python-based file-backed wiki engine with page-per-file storage.},
+  keywords = {prose-layer, competing-tools}
+}
+
+@misc{gitit,
+  author = {John MacFarlane},
+  title  = {Gitit: a wiki backed by a Git, Darcs, or Mercurial filestore},
+  year   = {2008--present},
+  url    = {https://github.com/jgm/gitit},
+  note   = {Early demonstration that a wiki can be a plain Git repository.},
+  keywords = {prose-layer, competing-tools}
+}
+
+@book{gruver2016starting,
+  author    = {Gruver, Gary and Mouser, Tommy},
+  title     = {Starting and Scaling {DevOps} in the Enterprise},
+  publisher = {BookBaby},
+  year      = {2016},
+  note      = {Popularised the "docs-as-code" treatment of documentation as a first-class artefact of the software delivery pipeline.},
+  keywords = {prose-layer, docs-as-code}
+}
+
+@misc{docs_as_code,
+  author = {{Write the Docs community}},
+  title  = {Docs as Code},
+  year   = {n.d.},
+  url    = {https://www.writethedocs.org/guide/docs-as-code/},
+  note   = {Community reference page distilling the docs-as-code philosophy: plain-text sources, version control, reviews, CI.},
+  keywords = {prose-layer, docs-as-code}
+}
+
+@article{conway1968committees,
+  author  = {Conway, Melvin E.},
+  title   = {How Do Committees Invent?},
+  journal = {Datamation},
+  volume  = {14},
+  number  = {4},
+  pages   = {28--31},
+  year    = {1968},
+  note    = {Origin of ``Conway's law'': organisations produce systems whose structure mirrors their communication structure. The prose-layer equivalent is that documentation review follows the same communication lines as the code it describes.},
+  keywords = {prose-layer, docs-as-code, foundations}
+}
+
+@article{parnas1972decomposition,
+  author  = {Parnas, David L.},
+  title   = {On the Criteria to Be Used in Decomposing Systems into Modules},
+  journal = {Communications of the ACM},
+  volume  = {15},
+  number  = {12},
+  pages   = {1053--1058},
+  year    = {1972},
+  doi     = {10.1145/361598.361623},
+  note    = {Introduces information hiding. Extended to documentation in this book: a software KB should be decomposed so that prose and the code it describes share a review boundary.},
+  keywords = {prose-layer, docs-as-code, foundations}
+}
+
+@book{deming1986outofcrisis,
+  author    = {Deming, W. Edwards},
+  title     = {Out of the Crisis},
+  publisher = {MIT Press},
+  year      = {1986},
+  note      = {Formalised the Plan-Do-Check-Act cycle. Used in Chapter 7a to justify why the four-corner operational model is structurally complete: each corner answers one phase of PDCA applied to a prose-layer artefact.},
+  keywords = {prose-layer, operational-model, foundations}
+}
+
+@misc{yaml_spec,
+  author = {{Ben-Kiki, Oren and Evans, Clark and d\"{o}t Net, Ingy}},
+  title  = {{YAML} Ain't Markup Language ({YAML}) Version 1.2},
+  year   = {2021},
+  url    = {https://yaml.org/spec/1.2.2/},
+  note   = {Specification of YAML, the serialisation format used for wiki frontmatter.},
+  keywords = {provenance, prose-layer}
+}
+
+@misc{pandoc,
+  author = {John MacFarlane},
+  title  = {Pandoc: a universal document converter},
+  year   = {2006--present},
+  url    = {https://pandoc.org/},
+  note   = {Defines the YAML metadata block convention adopted by most Markdown tooling.},
+  keywords = {provenance, prose-layer}
+}
+
+@inproceedings{yin2019zeroshot,
+  author    = {Yin, Wenpeng and Hay, Jamaal and Roth, Dan},
+  title     = {Benchmarking Zero-shot Text Classification: Datasets, Evaluation and Entailment Approach},
+  booktitle = {Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing},
+  year      = {2019},
+  pages     = {3914--3923},
+  doi       = {10.18653/v1/D19-1404},
+  keywords = {classification, prose-layer}
+}
+
+@article{ratner2017snorkel,
+  author  = {Ratner, Alexander and Bach, Stephen H. and Ehrenberg, Henry and Fries, Jason and Wu, Sen and R{\'e}, Christopher},
+  title   = {{Snorkel}: Rapid Training Data Creation with Weak Supervision},
+  journal = {Proceedings of the VLDB Endowment},
+  volume  = {11},
+  number  = {3},
+  pages   = {269--282},
+  year    = {2017},
+  doi     = {10.14778/3157794.3157797},
+  keywords = {classification, weak-supervision, prose-layer}
+}
+
+@article{brown2020gpt3,
+  author  = {Brown, Tom B. and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and others},
+  title   = {Language Models are Few-Shot Learners},
+  journal = {Advances in Neural Information Processing Systems},
+  volume  = {33},
+  pages   = {1877--1901},
+  year    = {2020},
+  note    = {The paper that made LLM-as-classifier a practical option: a prompt replaces labelled training data.},
+  keywords = {classification, llm, prose-layer}
+}
+
+@inproceedings{porter1980stemming,
+  author    = {Porter, Martin F.},
+  title     = {An Algorithm for Suffix Stripping},
+  booktitle = {Program},
+  volume    = {14},
+  number    = {3},
+  pages     = {130--137},
+  year      = {1980},
+  doi       = {10.1108/eb046814},
+  keywords = {search, ir}
+}
+
+@misc{bleve,
+  author = {{Couchbase, Inc. and Bleve contributors}},
+  title  = {Bleve: a modern text indexing library for {Go}},
+  year   = {2014--present},
+  url    = {https://blevesearch.com/},
+  note   = {Embedded full-text search engine for Go applications — a natural scale-up target from the in-memory token index in \texttt{index.go}.},
+  keywords = {search, competing-tools, prose-layer}
+}
+
+@misc{meilisearch,
+  author = {{Meili SAS and Meilisearch contributors}},
+  title  = {{Meilisearch}: an open-source, lightning-fast, and hyper relevant search engine},
+  year   = {2018--present},
+  url    = {https://www.meilisearch.com/},
+  keywords = {search, competing-tools}
+}
+
+@misc{algolia_docsearch,
+  author = {{Algolia}},
+  title  = {{DocSearch}: free search for your documentation},
+  year   = {2015--present},
+  url    = {https://docsearch.algolia.com/},
+  note   = {Hosted search crawler targeted specifically at static documentation sites.},
+  keywords = {search, competing-tools}
+}
+
+@misc{sphinx,
+  author = {{Georg Brandl and Sphinx contributors}},
+  title  = {{Sphinx}: Python Documentation Generator},
+  year   = {2008--present},
+  url    = {https://www.sphinx-doc.org/},
+  note   = {The static publishing target used by the prose-layer reference implementation to render the prose layer.},
+  keywords = {prose-layer, publishing}
+}
+
+@misc{myst_parser,
+  author = {{Executable Books Project}},
+  title  = {{MyST-Parser}: a Sphinx and Docutils extension to parse {MyST}, a rich and extensible flavour of {Markdown}},
+  year   = {2020--present},
+  url    = {https://myst-parser.readthedocs.io/},
+  keywords = {prose-layer, publishing}
+}
+
+@article{aho1975efficient,
+  author  = {Aho, Alfred V. and Corasick, Margaret J.},
+  title   = {Efficient String Matching: An Aid to Bibliographic Search},
+  journal = {Communications of the ACM},
+  volume  = {18},
+  number  = {6},
+  pages   = {333--340},
+  year    = {1975},
+  doi     = {10.1145/360825.360855},
+  keywords = {search, ir}
+}
+
+% -----------------------------------------------------------------------------
+% Part III — The Code Layer
+% -----------------------------------------------------------------------------
+
+@misc{brunsfeld_treesitter,
+  author       = {Brunsfeld, Max and {Tree-sitter contributors}},
+  title        = {Tree-sitter: An Incremental Parsing System for Programming Tools},
+  year         = {2018--present},
+  url          = {https://tree-sitter.github.io/tree-sitter/},
+  note         = {Used by the code-layer reference implementation's RAG CodeParser for multi-language uniform parsing.},
+  keywords     = {code-layer, parsing}
+}
+
+@inproceedings{husain2019codesearchnet,
+  author       = {Husain, Hamel and Wu, Ho-Hsiang and Gazit, Tiferet and Allamanis, Miltiadis and Brockschmidt, Marc},
+  title        = {{CodeSearchNet Challenge}: Evaluating the State of Semantic Code Search},
+  booktitle    = {arXiv preprint arXiv:1909.09436},
+  year         = {2019},
+  url          = {https://arxiv.org/abs/1909.09436},
+  keywords     = {code-layer, search, embeddings}
+}
+
+@article{allamanis2018survey,
+  author       = {Allamanis, Miltiadis and Barr, Earl T. and Devanbu, Premkumar and Sutton, Charles},
+  title        = {A Survey of Machine Learning for Big Code and Naturalness},
+  journal      = {ACM Computing Surveys},
+  volume       = {51},
+  number       = {4},
+  pages        = {1--37},
+  year         = {2018},
+  doi          = {10.1145/3212695},
+  keywords     = {code-layer, parsing, ir}
+}
+
+@inproceedings{guo2021graphcodebert,
+  author       = {Guo, Daya and Ren, Shuo and Lu, Shuai and Feng, Zhangyin and Tang, Duyu and Liu, Shujie and Zhou, Long and Duan, Nan and Svyatkovskiy, Alexey and Fu, Shengyu},
+  title        = {{GraphCodeBERT}: Pre-training Code Representations with Data Flow},
+  booktitle    = {International Conference on Learning Representations (ICLR)},
+  year         = {2021},
+  url          = {https://arxiv.org/abs/2009.08366},
+  keywords     = {code-layer, embeddings, graph}
+}
+
+@misc{xiao2024bge,
+  author       = {Xiao, Shitao and Liu, Zheng and Zhang, Peitian and Muennighoff, Niklas and Lian, Defu and Nie, Jian-Yun},
+  title        = {{C-Pack}: Packed Resources for General {Chinese} Embeddings},
+  year         = {2024},
+  url          = {https://arxiv.org/abs/2309.07597},
+  note         = {Includes the BGE family of open embedding models, which can be self-hosted on a single GPU at effectively zero per-token cost.},
+  keywords     = {code-layer, embeddings, foundations}
+}
+
+@misc{openai_embeddings_v3,
+  author       = {{OpenAI}},
+  title        = {{OpenAI} Text Embeddings v3 (text-embedding-3-small and text-embedding-3-large)},
+  year         = {2024},
+  url          = {https://openai.com/index/new-embedding-models-and-api-updates/},
+  note         = {The \texttt{text-embedding-3-small} launch announcement lists a 5$\times$ price reduction relative to \texttt{text-embedding-ada-002} (from \$0.0001 to \$0.00002 per 1K tokens) at higher retrieval quality.},
+  keywords     = {code-layer, embeddings, foundations}
+}
+
+@misc{voyage_code2,
+  author       = {{Voyage AI}},
+  title        = {voyage-code-2: An Embedding Model Optimised for Code Retrieval},
+  year         = {2024},
+  url          = {https://docs.voyageai.com/docs/embeddings},
+  keywords     = {code-layer, embeddings}
+}
+
+@misc{sqlite_vec,
+  author       = {Gleason, Alex},
+  title        = {sqlite-vec: A Vector Search {SQLite} Extension That Runs Anywhere},
+  year         = {2024--present},
+  url          = {https://github.com/asg017/sqlite-vec},
+  keywords     = {code-layer, vector-search}
+}
+
+@misc{pgvector,
+  author       = {Kane, Andrew},
+  title        = {pgvector: Open-Source Vector Similarity Search for {PostgreSQL}},
+  year         = {2021--present},
+  url          = {https://github.com/pgvector/pgvector},
+  keywords     = {code-layer, vector-search}
+}
+
+@misc{milvus,
+  author       = {{Zilliz, Inc.}},
+  title        = {{Milvus}: An Open-Source Vector Database for Scalable Similarity Search},
+  year         = {2019--present},
+  url          = {https://milvus.io/},
+  keywords     = {code-layer, vector-search}
+}
+
+@book{robinson2015graph,
+  author       = {Robinson, Ian and Webber, Jim and Eifrem, Emil},
+  title        = {Graph Databases: New Opportunities for Connected Data},
+  publisher    = {O'Reilly Media},
+  year         = {2015},
+  isbn         = {978-1491930892},
+  keywords     = {code-layer, graph}
+}
+
+@misc{memgraph,
+  author       = {{Memgraph Ltd.}},
+  title        = {{Memgraph}: An In-Memory Graph Database Compatible With the {Bolt} Protocol},
+  year         = {2016--present},
+  url          = {https://memgraph.com/},
+  keywords     = {code-layer, graph}
+}
+
+@article{robertson2009bm25,
+  author       = {Robertson, Stephen and Zaragoza, Hugo},
+  title        = {The Probabilistic Relevance Framework: {BM25} and Beyond},
+  journal      = {Foundations and Trends in Information Retrieval},
+  volume       = {3},
+  number       = {4},
+  pages        = {333--389},
+  year         = {2009},
+  doi          = {10.1561/1500000019},
+  keywords     = {code-layer, search, ir}
+}
+
+@inproceedings{chen2023faithfulness,
+  author       = {Chen, Shiqi and Zhang, Yiran and Zhao, Yunze and Liu, Yifei and Hu, Chengye and Liu, Yang},
+  title        = {Benchmarking Large Language Models in Retrieval-Augmented Generation},
+  booktitle    = {arXiv preprint arXiv:2309.01431},
+  year         = {2023},
+  url          = {https://arxiv.org/abs/2309.01431},
+  keywords     = {code-layer, hybrid-layer, faithfulness}
+}
+
+@misc{modelcontextprotocol,
+  author       = {{Anthropic}},
+  title        = {Model Context Protocol (MCP) Specification},
+  year         = {2024--present},
+  url          = {https://modelcontextprotocol.io/},
+  keywords     = {hybrid-layer, agent}
+}
+
+@misc{cloudflare_workers,
+  author       = {{Cloudflare}},
+  title        = {{Cloudflare Workers}: Serverless execution at the network edge},
+  year         = {2024},
+  howpublished = {Documentation},
+  url          = {https://developers.cloudflare.com/workers/},
+  keywords     = {hybrid, agents}
+}
+
+@misc{deno_deploy,
+  author       = {{Deno Land Inc.}},
+  title        = {{Deno Deploy}: A globally-distributed serverless JavaScript runtime},
+  year         = {2024},
+  howpublished = {Documentation},
+  url          = {https://deno.com/deploy},
+  keywords     = {hybrid, agents}
+}
+
+@misc{vercel_edge,
+  author       = {{Vercel}},
+  title        = {{Vercel Edge Functions}: Serverless functions at the edge},
+  year         = {2024},
+  howpublished = {Documentation},
+  url          = {https://vercel.com/docs/functions},
+  keywords     = {hybrid, agents}
+}
+
+% -----------------------------------------------------------------------------
+% Part IV — Operations & Lifecycle
+% -----------------------------------------------------------------------------
+
+@article{kiesling2017linkrot,
+  author       = {Klein, Martin and Van de Sompel, Herbert and Sanderson, Robert and Shankar, Harihar and Balakireva, Lyudmila and Zhou, Ke and Tobin, Richard},
+  title        = {Scholarly Context Not Found: One in Five Articles Suffers From Reference Rot},
+  journal      = {PLOS ONE},
+  volume       = {9},
+  number       = {12},
+  year         = {2014},
+  doi          = {10.1371/journal.pone.0115253},
+  keywords     = {operations-lifecycle, drift}
+}
+
+@inproceedings{es2024ragas,
+  author       = {Es, Shahul and James, Jithin and Espinosa-Anke, Luis and Schockaert, Steven},
+  title        = {{RAGAS}: Automated Evaluation of Retrieval Augmented Generation},
+  booktitle    = {Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations},
+  year         = {2024},
+  url          = {https://arxiv.org/abs/2309.15217},
+  keywords     = {operations-lifecycle, evaluation}
+}
+
+@article{nogueira2019passage,
+  author       = {Nogueira, Rodrigo and Cho, Kyunghyun},
+  title        = {Passage Re-ranking with {BERT}},
+  journal      = {arXiv preprint arXiv:1901.04085},
+  year         = {2019},
+  url          = {https://arxiv.org/abs/1901.04085},
+  note         = {Canonical reference for cross-encoder re-ranking — a BERT model scores (query, document) pairs for the second stage of a retrieve-then-rerank pipeline. Widely known as "monoBERT".},
+  keywords     = {code-layer, hybrid-layer, ir-rag, rerank, foundations}
+}
+
+@inproceedings{reimers2019sbert,
+  author       = {Reimers, Nils and Gurevych, Iryna},
+  title        = {Sentence-{BERT}: Sentence Embeddings using Siamese {BERT}-Networks},
+  booktitle    = {Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing},
+  year         = {2019},
+  url          = {https://arxiv.org/abs/1908.10084},
+  note         = {Introduces the bi-encoder framing that underlies every modern dense retriever: two independent encodings compared by cosine similarity, contrasted explicitly against cross-encoders that concatenate (query, document) before scoring.},
+  keywords     = {code-layer, hybrid-layer, ir-rag, dense-retrieval, rerank, foundations}
+}
+
+@misc{fanyamin_pkb_skill,
+  author       = {Fan, Walter (Yamin)},
+  title        = {Project Knowledge Base Skill: An Opinionated Operational Model for Software Documentation},
+  year         = {2026},
+  howpublished = {Self-published; private toolkit},
+  note         = {Methodology and operational patterns developed by the author in parallel with this book; not publicly released. Cited throughout for the three-level update strategy, the {PKB-metadata} footer schema, the hard/soft verification-gate catalog, and the opinionated ten-page documentation set. Chapter prose adapts these ideas in the book's voice; command names and employer-internal infrastructure from the toolkit are deliberately omitted.},
+  keywords     = {prose-layer, operational-model, self-citation}
+}
+
+% ----- Part III theoretical anchors ------------------------------------------
+
+@article{malkov2018hnsw,
+  author       = {Malkov, Yury A. and Yashunin, Dmitry A.},
+  title        = {Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs},
+  journal      = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year         = {2020},
+  volume       = {42},
+  number       = {4},
+  pages        = {824--836},
+  doi          = {10.1109/TPAMI.2018.2889473},
+  note         = {The HNSW index underlying every modern vector store ({sqlite-vec}, {pgvector}'s {hnsw} option, {Milvus}, {Faiss}). The small-world-graph construction is why an approximate nearest-neighbour query runs in log-time rather than linear-scan time; cited in Chapter 10 to anchor the "vector DB is not magic" argument.},
+  keywords     = {code-layer, ir-rag, dense-retrieval, ann, foundations}
+}
+
+@article{greshake2023injection,
+  author       = {Greshake, Kai and Abdelnabi, Sahar and Mishra, Shailesh and Endres, Christoph and Holz, Thorsten and Fritz, Mario},
+  title        = {Not What You Have Signed Up For: Compromising Real-World {LLM}-Integrated Applications with Indirect Prompt Injection},
+  journal      = {arXiv preprint arXiv:2302.12173},
+  year         = {2023},
+  url          = {https://arxiv.org/abs/2302.12173},
+  note         = {Formalises the indirect-prompt-injection threat model that RAG systems inherit the moment retrieved documents can contain attacker-controlled text. Cited in Chapter 13 as the named threat model the two-step defence (system preamble + context escaping) addresses, and re-visited in Chapter 23's red-teaming treatment.},
+  keywords     = {hybrid-layer, security, prompt-injection, red-team, foundations}
+}

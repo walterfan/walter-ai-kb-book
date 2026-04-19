@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "lazy-harness-engineering-book"
+version = "0.1.0"
+description = "Sphinx + MyST toolchain for the book 'Use AI to build a knowledge base for a software project' (Lazy Harness Engineering series) and its content-validation tools."
+authors = ["Walter (Yamin) Fan <walter.fan@example.com>"]
+license = "CC-BY-SA-4.0"
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+sphinx = ">=7.3,<9.0"
+myst-parser = ">=3.0,<5.0"
+sphinx-rtd-theme = ">=2.0,<4.0"
+sphinxcontrib-bibtex = ">=2.6,<3.0"
+sphinxcontrib-mermaid = ">=0.9,<2.0"
+sphinx-intl = ">=2.2,<3.0"
+linkify-it-py = ">=2.0,<3.0"
+PyYAML = ">=6.0"
+beautifulsoup4 = ">=4.12"
+polib = ">=1.2,<2.0"
+
+[tool.poetry.group.pdf]
+optional = true
+
+[tool.poetry.group.pdf.dependencies]
+# PDF build still requires a system TeX distribution (mactex / texlive)
+# providing xelatex; Sphinx itself ships the latex builder.
+
+[build-system]
+requires = ["poetry-core>=1.8"]
+build-backend = "poetry.core.masonry.api"

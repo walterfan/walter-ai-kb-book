@@ -1,0 +1,505 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software "
+"project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 16:15+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../appendix-e-bilingual-publishing.md:14 4d028d38dcfa4c40944c988fad0c1472
+msgid "Appendix E — Publishing a Bilingual Knowledge Base"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:16 47ca01e2f83a4770b7094b6e00936710
+#, python-brace-format
+msgid ""
+"Scope. This appendix is deliberately document-only and self-contained. It"
+" describes the bilingual publishing discipline the author has refined in "
+"a private project-knowledge-base toolkit {cite}`fanyamin_pkb_skill` and "
+"adapts it to the `sphinx + myst` toolchain this book is built with. It "
+"does not wire new `make` targets; use the existing `make book-i18n` / "
+"`make book-build` targets from this book's Makefile."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:24 03b9ef684bae47ebb52941e3d8e3fbf1
+msgid "Why publish bilingually"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:26 4a34a276b3fd407a8a72fe8b9d765187
+msgid ""
+"A knowledge base written in only the author's first language excludes "
+"readers who are fluent in their second or third language but cannot read "
+"the first at professional depth. A KB written in only English excludes "
+"the large fraction of a Chinese-speaking engineering team that prefers "
+"Chinese for technical depth (and vice versa). The choice is not *which* "
+"language but *which discipline for keeping two languages in sync without "
+"doubling the authoring cost*."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:34 77d87d9032b44f3c899905a2657c2bd3
+msgid "Three failure modes make this harder than it looks:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:36 fffbdbcf7291401d9f5df32d44d801f2
+msgid ""
+"**Translation drift.** An English page is updated; the Chinese "
+"translation is not. The Chinese reader sees a stale page that looks "
+"current."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:39 9ebb7bbdffe641969790dd4c776d254e
+msgid ""
+"**Anchor drift.** An English H2 heading is reworded; the Chinese "
+"translation still carries the old anchor. Cross-document links break "
+"silently."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:42 4063021def824db88e1d47e400c15ac7
+msgid ""
+"**Source-of-truth drift.** Two parallel prose files exist; each gets "
+"edited independently; the two languages diverge in content, not just in "
+"wording."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:46 e5ed743cf77b4bdaa547b2b0a4398cf1
+msgid ""
+"The Sphinx toolchain plus a small amount of discipline addresses all "
+"three."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:49 0cdd0d70bdbc4fbf943912cf569498f9
+msgid "What the bilingual pipeline looks like"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:51 6b09e7720d384d4b9016ad412aa30822
+msgid "One source language, multiple translation targets, one build per language:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:65 e2f73220fddc43c39cdcda50f60f6817
+msgid ""
+"The `.po` files are gettext message catalogues. Each catalogue entry "
+"pairs one English string (the `msgid`) with one translated string (the "
+"`msgstr`). Sphinx extracts the `msgid`s at build time; a translator "
+"(human or machine) fills in the `msgstr`s; Sphinx re-renders HTML for "
+"each target language from the same source."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:71 70741efdc6f64233806960e4cc49d775
+msgid ""
+"The English prose remains the source of truth. The Chinese pages are "
+"*rendered*, not maintained. This is the critical move: a KB with two "
+"equal sources becomes a KB with two sources of drift."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:75 bef13c755d0b4549b815ea3499f7f881
+msgid "How to make it reliable"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:77 f2cd68535d0240c29ca33ef688c2559e
+msgid "Four pieces of discipline, each cheap:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:79 3c51e4ca3e944fdfa5879f8b34ef5734
+msgid "1. Turn on `gettext_uuid`"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:81 141623a18a274987895f8f2b926aca58
+msgid ""
+"Without UUIDs, every translation entry is keyed by the English string "
+"itself. Reword \"The retrieval layer consults the tuple\" to \"The "
+"retriever reads the tuple,\" and the translation becomes orphaned: the "
+"old entry points at prose that no longer exists; the new entry has no "
+"translation. The translator must re-translate from scratch."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:88 404f8f7a241a460cb191f4b18418a617
+msgid ""
+"With `gettext_uuid = True` in `conf.py`, each entry gets a stable UUID "
+"the first time it appears. Rewording the English leaves the UUID intact; "
+"the Chinese translation follows the UUID, not the string. In `conf.py`:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:99 6da11ab6cf0d4103a7dcc9fff7692264
+msgid ""
+"The result: an English edit that preserves meaning preserves its "
+"translation."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:102
+#: 99b4ad4ebef14c45bce77508570f2b60
+msgid "2. Keep `.po` edits mechanical"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:104
+#: fc4f73cffe30425697d76e84e5a0f250
+msgid ""
+"Editing `.po` files by hand is tedious and error-prone (a stray quote "
+"breaks the file). Use `polib` for programmatic edits:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:120
+#: 85c152707ed1433295c0906d1842aa14
+msgid "Two rules make this safe:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:122
+#: c94b883cb5614ce5a9b94c52a202360c
+msgid ""
+"**Every machine translation lands as `fuzzy`.** This is the gettext "
+"convention: a fuzzy entry is shown to the reader untranslated (or as the "
+"English fallback) until a human reviews and removes the flag. It mirrors "
+"the \"AI always sets pending\" rule from Chapter 5 for frontmatter "
+"footers."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:127
+#: 124e60e304494fe9b7931ab72dc346de
+msgid ""
+"**Never delete a translated entry because its `msgid` changed.** Let "
+"`sphinx-intl update` handle it; the updater marks entries `fuzzy` when "
+"the English string has drifted, which preserves prior work and signals "
+"review."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:132
+#: 7c9c8d9b801d4b67ba3e5bd809a96efd
+msgid "3. Translate H1s through a hook"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:134
+#: ebb3748a74094fdc8633377050b9be9d
+msgid ""
+"Sphinx's default behaviour renders the document title from the "
+"frontmatter `title:` field, which is English. For Chinese output the "
+"reader expects a Chinese title. A small `conf.py` hook handles this "
+"without duplicating prose:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:160
+#: 5d15b3c604ba437497a58a915ddfe21f
+msgid ""
+"The `h1_map.zh_CN.yml` is a small flat file the author maintains "
+"alongside the prose:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:169
+#: a19a3f34646047a5973cbacaa621c969
+msgid ""
+"This is more work than letting `.po` catalogues carry the titles, but it "
+"produces a navigation sidebar that reads natively in each language — "
+"which is the first thing a reader notices."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:173
+#: 13eb3ad6138042e1892d1eff911d11c4
+msgid "4. Fail the build on untranslated critical pages"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:175
+#: f3e96f2c73c44be7ad2169199e9a64e1
+msgid ""
+"Not every chapter needs same-day Chinese. Runbooks do; an overview "
+"chapter might lag by a week. Encode this in the frontmatter:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:185
+#: e7d148e5bfc44c4badd551ce34407e9a
+msgid "A one-line check at build time enforces the policy:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:196
+#: 3555337e57264cfca53c9a1499e4c3b8
+msgid ""
+"Three values — `required`, `optional`, `none` — give every page an "
+"explicit translation SLA. Operationally this mirrors the hard/soft gate "
+"split from Chapter 15: `required` is a hard gate that blocks publish; "
+"`optional` is a soft warning; `none` is silent."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:201
+#: e7da66f5ed434db2afd80917f0117aee
+msgid "Example — one page through the pipeline"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:203
+#: dab7583c18fe434a9a08916a95452efe
+msgid ""
+"The lifecycle of `ch07a-prose-operational-model.md` through one editing "
+"round:"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:206
+#: b1859cabfb874a3993d39c115fcb70d6
+msgid "Author edits the English source. Reword a section heading."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:207
+#: e8e3a17faa614be9906c7c20f1d42c2b
+msgid ""
+"`make book-i18n` runs `sphinx-build -b gettext` + `sphinx-intl update`. "
+"The UUID of the reworded heading is preserved; its Chinese translation is"
+" now marked `fuzzy`."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:210
+#: f1bc5048dc3c4784a2396b5f8aa13a05
+msgid ""
+"`make book-build` builds English. Build succeeds; `zh_status` is "
+"`optional` on this chapter, so the build does not fail on the fuzzy "
+"entry."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:213
+#: 74926fa007ad4a7787d9604b29f9527b
+msgid ""
+"A bounded-LLM translation pass (analogous to Chapter 16's L2) generates a"
+" new `msgstr` for the reworded heading and writes it back with the "
+"`fuzzy` flag retained."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:216
+#: a709809acc894a93bebf11a94bc10644
+msgid ""
+"A human reviewer opens the `.po` file in a PO-aware editor (Poedit, "
+"Lokalize), reads the new Chinese text against the English, and removes "
+"the `fuzzy` flag."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:219
+#: 30f1446c0fa24f17801704155bdadcac
+msgid ""
+"Next `make book-build -D language=zh_CN` produces the Chinese HTML with "
+"the approved translation in place."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:222
+#: 0f9232a9e9014e6eaa4a1c4609fdbe90
+msgid ""
+"Six steps, three of which are mechanical (`make` targets), two of which "
+"are bounded LLM work (one translation call per changed entry), and one of"
+" which is human review on a single diff. The total cost per English edit "
+"is cents of LLM tokens plus a minute of human time per chapter."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:228
+#: 9b00d639f6f84154bdf9bf6e90d2dd0a
+msgid "Operational failure modes and fixes"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md da06c3c46d2f48efa87f7e02fb1608d9
+msgid "Failure"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md edda77e6f94a4b2b9b452888d8ead625
+msgid "Symptom"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 3f7b80368bd443d5ad8eb12d8a387e8f
+msgid "Fix"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md f8e814071c194776b3ba5cd0ec2a1add
+msgid "UUID disabled retroactively"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 832bd53d9f634f97835640e5473689f0
+msgid "Mass re-translation after a casual edit"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 08c5a8c39e2c4566845333d1c33077cc
+msgid ""
+"Turn on `gettext_uuid` *before* first translation pass; once on, leave it"
+" on."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md f83f150a075f4f35adf6da07b92ede62
+msgid "`.po` edited by hand, syntax broken"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 30f639af979f4213b1a1c7ad6e49fdc6
+msgid "Sphinx fails with \"malformed entry near line N\""
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 92e5aeee0c6e4445b47ea6f362e350da
+msgid ""
+"Always edit via `polib`; keep a pre-commit hook that runs `msgfmt "
+"--check` on every `.po` file."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 7aafcfa2124b48eab44e7dd43b91150a
+msgid "Translation lags English indefinitely"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 5bcf1da35cab41cba56c2acf64849eed
+msgid "Chinese readers see stale prose with no warning"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 83ded9156c3147498f856be37b37ac5b
+msgid ""
+"`zh_status: required` on critical pages; CI hard-fails when the coverage "
+"drops below threshold."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 2940565c19e34359a1bd2f8aaa3b3d56
+msgid "Translator translates the prose but not the heading"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 522434d8059543c88648a3a13267c44e
+msgid "Nav sidebar is half-Chinese, half-English"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 2a5839e1885141bb97df2032fe8684f4
+msgid ""
+"Maintain `h1_map.zh_CN.yml` and gate CI on its completeness for any "
+"chapter whose `zh_status` is `required`."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 6251dde2a01142c884ead7bdbbc7e4dc
+msgid "Machine translation silently approved"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md 4d20ae6efd5f4d7593b913e5ae5b250e
+msgid "Chinese reader sees nonsense"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md ebbf10e01e03494d9f8ce3b526f798fa
+msgid ""
+"Every machine-translated `msgstr` lands as `fuzzy`; the `fuzzy` flag must"
+" be cleared by a human."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:238
+#: 1784817573144598ba9e677dd175c74b
+msgid ""
+"Each of these is a one-line rule; the appendix's point is that they are "
+"not optional if the bilingual publishing is to stay trustworthy."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:241
+#: 1b2618ad860645249d65d584aa2c917a
+msgid "Keep it simple"
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:243
+#: c73eb95bcd334bfea29364bb0af9ae6d
+msgid ""
+"The full discipline above fits comfortably in a few hundred lines of "
+"configuration, a small `h1_map` file per language, and a one-line check. "
+"It does not require a translation management system, a separate content "
+"repository, or a parallel prose tree. It does require the four "
+"disciplines above to be in place from the first day of bilingual "
+"publishing — the failure modes all become expensive to fix retroactively."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:251
+#: a3ee8a3467f74cdfadf66ac661f69b6e
+msgid ""
+"The rest is routine Sphinx workflow: `make book-i18n` to refresh, `make "
+"book-build -D language=zh_CN` to render, CI to enforce the `zh_status` "
+"hard gate. Nothing in this appendix needs new tooling; everything needs "
+"the disciplines to be named and enforced."
+msgstr ""
+
+#: ../../appendix-e-bilingual-publishing.md:256
+#: ffe6b40ca8d84c0e802bfc681396a2b2
+msgid "References"
+msgstr ""
+
+#~ msgid ""
+#~ "book/                            <- single source of truth (English)\n"
+#~ "  ch07a-prose-operational-model.md\n"
+#~ "  ...\n"
+#~ "  locale/\n"
+#~ "    zh_CN/\n"
+#~ "      LC_MESSAGES/\n"
+#~ "        ch07a-prose-operational-model.po  <- Chinese translation\n"
+#~ "        ...\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "gettext_uuid = True\n"
+#~ "gettext_compact = False   # one .pot per source file\n"
+#~ "gettext_additional_targets = [\"literal-block\", \"image\"]\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "import polib\n"
+#~ "\n"
+#~ "po = polib.pofile(\"locale/zh_CN/LC_MESSAGES/ch07a-"
+#~ "prose-operational-model.po\")\n"
+#~ "\n"
+#~ "for entry in po.untranslated_entries():\n"
+#~ "    if should_auto_translate(entry.msgid):\n"
+#~ "        entry.msgstr = call_llm_translator(entry.msgid)\n"
+#~ "        entry.flags.append(\"fuzzy\")  # mark "
+#~ "for review; never silently approve\n"
+#~ "\n"
+#~ "po.save()\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "def translate_h1(app, docname, source):\n"
+#~ "    \"\"\"Replace the frontmatter title "
+#~ "with the zh_CN translation when\n"
+#~ "    building for zh_CN, so the "
+#~ "navigation sidebar shows Chinese titles.\n"
+#~ ""
+#~ "    \"\"\"\n"
+#~ "    if app.config.language != \"zh_CN\":\n"
+#~ "        return\n"
+#~ "    translations = load_h1_map(docname)   #"
+#~ " tiny YAML: path -> zh_CN title\n"
+#~ ""
+#~ "    if docname in translations:\n"
+#~ "        source[0] = re.sub(\n"
+#~ "            r\"^title:\\s*.+$\",\n"
+#~ "            f\"title: '{translations[docname]}'\",\n"
+#~ "            source[0],\n"
+#~ "            count=1,\n"
+#~ "            flags=re.MULTILINE,\n"
+#~ "        )\n"
+#~ "\n"
+#~ "def setup(app):\n"
+#~ "    app.connect(\"source-read\", translate_h1)\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "ch07a-prose-operational-model: 第 7a 章 — 文章层的运维模型\n"
+#~ "ch14-incremental-sync: 第 14 章 — 增量同步\n"
+#~ "ch15-evaluation-and-benchmarks: 第 15 章 — 评估、基准与发布闸门\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "---\n"
+#~ "title: 'Chapter 16 — Maintenance, Drift, and Link Rot'\n"
+#~ "zh_status: required   # required | optional | none\n"
+#~ "---\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "# book/_tools/check_zh_status.py  (sketch)\n"
+#~ "for doc in all_docs:\n"
+#~ "    if doc.frontmatter.get(\"zh_status\") == \"required\":\n"
+#~ "        po_path = f\"locale/zh_CN/LC_MESSAGES/{doc.path}.po\"\n"
+#~ "        if not po_path.exists() or "
+#~ "po_untranslated_fraction(po_path) > 0.05:\n"
+#~ "            fail(f\"{doc.path}: zh_CN translation"
+#~ " required but missing or <95% "
+#~ "complete\")\n"
+#~ msgstr ""
+

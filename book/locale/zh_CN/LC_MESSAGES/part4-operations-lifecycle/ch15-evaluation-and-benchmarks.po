@@ -1,0 +1,809 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 16:15+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:14
+#: 0765dcbbc67049c79951bc767f8dbe12
+msgid "Chapter 15 — Evaluation, Benchmarks, and Publish Gates"
+msgstr "第 15 章 —— 评测、基准与发布门禁"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:16
+#: 73aae5ff4f77401e82bb88f100fa26aa
+msgid "Why"
+msgstr "Why —— 为什么"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:18
+#: 8c3bd22d5b084896add7d3345b45843c
+msgid ""
+"A KB that cannot answer *\"how do I know this build is good?\"* cannot claim"
+" to be maintained. The question has two honest decompositions, and this "
+"chapter treats both:"
+msgstr ""
+"一个回答不了 * “我怎么知道这次 build 好不好？” * 的知识库，就不能自称被“维护着”。这个问题有两种诚实的拆解，本章把两种都讲一遍："
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:22
+#: dc6cd2c425c24554b586bc0304df16c9
+#, python-brace-format
+msgid ""
+"**Evaluation** — *how good is the retrieval + generation system the KB "
+"powers?* This is the IR-literature question: precision at k, nDCG, answer-"
+"faithfulness. Benchmarks like BEIR {cite}`thakur2021beir` and RAGAS "
+"{cite}`es2024ragas` exist because different teams converged on needing the "
+"same answer."
+msgstr ""
+"**评测** —— * 这个知识库驱动的检索 + 生成系统有多好？ * 这是 IR 文献里的那个问题：precision@k、nDCG、answer-"
+"faithfulness。BEIR {cite}`thakur2021beir` 和 RAGAS {cite}`es2024ragas` 这些 "
+"benchmark 之所以存在，是因为不同团队在“需要同一个答案”这件事上独立收敛到了一起。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:27
+#: de7eb6459290469ab460e512b9cf1afc
+msgid ""
+"**Gating** — *is this specific build of the KB well-formed enough to "
+"publish?* This is the build-engineering question: is every page's footer "
+"present, do references resolve, did a human review the changed pages? It is "
+"the question Chapter 7a's C4 asks, and the one IR benchmarks do not directly"
+" help with."
+msgstr ""
+"**门禁** —— * 这次具体构建出来的知识库，足够规范以至于可以发布吗？ * 这是构建工程的那类问题：每个页面的 footer "
+"存在吗？引用能不能解析？变更的页面有没有被人评审过？这是第 7a 章 C4 所问的问题，而 IR 类 benchmark 对这种问题并无直接帮助。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:33
+#: 68193a68ac0d4576afffd1115db02f38
+msgid ""
+"Evaluation tells you *how* good. Gating tells you *whether* to ship. The two"
+" complement each other: a KB that publishes without gates will eventually "
+"fail evaluation because malformed pages accumulate; a KB that evaluates "
+"without gating produces beautiful numbers against a snapshot that cannot "
+"actually be deployed."
+msgstr ""
+"评测告诉你 * 好到什么程度 * 。门禁告诉你 * 要不要发 * "
+"。两者互补：一个没有门禁就放出去的知识库，最终会因为结构不合规的页面不断累积，在评测上失分；一个只做评测、不做门禁的知识库，拿出来的漂亮数字，对应的是一个根本无法真正部署的快照。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:39
+#: d4301c17672946f8a479f32658dc8184
+#, python-brace-format
+msgid ""
+"The gate catalogue in this chapter is adapted from the author's project-"
+"knowledge-base toolkit {cite}`fanyamin_pkb_skill`, with one added column — "
+"*enforced by* — that maps every gate to a specific piece of CI machinery. "
+"The prior art in the toolkit leaves enforcement implicit; making it explicit"
+" is this book's contribution."
+msgstr ""
+"本章列出的门禁目录源自作者的 project-knowledge-base 工具包 {cite}`fanyamin_pkb_skill`，并新增了一列 "
+"—— * 由谁强制执行 * —— 把每一条门禁映射到一段具体的 CI 机制。原工具包的做法对“强制”是隐式处理的；把它显式化是本书的一份贡献。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:45
+#: 764176b8befb4a1885cc53030b422760
+msgid "What"
+msgstr "What —— 是什么"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:47
+#: 741935e9ab9c4da594229166f2a61bad
+msgid "Evaluation"
+msgstr "评测"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:49
+#: c5b347bb339e41be884f99fe9879563e
+#, python-brace-format
+msgid ""
+"For the code-layer retrieval system (Chapter 12), the useful metrics are the"
+" standard IR ones against a held-out test set of question/citation pairs: "
+"nDCG@10, recall@10, MRR. For the prose-layer retrieval, these metrics apply "
+"with a caveat: the ground truth is harder to label (a single question often "
+"has multiple correct pages), and partial credit matters more. Both surfaces "
+"benefit from the end-to-end answer-faithfulness metrics in RAGAS "
+"{cite}`es2024ragas` and similar frameworks."
+msgstr ""
+"对代码层检索系统（第 12 章）而言，有用的指标就是那些标准的 IR 指标：在一份留出的 `(问题, 引用)` 对测试集上跑 "
+"nDCG@10、recall@10、MRR。对文稿层检索，这些指标同样适用，但有一个注脚：ground truth "
+"更难标注（同一个问题常常对应多个正确页面），并且“部分得分”更重要。两类面板都能从 RAGAS {cite}`es2024ragas` "
+"及其同类框架里的“端到端 answer-faithfulness”指标中获益。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:58
+#: 3e076a7a564b4c0bb79422a6ffd8cd83
+msgid "A concrete starting set:"
+msgstr "一个可以直接上手的初始指标集："
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 453c8bef31374d1e9994310006001d42
+msgid "Metric"
+msgstr "指标"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: b49c508bc75541f78f27158f18133b32
+msgid "Layer"
+msgstr "层"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 91c8746dfcee440784d9eb05b29814d0
+msgid "What it measures"
+msgstr "它度量的是什么"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 34e534e309e94e78a64488907540b904
+msgid "Benchmark corpus"
+msgstr "基准语料"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 1bed116f353a481fa6ada4192086709d
+msgid "nDCG@10"
+msgstr "nDCG@10"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 2ebbbc413e4240ff9c84a8e3e1daed31 73dc7a5c67d24282b40119e78a57a0c0
+msgid "code"
+msgstr "代码"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 4f3d079e83f241b380f394f5f9ebf7f3
+msgid "Are the top-10 retrieved entities ranked correctly?"
+msgstr "前 10 个被检索出的实体排序对不对？"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: ce899f475de84cb8b4d945ec416a7dbf
+msgid "Held-out `(question, code_entities)` pairs"
+msgstr "留出的 `(问题, code_entities)` 对"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 3678215bdb124f2696c7e96e621e2198
+msgid "Recall@10"
+msgstr "Recall@10"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 9a2617ce07c14cf1a16043aae8fefbc0
+msgid "Did we at least find the right entities?"
+msgstr "我们至少把正确的实体找到了没有？"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 5a37ca1398ad4a9a84be8487e2c26b98 61677988055f441faa4b1652c3a8d0de
+#: 92590123643b4c00b92585cf292d599f
+msgid "Same"
+msgstr "同上"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 0dc2775e092e49e8b379964e1acc2a6b
+msgid "Answer faithfulness (RAGAS)"
+msgstr "Answer faithfulness（RAGAS）"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: b238fd9aedfb43789cd420817a2be869 b5caa0c17067458ea736850c2bc2fb6b
+msgid "prose+code"
+msgstr "文稿 + 代码"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 10b11f37ae1d4b1d854d1aed7526b951
+msgid "Does the generated answer cite its own context?"
+msgstr "生成的答案是否引用了它自己看到的上下文？"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 8b055dca7e194c929b8972d8ed074607
+msgid "RAGAS pipeline on sample Q&A"
+msgstr "在样本 Q&A 上跑 RAGAS 流水线"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 3bc26874c2534cd5a5c254ab213260d2
+msgid "Citation resolve-rate"
+msgstr "引用解析率"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 6f58e98ed3914dfc8eab90bf231d407a
+msgid "Do the `file:line` anchors in generated answers resolve at HEAD?"
+msgstr "生成答案中的 `file:line` 锚点能否在 HEAD 处解析成功？"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 0340eebf225b407ab69f619209c7eeb5
+msgid "Every generated answer"
+msgstr "每一条生成答案"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 0a75e24d4b554c30a559146e64c62168
+msgid "BEIR-style domain scores"
+msgstr "BEIR 式的领域分数"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: eb6a443c9598452b827ebf734f90e971
+msgid "prose"
+msgstr "文稿"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 248a6ccc033a4d65b8295813454d4097
+msgid "How does retrieval quality compare against public IR corpora?"
+msgstr "检索质量与公开 IR 语料相比如何？"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 5d076f58bc55414d8545fe6698a338bb
+#, python-brace-format
+msgid "BEIR {cite}`thakur2021beir`"
+msgstr "BEIR {cite}`thakur2021beir`"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:68
+#: c473bb7eebf241d484d8c7225aa35555
+msgid ""
+"Evaluation numbers should be tracked over time on a fixed benchmark set; a "
+"single nDCG@10 = 0.74 is not a claim, but a move from 0.74 to 0.71 after a "
+"sync is."
+msgstr ""
+"评测数字应当在一个固定的基准集上沿时间线追踪；单独一个 nDCG@10 = 0.74 不是什么主张，但一次同步之后从 0.74 变成 0.71 就是了。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:72
+#: 992545d139bc4df6890c455500de43bc
+msgid "Gates"
+msgstr "门禁"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:74
+#: 132abb2e8fce48eb886419c2af6d27f2
+msgid ""
+"Gates are the *build-engineering* question. Every gate is a mechanical check"
+" that runs on CI and returns pass or fail. The catalogue distinguishes "
+"**hard** gates (block publish; non-zero exit) from **soft** gates (warn; "
+"allow publish but flag the reviewer)."
+msgstr ""
+"门禁属于 * 构建工程 * 的问题。每一条门禁都是一个跑在 CI 上、只返回 pass / fail 的机械检查。目录把它们区分为 **硬门禁** "
+"（阻止发布，非零退出码）和 **软门禁** （发警告，允许发布但提醒评审者）。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:79
+#: 22730f4e4ae54dc1b474b20cd231e944
+msgid "Hard gates — block publish"
+msgstr "硬门禁 —— 阻止发布"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 3b7620ed25124916b524f0d5cac99e48 e1fa004d87e348e59a3e4c1048074621
+msgid "#"
+msgstr "#"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 4c15ca4dd0824a689c5d42447023bf3d 7ab17741a60b45baad91cecba6d0e505
+msgid "Name"
+msgstr "名称"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: d4fd8fb14e2d46f5862e8c823e08ea47
+msgid "What it checks"
+msgstr "它检查的是什么"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 0d194be3c81d4bbd839a810f427b677d bb90d65e41b34d94855e6ede35dfa19d
+msgid "Enforced by"
+msgstr "由谁强制执行"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 4bb9753f64b842ecb559e44d982a2928
+msgid "H1"
+msgstr "H1"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 869c3772533b45bf9e0a01130f519c6d
+msgid "Footer present"
+msgstr "Footer 存在"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 8958ec9994624c2ca29978e90f51b788
+msgid "Every content page has a well-formed `PKB-metadata` footer"
+msgstr "每个内容页都带一个格式良好的 `PKB-metadata` footer"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 9f99de002c8149e4b49eb639c2cb0c7b
+msgid "`check_frontmatter.py` extension"
+msgstr "`check_frontmatter.py` 扩展"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 55a4f0c7e4614f8e8c26e83ee6e32b57
+msgid "H2"
+msgstr "H2"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 0e392e4a1d984e23923c79a00df6a117
+msgid "Footer fields valid"
+msgstr "Footer 字段合法"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 4a806baccbe74aa88e7c96b78dca4aef
+#, python-brace-format
+msgid ""
+"`review_status` ∈ {`pending`, `approved`}; `updated_by` ∈ {`human`, `ai`, "
+"`ai+human`}; `review_score` ∈ [0,5]"
+msgstr ""
+"`review_status` ∈ {`pending`, `approved`}；`updated_by` ∈ {`human`, `ai`, "
+"`ai+human`}；`review_score` ∈ [0,5]"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 956bd086fc10407780eb1a59988b15be
+msgid "H3"
+msgstr "H3"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 1bbd54a5f24744ada9174e39ea8334bb
+msgid "AI-approval consistency"
+msgstr "AI 审批一致性"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 57524bf153564f068b7597a73ee1bc03
+msgid "No page has `review_status: approved` with empty `reviewed_by`"
+msgstr "不允许出现“`review_status: approved` 但 `reviewed_by` 为空”的页面"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 26d0b11eb6cb4e9fbc16a983ff3aeb96
+msgid "H4"
+msgstr "H4"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 9674c4f8779345d78c35b4bf8102221e
+msgid "Citations resolve"
+msgstr "引用可解析"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 9490bdb8c2da4033a4373e9c314aa63a
+msgid ""
+"Every `file:line` anchor in every page points at an existing line at HEAD"
+msgstr "每个页面里的每一个 `file:line` 锚点在 HEAD 处都指向真实存在的行"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 0eed921e4ab54255b11cf03e115741bb
+msgid "`verify` step (Chapter 7)"
+msgstr "`verify` 步骤（第 7 章）"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 7850fd6173a04a69af7892175376e424
+msgid "H5"
+msgstr "H5"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 569d11e0f98c495299d1e3700648a272
+msgid "Links resolve"
+msgstr "链接可解析"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 4ae42bf046e24467961658a616dba815
+msgid "Every internal `](*.md#*)` link points at an existing anchor"
+msgstr "每一个内部 `](*.md#*)` 链接都指向真实存在的锚点"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 5bd4c38892cc4609ad51535711f282f4
+msgid "`verify` step"
+msgstr "`verify` 步骤"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 0ef7eff1112842e0813b09ee744f7f74
+msgid "H6"
+msgstr "H6"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 4bf25241785a40ebb151881220c08b87
+msgid "Excerpts provenance"
+msgstr "excerpt 出处可验证"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: e14ccdc3c11249f7b20a56c8b3e51b1a
+msgid "Every vendored excerpt's `content_sha256` matches the current file"
+msgstr "每段 vendored excerpt 的 `content_sha256` 与当前文件一致"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 7e0bc00825b645d1b8a1d2b95f9e2ea1
+msgid "`refresh_excerpts.py --check`"
+msgstr "`refresh_excerpts.py --check`"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: b4a569e5f8294a12b7bef8cb15b95092
+msgid "H7"
+msgstr "H7"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 3b6f2a024e574242a0d310a6489a5c39
+msgid "No `[TODO]` / `[FIXME]` in published pages"
+msgstr "已发布页面中不得出现 `[TODO]` / `[FIXME]`"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: ff357fdb7b3848b099a46b241cba4e94
+msgid "Pages with `status: published` contain no unresolved markers"
+msgstr "带 `status: published` 的页面里不能含有未处理的标记"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: b1e6e67b8f58430e86f797b2353728b4
+msgid "grep-style check"
+msgstr "grep 风格的检查"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:91
+#: 362f4958c71b465b9cc9c2d6ad7a5218
+msgid ""
+"Each hard gate corresponds to one specific thing that can be false about the"
+" KB and should block the deploy. H1–H3 enforce C2 (footer is observable and "
+"honest). H4–H6 enforce that citations and excerpts remain trustworthy. H7 "
+"catches the most common \"we forgot\" failure."
+msgstr ""
+"每条硬门禁都对应着知识库中“可能为假、且一旦为假就必须阻止发布”的一件具体事。H1–H3 强制 C2（footer 可观测且诚实）。H4–H6 "
+"强制“引用与 excerpt 持续可信”。H7 则负责抓最常见的那种“哎呀我们忘了”的失误。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:96
+#: 9b59278dfdd2448d9a8e805e05441344
+msgid "Soft gates — warn but allow"
+msgstr "软门禁 —— 发警告，但允许发布"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 9001ae27e2a84222b9e16eebfaa9b528
+msgid "What it warns about"
+msgstr "它警告的是什么"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 1a594c57bfa04908b4634cf588ce0e80
+msgid "S1"
+msgstr "S1"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: f2784b2abed745f89982f725dbd525d1
+msgid "Stale footers"
+msgstr "footer 陈旧"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: d715438f7b7f42de9aafdfb20051e8b0
+msgid "Any page's footer `commit:` is more than N commits behind HEAD"
+msgstr "任何页面的 footer `commit:` 距 HEAD 超过 N 个 commit"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 45bcb568a58c4ff8877560c419756c15
+msgid "`check-staleness.py`"
+msgstr "`check-staleness.py`"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 148678335f084a5fb0d17ef97eb6fe26
+msgid "S2"
+msgstr "S2"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: a5621d2518174a73bb283109dbb3de5f
+msgid "Low review score"
+msgstr "评审分数过低"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: f8303545a9c04a1d937ddc2d0499bcf8
+msgid "Any published page has `review_score` < 2"
+msgstr "任何已发布页面的 `review_score` < 2"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: ac5b8440c3104007bb7b01ecaee53a78
+msgid "Footer scan"
+msgstr "扫描 footer"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 2ce50068181d45a1bd44d27e39ec553a
+msgid "S3"
+msgstr "S3"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: bbdea118b3324d4b9646f2ca61575199
+msgid "Imbalanced Diátaxis"
+msgstr "Diátaxis 失衡"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 08560caf5cac4160919d455b826d41b0
+msgid "The published KB has no how-to pages (or no tutorial, etc.)"
+msgstr "已发布的知识库里没有 how-to 页面（或没有 tutorial，等等）"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 976741a65fb646568d140faf4922e39e
+msgid "Histogram over `doc_type`"
+msgstr "对 `doc_type` 做直方图"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 98795f911eb54e4fba275faeb8eaab70
+msgid "S4"
+msgstr "S4"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 2527fb2623ee46b3ba9fd00e5f362a87
+msgid "Answer-faithfulness regression"
+msgstr "answer-faithfulness 回归"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 9daf869bf7e34447a2c87bb7a9b9b908
+#, python-format
+msgid "Nightly RAGAS-style scores fell > 5% from last build"
+msgstr "夜间 RAGAS 风格分数相比上一次构建下降 > 5%"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: de1c761631bb406a87fe63e40fd13f71
+msgid "CI job"
+msgstr "CI 任务"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 582be60976524e0d86c26b650b659b75
+msgid "S5"
+msgstr "S5"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: afe872596d884d4294bc937a9e3b526c
+msgid "Coverage gap"
+msgstr "覆盖缺口"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: 7d54c59ead6f44e6a7297b709666e9e8
+msgid "A 10-page set (C1) page is missing"
+msgstr "10 页集合（C1）中缺了某一页"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md
+#: acad666e7eb543f88d19737d13686c2d
+msgid "`required_pages.txt` check"
+msgstr "`required_pages.txt` 检查"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:106
+#: 4bd07439bd52468ca63fff997fd89650
+msgid ""
+"Soft gates are honest warnings, not release blockers. A KB with an S3 "
+"warning is still a KB; it just has a reviewer-visible reminder that it is "
+"drifting away from its own page-set commitments."
+msgstr ""
+"软门禁是诚实的警告，不是发布阻塞项。一个带着 S3 警告的知识库仍然是知识库；它只不过多了一条评审者可见的提醒：“你正在偏离自己对页面集合做出的承诺”。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:110
+#: a7c52a47b870445aa29ab4857c169f92
+msgid "How"
+msgstr "How —— 怎么做"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:112
+#: d68b3811630c491091f3d6784921dec5
+msgid "The gate runner"
+msgstr "门禁 runner"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:114
+#: 8f8d19c3c69845239c399f83c3c40a9a
+msgid ""
+"The gate system is a single CI script that runs every check and aggregates "
+"results. A minimal implementation:"
+msgstr "整个门禁系统就是一个 CI 脚本：逐条跑每项检查并汇总结果。一个最小实现："
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:139
+#: d2849605097f485bb6134df04d298883
+msgid ""
+"Every gate exposes the same interface: a `check()` method that returns `(ok,"
+" detail)` and a stable `name`. This lets the CI script stay short — it is "
+"the gates themselves that hold the domain knowledge — and lets every gate be"
+" tested in isolation."
+msgstr ""
+"每条门禁都暴露相同的接口：一个返回 `(ok, detail)` 的 `check()` 方法和一个稳定的 `name`。这让 CI 脚本本身很短 ——"
+" 领域知识被封装在门禁自身里 —— 并且让每条门禁都可以单独测试。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:144
+#: 271cf0673f234ae29caf0f999e1adec3
+msgid "The gate report"
+msgstr "门禁报告"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:146
+#: c7d323382b114fc186aafffaeda87de0
+msgid ""
+"The output of a gate run is a two-section report: hard failures (if any) "
+"followed by soft warnings. The report is Markdown, committed to the build "
+"artefacts, and linked from the PR that triggered the build:"
+msgstr ""
+"一次门禁跑完的输出是一份两段式报告：硬失败（如果有的话）在前，软警告在后。报告是 Markdown 格式的，作为 build artefact "
+"落盘，并从触发本次构建的 PR 处链过来："
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:169
+#: 077b62b6bb344487b00af2cfa60bcf17
+msgid ""
+"Hard-failure exit codes block the CI publish step; soft warnings are "
+"appended to the PR as a comment so the reviewer sees them without CI going "
+"red."
+msgstr "硬失败退出码会阻塞 CI 的发布步骤；软警告作为评论追加到 PR 里，这样 CI 不至于红掉，评审者仍然能看到它们。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:173
+#: 8e950d64bd654bea91544c5e8c3a94df
+msgid "A worked failure"
+msgstr "一次具体的失败"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:175
+#: 4ff1d06dbe044d84ba1c163a5fc990bf
+msgid ""
+"Suppose a PR adds a new function to `internal/worker/pool.go` — good faith "
+"addition, no rename, no break. The author also edits `architecture.md` to "
+"mention the new function and, while there, adds a `<!-- TODO: add diagram "
+"-->` marker intending to come back later."
+msgstr ""
+"假设有一个 PR 往 `internal/worker/pool.go` 里加了一个新函数 —— 诚意新增，无重命名、无破坏性改动。作者顺手编辑了 "
+"`architecture.md` 来提到这个新函数，并在那儿加了个 `<!-- TODO: add diagram -->` 标记，打算以后回来补。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:180
+#: c9a5947239dd43c1bfb47adcd88a38ca
+msgid "Run the gates:"
+msgstr "跑一遍门禁："
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:182
+#: d5e70c260a57463f8f254fe4d4052352
+msgid "**H1 Footer present.** Pass. `architecture.md` has a footer."
+msgstr "**H1 Footer 存在。** 通过。`architecture.md` 有 footer。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:183
+#: 0755b91fda384d45bdd079b1b43d7013
+msgid "**H2 Footer fields valid.** Pass. Fields are well-formed."
+msgstr "**H2 Footer 字段合法。** 通过。字段都格式良好。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:184
+#: 9b05892eab26474892e5067d0168a9d6
+msgid ""
+"**H3 AI-approval consistency.** Pass. The author set `updated_by: human`, "
+"`review_status: pending`, `review_score: 0`, `reviewed_by:`. Everything "
+"consistent."
+msgstr ""
+"**H3 AI 审批一致性。** 通过。作者设了 `updated_by: human`、`review_status: "
+"pending`、`review_score: 0`、`reviewed_by:`。一切自洽。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:187
+#: cce1a70fe1cb472dad4274f6f069a6fe
+msgid ""
+"**H4 Citations resolve.** Pass. The new function's `file:line` resolves."
+msgstr "**H4 引用可解析。** 通过。新函数的 `file:line` 能解析成功。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:189
+#: 4399a26cf547441393ee15e1f5fb0593
+msgid "**H5 Links resolve.** Pass."
+msgstr "**H5 链接可解析。** 通过。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:190
+#: b6e3bfe2832044babf337cabfd55b9d4
+msgid "**H6 Excerpts provenance.** Pass."
+msgstr "**H6 excerpt 出处可验证。** 通过。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:191
+#: c375542e42cf4de0821bce4b256c44b1
+msgid ""
+"**H7 No `[TODO]` in published pages.** **FAIL.** The `<!-- TODO -->` marker "
+"is in a page with `status: published`."
+msgstr ""
+"**H7 已发布页面不得含 `[TODO]`。** **失败。** `<!-- TODO -->` 标记出现在了一个 `status: "
+"published` 的页面里。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:194
+#: 28b9aa3d5dcc4969860ce008084360f5
+msgid ""
+"The gate blocks publish. The reviewer sees a single-line failure and a "
+"pointer to line 47 of the diff. Cost of the check: a grep across "
+"`content/**/*.md` that finished in 30 ms. Cost of having skipped the check: "
+"a production KB that publishes a page whose diagram says \"TODO\", which a "
+"user sees and loses a small amount of trust over. That trust does not come "
+"back for free."
+msgstr ""
+"门禁阻止了发布。评审者看到的是一行失败信息 + 一个指向 diff 第 47 行的指针。本次检查的成本：对 `content/**/*.md` 的一次 "
+"grep，在 30 ms 内完成。跳过这次检查的成本：线上知识库发布了一个图示写着“TODO”的页面 —— "
+"有用户看到了，对它的信任感轻微折损。这种折损不会自己免费恢复。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:201
+#: 9d1167da7e124299b1e64dbe70083280
+msgid "Example"
+msgstr "Example —— 范例"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:203
+#: a984e0f248e44b2b9b07b37b472dcf9d
+msgid "A full gate run from a real Friday-afternoon PR (numbers anonymised):"
+msgstr "一次真实周五下午 PR 上的完整门禁跑动（数据已匿名化）："
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:232
+#: c68e492586da4420a742fafb20261428
+msgid ""
+"The author sees three specific things to fix, not a 400-file review queue. "
+"Fixing them takes perhaps ten minutes: one page's `reviewed_by` field gets "
+"filled in, one citation gets updated to the new line number, one broken "
+"`file:line` gets repointed to the file that replaced `cmd/sync/main.go`. Re-"
+"run the gates: all pass. Publish proceeds."
+msgstr ""
+"作者看到的是三件具体要修的事，而不是一份 400 个文件的评审队列。修完这三件大约花 10 分钟：一个页面的 `reviewed_by` "
+"字段被补上，一条引用被更新到新的行号，一条坏掉的 `file:line` 被重新指向替代 `cmd/sync/main.go` "
+"的那个文件。重跑门禁：全部通过。发布继续。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:239
+#: 5848182a276640c89ecef7978a12fc90
+msgid "Conclusion"
+msgstr "Conclusion —— 小结"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:241
+#: 5297a67f65c6418a941b7d67e133eade
+msgid ""
+"Evaluation (IR metrics, faithfulness scores) tells you whether the KB is "
+"useful once published. Gating (hard and soft checks) tells you whether this "
+"specific build is publishable at all. Both are mechanical. Both are cheap. "
+"Both are refused by most KBs today, because adding them requires committing "
+"to the four corners of Chapter 7a — if the footer is not there, H1 cannot "
+"run; if the operational model does not resolve citations, H4 cannot run."
+msgstr ""
+"评测（IR 指标、faithfulness 分数）告诉你：知识库一旦发布出去是否有用。门禁（硬 / "
+"软检查）告诉你：这一次具体构建是否根本就“可以发”。两者都是机械的，都很便宜。但今天大多数知识库两者都拒绝上 —— 因为要加它们，就得对第 7a "
+"章那四个角落做出承诺：footer 不在，H1 就跑不起来；运维模型不解析引用，H4 就跑不起来。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:249
+#: fe808e2927994c11909cdaa180e803c2
+msgid ""
+"The next chapter closes the loop: when a hard gate fails or a soft gate "
+"warns, *what does the fix look like?* The answer is the three-level update "
+"strategy (C3), the actual mechanics of which have been previewed here but "
+"belong to Chapter 16."
+msgstr ""
+"下一章把整条回路闭合：当硬门禁失败、或软门禁告警时， * 修复到底长什么样？ * 答案就是三级更新策略（C3）—— "
+"它的真正机制在本章已经先铺了一下，但正经讲述属于第 16 章。"
+
+#: ../../part4-operations-lifecycle/ch15-evaluation-and-benchmarks.md:254
+#: 334ee435fd2b4c2daa2fbc7ca2ac9e67
+msgid "References"
+msgstr "参考文献"
+
+#~ msgid ""
+#~ "function run_gates():\n"
+#~ "    hard_failures := []\n"
+#~ "    soft_failures := []\n"
+#~ "\n"
+#~ "    for gate in HARD_GATES:\n"
+#~ "        result = gate.check()\n"
+#~ "        if not result.ok:\n"
+#~ "            hard_failures.append((gate.name, result.detail))\n"
+#~ "\n"
+#~ "    for gate in SOFT_GATES:\n"
+#~ "        result = gate.check()\n"
+#~ "        if not result.ok:\n"
+#~ "            soft_failures.append((gate.name, result.detail))\n"
+#~ "\n"
+#~ "    emit_report(hard_failures, soft_failures)\n"
+#~ "\n"
+#~ "    if hard_failures:\n"
+#~ "        exit 1        # block publish\n"
+#~ "    exit 0            # allow publish; soft warnings in the report\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "## Hard gates\n"
+#~ "\n"
+#~ "❌ H4 Citations resolve — 2 failure(s)\n"
+#~ "   content/architecture.md:47 cites internal/worker/pool.go:142\n"
+#~ "     → line 142 does not exist at commit 9f8e7d6c (file has 120 lines)\n"
+#~ "   content/data-and-api.md:23 cites cmd/sync/main.go:58\n"
+#~ "     → file does not exist at commit 9f8e7d6c\n"
+#~ "\n"
+#~ "## Soft warnings\n"
+#~ "\n"
+#~ "⚠ S1 Stale footers — 7 page(s)\n"
+#~ "   content/observability.md  (footer commit a1b2c3d is 42 commits behind HEAD)\n"
+#~ "   ...\n"
+#~ "⚠ S3 Imbalanced Diátaxis\n"
+#~ "   Published KB has 0 tutorials; the page-set commitment (C1) requires\n"
+#~ "   at least 1.\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "$ python build_kb_gates.py\n"
+#~ "Running 7 hard gates and 5 soft gates across 137 pages...\n"
+#~ "\n"
+#~ "Hard gates:\n"
+#~ "  H1 Footer present              137/137 pass\n"
+#~ "  H2 Footer fields valid         137/137 pass\n"
+#~ "  H3 AI-approval consistency     136/137 pass — 1 FAIL\n"
+#~ "       content/runbook.md: review_status=approved but reviewed_by=''\n"
+#~ "  H4 Citations resolve           423/425 pass — 2 FAIL\n"
+#~ "       content/architecture.md:47  internal/worker/pool.go:142  (line missing)\n"
+#~ "       content/data-and-api.md:23  cmd/sync/main.go:58          (file missing)\n"
+#~ "  H5 Links resolve               612/612 pass\n"
+#~ "  H6 Excerpts provenance         18/18  pass\n"
+#~ "  H7 No [TODO] in published      137/137 pass\n"
+#~ "\n"
+#~ "Soft gates:\n"
+#~ "  S1 Stale footers               7 page(s) > 30 commits behind HEAD\n"
+#~ "  S2 Low review score            0 page(s)\n"
+#~ "  S3 Imbalanced Diátaxis         WARN — published KB has 0 tutorials\n"
+#~ "  S4 Answer-faithfulness         pass — 0.81 (prev 0.82; delta −0.01)\n"
+#~ "  S5 Coverage gap                pass — all 10 required pages present\n"
+#~ "\n"
+#~ "Hard failures: 3   Soft warnings: 2\n"
+#~ "FAIL — publish blocked. See report above.\n"
+#~ msgstr ""

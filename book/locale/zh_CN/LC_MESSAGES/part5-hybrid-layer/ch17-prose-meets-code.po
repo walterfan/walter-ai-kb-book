@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 21:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:13
+#: 50dc9f84526b4864abc17088074853bd
+msgid "Chapter 17 — Prose Meets Code"
+msgstr "第 17 章 —— 文稿与代码相遇"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:15
+#: 4b404bdef57b484d8cb365fb7b5bf0dc
+msgid "Why"
+msgstr "Why —— 为什么"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:17
+#: c731e0d513a44fc5b328e763cbc5487d
+#, python-brace-format
+msgid ""
+"Stub — replace with the chapter's motivation. Draws on "
+"{cite}`fanyamin2026deepwiki` where the blog's corresponding section applies "
+"(see `design.md` D8 for the mapping)."
+msgstr ""
+"Stub —— 此处待填本章动机。对应博客小节适用时即引用 {cite}`fanyamin2026deepwiki`（映射见 `design.md` "
+"D8）。"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:21
+#: f56be2e536f14ba9ae237ab5b15ca21e
+msgid "What"
+msgstr "What —— 是什么"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:23
+#: 5f881d8ea03d4cc4afc6220ae1e4c607
+msgid "Stub — the precise definitions and scope."
+msgstr "Stub —— 此处待填精确的定义与范围界定。"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:25
+#: 3455b933997b4dc6870cc7732a03c71c
+msgid "How"
+msgstr "How —— 怎么做"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:27
+#: 2b77306e808f41c49a0d4c2b31db603e
+msgid ""
+"Stub — the methodology, architecture, and code excerpts. Code comes via "
+"`book/examples/part3-code-layer/` with provenance from `examples/SOURCE.md`."
+msgstr ""
+"Stub —— 此处待填方法论、架构与代码片段。代码通过 `book/examples/part3-code-layer/` 接入，来源信息见 "
+"`examples/SOURCE.md`。"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:31
+#: b4d4400ccf3643858685d893ae0666d6
+msgid "Example"
+msgstr "Example —— 范例"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:33
+#: 8eb1d55baaf74e1ebd7f06184a2a5965
+msgid "Stub — an end-to-end recipe a reader can reproduce."
+msgstr "Stub —— 此处待填一份读者可复现的端到端操作步骤。"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:35
+#: 8e21a38f55f14759ac6483560d7058c0
+msgid "Conclusion"
+msgstr "Conclusion —— 小结"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:37
+#: 1519b4e03d244db68ca0ece7fce20e6b
+msgid "Stub — what we learned and what remains open."
+msgstr "Stub —— 此处待填“我们学到了什么、还有什么尚未回答”。"
+
+#: ../../part5-hybrid-layer/ch17-prose-meets-code.md:39
+#: c11a7ddeff404de3b306bc303418b173
+msgid "References"
+msgstr "参考文献"
+
+#~ msgid ""
+#~ "Stub — the methodology, architecture, and code excerpts. Code comes via "
+#~ "`book/examples/codekg-excerpts/` with provenance from `examples/SOURCE.md`."
+#~ msgstr ""

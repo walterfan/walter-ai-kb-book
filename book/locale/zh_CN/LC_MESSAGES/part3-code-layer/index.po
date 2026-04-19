@@ -1,0 +1,289 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 21:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../part3-code-layer/index.md:12 142f2e076e5342b8a61b0b70f1325ae8
+msgid "Part III — The Code Layer"
+msgstr "第三部分 —— 代码层"
+
+#: ../../part3-code-layer/index.md:14 2f3f8f8abfb044b9b6943013cf0fc85b
+msgid ""
+"Part III on one page — six chapters turn the \"wiki works, grep doesn't\" "
+"pain of Part II into a dual-stack (vector + graph) retriever that answers "
+"structural, identifier, and fuzzy questions with citations:"
+msgstr ""
+"第三部分一图览 —— 六章把第二部分“wiki 好用、grep 不行”的痛点，升级成一个双栈（向量 + "
+"图谱）检索器，能为结构化、标识符精确匹配以及模糊自然语言三类问题都给出带引用的答案："
+
+#: ../../part3-code-layer/index.md:54 e05fff87729e475b9cae42edad2cc255
+msgid "Why"
+msgstr "Why —— 为什么"
+
+#: ../../part3-code-layer/index.md:56 1c67f0f7e54f49978e19b3adbdd92c0c
+msgid ""
+"Part II's prose layer solves one class of question — *\"what do we know "
+"about X?\"* — and fails on the other — *\"where in the code base is X "
+"used?\"*. Chapter 8 makes the failure precise; the rest of Part III builds "
+"the dual-stack (vector + graph) pipeline that answers the second class, "
+"grounded in the code-layer reference implementation (paths under `reference-"
+"impl/code-kg/`)."
+msgstr ""
+"第二部分的文稿层解决了一类问题 —— * “我们对 X 了解多少？” * —— 但对另一类 —— * “代码库里哪里用到了 X？” * —— "
+"束手无策。第 8 章会把这个失败讲得更精确；第三部分其余各章则围绕“代码层参考实现”（路径位于 `reference-impl/code-kg/` "
+"下）构建起一条能回答第二类问题的双栈（向量 + 图谱）流水线。"
+
+#: ../../part3-code-layer/index.md:63 733b27d3fb214e40948dbdd7fb7ec1fb
+msgid ""
+"The failure is not a gap in the wiki — it is a category error. A human "
+"writes a wiki page about *\"how sync works\"* but not about *\"who calls "
+"`runSync`\"*, because the first sentence is worth writing and the second is "
+"derivable from the code. A code-layer KB is the machine that *does* the "
+"deriving, continuously, so that every engineer gets the answer in two "
+"seconds rather than twenty minutes of grep-and-scroll."
+msgstr ""
+"这个失败并不是 wiki 的遗漏，而是范畴错误。人会写一篇 * “同步是怎么工作的” * 的 wiki 页，却不会去写 * “谁调用了 "
+"`runSync`” * —— 因为前一句值得动笔写，后一句可以从代码推导。代码层知识库就是那台 * 持续做推导 * "
+"的机器，让每个工程师都能在两秒内拿到答案，而不是 grep 二十分钟再滚动翻看。"
+
+#: ../../part3-code-layer/index.md:71 4eb49f313f804d7d8be58f24502ad1ea
+msgid "What"
+msgstr "What —— 是什么"
+
+#: ../../part3-code-layer/index.md:73 5df18f80fbbf4a839b68981d605453b0
+#, python-brace-format
+msgid ""
+"Everything needed to answer structural, identifier, and fuzzy natural-"
+"language questions over a codebase with *citations* — one chapter per stage "
+"of the pipeline introduced in the blog's §§2–8 {cite}`fanyamin2026deepwiki`:"
+msgstr ""
+"覆盖一切：在代码库上回答结构化、标识符精确匹配以及模糊自然语言三类问题，并 * 为每条结论给出引用 * 。按博客 §§2–8 "
+"{cite}`fanyamin2026deepwiki` 所划分的流水线阶段，每章对应一个阶段："
+
+#: ../../part3-code-layer/index.md:78 441d74af50d44071a34e6d03eb710018
+msgid ""
+"**Chapter 8 — Why code is not prose.** Three structural claims (parse first,"
+" embed identity, graph carries relations); one measured experiment (vector-"
+"only vs hybrid on real code queries); four anti-patterns that cause first-"
+"time code-KB builds to fail."
+msgstr ""
+"**第 8 章 —— 为什么代码不是文稿。** 三条结构性主张（先解析、再嵌入“身份”、图谱承载关系）；一个可量化的对比实验（纯向量 vs "
+"混合，在真实代码查询上）；四个让首次搭建代码知识库的团队踩坑的反模式。"
+
+#: ../../part3-code-layer/index.md:82 3a2bb5bfcaec4199bcf7f80ccbd614ca
+#, python-brace-format
+msgid ""
+"**Chapter 9 — Parsing and entity extraction.** A real parser (tree-sitter "
+"{cite}`brunsfeld_treesitter`); a closed entity schema (`package`, `type`, "
+"`method`, `function`); stable IDs from `sha256(repoID + filePath + "
+"entityType + name + startLine)[:16]`; resource-leak, closure-noise, and "
+"multi-line-signature pitfalls."
+msgstr ""
+"**第 9 章 —— 解析与实体抽取。** 一个真正的解析器（tree-sitter "
+"{cite}`brunsfeld_treesitter`）；一份封闭的实体集合（`package`、`type`、`method`、`function`）；稳定"
+" ID 来自 `sha256(repoID + filePath + entityType + name + "
+"startLine)[:16]`；以及资源泄漏、闭包噪声、多行签名三类典型坑。"
+
+#: ../../part3-code-layer/index.md:88 5f96f3e19da64c6cba74404793ee7c32
+#, python-brace-format
+msgid ""
+"**Chapter 10 — Embeddings and vector stores.** A five-line identity template"
+" (`Language / Type / Name / Signature / Doc`) that beats body-embedding by "
+"roughly 2x on recall@10; batch + backoff + rate-limit discipline; `sqlite-"
+"vec` {cite}`sqlite_vec` / `pgvector` {cite}`pgvector` / `Milvus` "
+"{cite}`milvus` decision matrix; theory anchor on bi-encoders "
+"{cite}`reimers2019sbert`, cross-encoders {cite}`nogueira2019passage`, and "
+"HNSW {cite}`malkov2018hnsw`."
+msgstr ""
+"**第 10 章 —— 嵌入向量与向量存储。** 五行的“身份模板”（`Language / Type / Name / Signature / "
+"Doc`），在 recall@10 指标上大约是嵌入函数体的两倍；批量 + 退避 + 限速三件套；`sqlite-vec` "
+"{cite}`sqlite_vec` / `pgvector` {cite}`pgvector` / `Milvus` {cite}`milvus` "
+"的选型决策矩阵；配套理论锚点：bi-encoder {cite}`reimers2019sbert`、cross-encoder "
+"{cite}`nogueira2019passage` 与 HNSW {cite}`malkov2018hnsw`。"
+
+#: ../../part3-code-layer/index.md:96 915f8932606c4781abefb5e3f18943d8
+#, python-brace-format
+msgid ""
+"**Chapter 11 — Code knowledge graph.** A closed eight-edge taxonomy on a "
+"graph database (e.g. Memgraph {cite}`memgraph`); location-aware node IDs; "
+"full-rebuild-per-repo write pattern; theory anchor on graph locality and the"
+" GraphCodeBERT data-flow prior {cite}`guo2021graphcodebert`."
+msgstr ""
+"**第 11 章 —— 代码知识图谱。** 一套跑在图数据库（例如 Memgraph {cite}`memgraph`）上的封闭八种关系；位置相关的节点"
+" ID；每个仓库一次“全量重建”的写入模式；理论锚点：图的“邻近性”观念，以及 GraphCodeBERT 提出的数据流先验 "
+"{cite}`guo2021graphcodebert`。"
+
+#: ../../part3-code-layer/index.md:102 8e50377a16254e3f9a5c5fc6fdb197dc
+#, python-brace-format
+msgid ""
+"**Chapter 12 — Hybrid retrieval and RRF.** Three-tier strategy (vector "
+"primary → keyword fallback → graph expansion); why score-level fusion is "
+"meaningless and rank-level fusion (RRF {cite}`cormack2009rrf`) is the "
+"upgrade path; query-routing heuristics that save latency."
+msgstr ""
+"**第 12 章 —— 混合检索与 RRF。** 三层策略（向量优先 → 关键词兜底 → "
+"图扩展）；为什么“按分数加权融合”毫无意义，而“按排名融合”（RRF "
+"{cite}`cormack2009rrf`）才是正确升级路径；节省延迟的查询路由启发式规则。"
+
+#: ../../part3-code-layer/index.md:108 09488bd66f5f4902b58d2489f7644b0f
+#, python-brace-format
+msgid ""
+"**Chapter 13 — Prompt and generation.** Two hard rules (always cite "
+"`file:line`; refuse when context is insufficient); structured-context "
+"format; measurable faithfulness {cite}`es2024ragas`; the indirect prompt-"
+"injection threat model {cite}`greshake2023injection`."
+msgstr ""
+"**第 13 章 —— Prompt 与生成。** 两条硬规则（每条结论都要附 "
+"`file:line`；上下文不足就明确拒答）；结构化上下文格式；可度量的 faithfulness {cite}`es2024ragas`；以及间接 "
+"prompt 注入的威胁模型 {cite}`greshake2023injection`。"
+
+#: ../../part3-code-layer/index.md:114 7612c29fa70b48c4a16c3c54ecb98239
+msgid "How"
+msgstr "How —— 怎么做"
+
+#: ../../part3-code-layer/index.md:116 c789c7349d40479e8e04bca7daf290ec
+#, python-brace-format
+msgid ""
+"Every chapter ships at least one `{literalinclude}` from a vendored excerpt "
+"(see `examples/SOURCE.md`), at least three citations, and at least one "
+"measurement the blog did not report — the book's non-copy policy. Excerpts "
+"are refreshed with `make book-refresh-excerpts` and verified byte-stable "
+"with `make book-check-excerpts`."
+msgstr ""
+"每章都至少附带一段来自 vendored 代码节选的 `{literalinclude}`（见 "
+"`examples/SOURCE.md`）、至少三条引用，以及至少一项博客中未出现的测量数据 —— 这是本书的“不照搬”原则。节选通过 `make "
+"book-refresh-excerpts` 刷新，并用 `make book-check-excerpts` 做字节级稳定性校验。"
+
+#: ../../part3-code-layer/index.md:123 a2e7d10e0a814e76864f19e3b5215092
+msgid ""
+"Each chapter also follows the same Part II-inspired five-section spine: a "
+"*Monday-morning hook* connecting the chapter to a pain you have lived "
+"through; the *Why / What / How* that reads as engineering, not survey; a "
+"*Theory anchor* (ch10–ch13) that names the published results behind the "
+"design; a *Common mistakes* section that lists the anti-patterns; and an "
+"*Example* block reproducible against the code-layer reference implementation"
+" in Appendix B."
+msgstr ""
+"每一章也沿用第二部分立下的五段式骨架： * 周一早晨的钩子 * 把本章和你真实踩过的坑连起来；* Why / What / How * "
+"段读起来像工程而非综述；* Theory anchor * 段（第 10–13 章）明确点出设计背后的已发表结果；* Common mistakes *"
+" 段列出反模式；* Example * 段给出可在附录 B 的代码层参考实现上复现的操作步骤。"
+
+#: ../../part3-code-layer/index.md:132 94abf624d60c4a258eb5dbf7b68114dd
+msgid "Operational model"
+msgstr "运维模型"
+
+#: ../../part3-code-layer/index.md:134 1ba5be3915fc414ba812dcc41bce782a
+msgid ""
+"The code layer inherits Part II's verification-first mindset and specialises"
+" it:"
+msgstr "代码层继承了第二部分“先验证后相信”的思路，并做了针对代码的特化："
+
+#: ../../part3-code-layer/index.md:137 c53aa6e0e1fd47f3866d2db70f1dbac4
+msgid ""
+"**Build** — `code-kg sync --repo-id <id>` parses, embeds, and rebuilds the "
+"graph. Idempotent; safe to re-run."
+msgstr "**构建** —— `code-kg sync --repo-id <id>` 执行解析、嵌入、图谱重建。幂等；随时可安全重跑。"
+
+#: ../../part3-code-layer/index.md:139 80919d4a894e46ed9133038162e32b78
+msgid ""
+"**Verify** — recall@5 on a held-out query set (identifier, structural, "
+"fuzzy) is the primary retrieval health metric. Prompt metrics (citation "
+"compliance, refusal rate) are secondary and *only move* when recall is not "
+"the bottleneck."
+msgstr ""
+"**验证** —— 在留出查询集上（涵盖标识符、结构、模糊三类）的 recall@5 是检索健康度的首要指标。prompt "
+"相关指标（引用合规率、拒答率）排第二，且 * 只有在 recall 不是瓶颈时 * 才值得去优化。"
+
+#: ../../part3-code-layer/index.md:143 d7e06fc981e84041aefc01271c28cdd9
+msgid ""
+"**Operate** — the retriever degrades gracefully: no embedding API key → "
+"keyword-only mode; no graph connectivity → vector + keyword only; no vectors"
+" → keyword only. Every mode is still useful; no mode is a hard fail."
+msgstr ""
+"**运行** —— 检索器优雅降级：没有嵌入 API key → 仅关键词模式；连不上图谱 → 仅向量 + 关键词；没有向量 → "
+"仅关键词。每种模式都仍然有用；没有一种模式会彻底不可用。"
+
+#: ../../part3-code-layer/index.md:148 7f68de2d65aa49ecab96b4299bc8c7c8
+msgid "Example"
+msgstr "Example —— 范例"
+
+#: ../../part3-code-layer/index.md:150 08294db314f843a5a6799355351864e4
+msgid ""
+"Appendix B runs the full pipeline end-to-end: register the repo, sync, ask "
+"three questions (one per retriever tier), then do an incremental sync on a "
+"one-line diff to measure the speedup ratio."
+msgstr "附录 B 端到端跑一遍完整流水线：注册仓库、全量同步、按三个检索层各问一个问题，再对一行改动做增量同步，实测增量相对全量的加速比。"
+
+#: ../../part3-code-layer/index.md:154 abda18ef614645c9a41dfdcaa93b45bd
+msgid "Pointer checklist"
+msgstr "要点清单"
+
+#: ../../part3-code-layer/index.md:156 9387a68e87d54083894c7f4208eff8ab
+msgid ""
+"For a one-screen summary of the six key decisions you carry forward from "
+"Part III into your own system, jump to the **\"Part III pointer "
+"checklist\"** section at the end of Chapter 13. Each item is a commit-"
+"before-coding decision, not a retrospective."
+msgstr ""
+"若需要一屏内看完“从第三部分可以带走的六个关键决策”，直接跳到第 13 章末尾的 **“Part III pointer checklist”** "
+"段。每一条都是“写代码前要先拍板”的决策，而非事后总结。"
+
+#: ../../part3-code-layer/index.md:162 9ef76d8e4f1c42f5be6f05b27393faae
+msgid "Conclusion"
+msgstr "Conclusion —— 小结"
+
+#: ../../part3-code-layer/index.md:164 074970d2e80140f9a925a77ca664deb5
+msgid ""
+"With Parts II and III in place, the KB answers both prose and code questions"
+" with cited, reproducible responses. Parts IV–VI make the result "
+"*operationally durable* (drift, evaluation, governance) and extend it to "
+"hybrid workflows (AI coding assistants, agents)."
+msgstr ""
+"有了第二部分和第三部分，这个知识库就能用带引用、可复现的方式同时回答文稿问题和代码问题。第四 —— 第六部分会让结果 * 在运维上持续可靠 * "
+"（漂移、评估、治理），并把它扩展到混合工作流（AI 编码助手、智能体）。"
+
+#: ../../part3-code-layer/index.md:170 44164cb89d09480aa0fcc86cec1b8225
+msgid "References"
+msgstr "参考文献"
+
+#~ msgid "ch08 — why code breaks prose retrievers"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "ch09 — parsing with tree-sitter {cite}`brunsfeld_treesitter`, a closed "
+#~ "entity schema, and stable IDs"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "ch10 — structured-input embeddings and sqlite-vec {cite}`sqlite_vec` / "
+#~ "pgvector {cite}`pgvector` / Milvus {cite}`milvus`"
+#~ msgstr ""
+
+#~ msgid "ch11 — a bounded relation taxonomy on Memgraph {cite}`memgraph`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "ch12 — three-tier hybrid retrieval (vector → keyword → graph) with RRF "
+#~ "{cite}`cormack2009rrf` as the marked upgrade path"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "ch13 — two-rule prompt, structured context, measured citation compliance"
+#~ msgstr ""

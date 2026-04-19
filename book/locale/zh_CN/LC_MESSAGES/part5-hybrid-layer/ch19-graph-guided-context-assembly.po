@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Walter (Yamin) Fan
+# This file is distributed under the same license as the Use AI to build a
+# knowledge base for a software project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Use AI to build a knowledge base for a software project 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 21:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:13
+#: 3b95880910d948f5aa3ffb53af26c61c
+msgid "Chapter 19 — Graph-guided Context Assembly"
+msgstr "第 19 章 —— 图引导的上下文组装"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:15
+#: 08a17d8657184b4596d01b98ca08c896
+msgid "Why"
+msgstr "Why —— 为什么"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:17
+#: 3a09a968bf6a4104a4933bbb725e116d
+#, python-brace-format
+msgid ""
+"Stub — replace with the chapter's motivation. Draws on "
+"{cite}`fanyamin2026deepwiki` where the blog's corresponding section applies "
+"(see `design.md` D8 for the mapping)."
+msgstr ""
+"Stub —— 此处待填本章动机。对应博客小节适用时即引用 {cite}`fanyamin2026deepwiki`（映射见 `design.md` "
+"D8）。"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:21
+#: 41c74b089c194c69a2c61b52306e4a50
+msgid "What"
+msgstr "What —— 是什么"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:23
+#: 73388bafd5ed4c828a44dc61a142e3c0
+msgid "Stub — the precise definitions and scope."
+msgstr "Stub —— 此处待填精确的定义与范围界定。"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:25
+#: b4e472077712439794cff94ba57b1686
+msgid "How"
+msgstr "How —— 怎么做"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:27
+#: 629f5e1250b4418dac43d7a82b5db17d
+msgid ""
+"Stub — the methodology, architecture, and code excerpts. Code comes via "
+"`book/examples/part3-code-layer/` with provenance from `examples/SOURCE.md`."
+msgstr ""
+"Stub —— 此处待填方法论、架构与代码片段。代码通过 `book/examples/part3-code-layer/` 接入，来源信息见 "
+"`examples/SOURCE.md`。"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:31
+#: 98cd164fbac049039f74d609b3fb0552
+msgid "Example"
+msgstr "Example —— 范例"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:33
+#: 98bbb4bd4f1146e1875b060f1570e1eb
+msgid "Stub — an end-to-end recipe a reader can reproduce."
+msgstr "Stub —— 此处待填一份读者可复现的端到端操作步骤。"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:35
+#: 7323266dd84145d3b999fcede36aa205
+msgid "Conclusion"
+msgstr "Conclusion —— 小结"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:37
+#: 7c0585f8cd0048ca8b13b30b7d9c1040
+msgid "Stub — what we learned and what remains open."
+msgstr "Stub —— 此处待填“我们学到了什么、还有什么尚未回答”。"
+
+#: ../../part5-hybrid-layer/ch19-graph-guided-context-assembly.md:39
+#: 77345585dd9a4ce3bbfc9f96a92eb3af
+msgid "References"
+msgstr "参考文献"
+
+#~ msgid ""
+#~ "Stub — the methodology, architecture, and code excerpts. Code comes via "
+#~ "`book/examples/codekg-excerpts/` with provenance from `examples/SOURCE.md`."
+#~ msgstr ""
