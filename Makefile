@@ -7,11 +7,11 @@
 
 # ── Layout ───────────────────────────────────────────────────────────
 #
-# The book sources live under ./book/ (self-contained Sphinx project:
+# The book sources live under ./source/ (self-contained Sphinx project:
 # conf.py, references.bib, _tools/, _templates/, _static/, locale/…).
-# All build artifacts go to ./book/_build/.
+# All build artifacts go to ./source/_build/.
 
-BOOK_DIR       := book
+BOOK_DIR       := source
 BOOK_BUILD_DIR := $(BOOK_DIR)/_build
 BOOK_PORT      ?= 8800
 
@@ -46,31 +46,35 @@ check: ## Validate frontmatter, blog-quote, and PKB-skill non-copy policies
 	$(PYTHON) $(BOOK_DIR)/_tools/check_blog_quotes.py
 	$(PYTHON) $(BOOK_DIR)/_tools/check_pkb_quotes.py
 
-check-redaction: ## Scan book+references.bib for internal URLs / product / ticket / private project-name leaks
+check-redaction: ## Scan source+references.bib for internal URLs / product / ticket / private project-name leaks
 	@echo "→ internal URL / product / CLI scan"
-	@! rg -i -n $(REDACTION_EXCLUDE) "(docs\.zoom\.us|dg01docs\.zoom\.us|git\.zoom\.us|git\.ops\.corp\.zoom\.us|qa\.zoomdev\.us|jenkins\.zoom\.us|jenkins\.client\.corp\.zoom\.us|artifacts\.corp\.zoom\.us|eng\.corp\.zoom\.com|new-dayone\.zoomdev\.us|zoomvideo\.atlassian\.net|AgentBox|agentbox\.yaml|DayOne|TestZoom|Async MQ|Async Pilot|AI Hub|DevHelper|zcp-cli|mirrord-zcp|csms_tool|/PKB-|PKB_ROOT|zoom-dev-skills)" $(BOOK_DIR) || (echo "FAIL: internal reference leaked in book/" && exit 1)
+	@! rg -i -n $(REDACTION_EXCLUDE) "(docs\.zoom\.us|dg01docs\.zoom\.us|git\.zoom\.us|git\.ops\.corp\.zoom\.us|qa\.zoomdev\.us|jenkins\.zoom\.us|jenkins\.client\.corp\.zoom\.us|artifacts\.corp\.zoom\.us|eng\.corp\.zoom\.com|new-dayone\.zoomdev\.us|zoomvideo\.atlassian\.net|AgentBox|agentbox\.yaml|DayOne|TestZoom|Async MQ|Async Pilot|AI Hub|DevHelper|zcp-cli|mirrord-zcp|csms_tool|/PKB-|PKB_ROOT|zoom-dev-skills)" $(BOOK_DIR) || (echo "FAIL: internal reference leaked in source/" && exit 1)
 	@echo "→ employer email domain scan"
-	@! rg -i -n $(REDACTION_EXCLUDE) "[a-z0-9._+-]+@(zoom|corp\.zoom)\.(us|com)" $(BOOK_DIR) || (echo "FAIL: employer email leaked in book/" && exit 1)
+	@! rg -i -n $(REDACTION_EXCLUDE) "[a-z0-9._+-]+@(zoom|corp\.zoom)\.(us|com)" $(BOOK_DIR) || (echo "FAIL: employer email leaked in source/" && exit 1)
 	@echo "→ internal Jira ticket-key scan"
-	@! rg -n $(REDACTION_EXCLUDE) "\b(ZOOM|ZCP|SEC|ZMS|SDK)-[0-9]{3,}" $(BOOK_DIR) || (echo "FAIL: internal Jira ticket leaked in book/" && exit 1)
+	@! rg -n $(REDACTION_EXCLUDE) "\b(ZOOM|ZCP|SEC|ZMS|SDK)-[0-9]{3,}" $(BOOK_DIR) || (echo "FAIL: internal Jira ticket leaked in source/" && exit 1)
 	@echo "→ author's private project-name scan"
-	@! rg -n $(REDACTION_EXCLUDE) "(lazy-ai-coder|lazy-rabbit-wiki|internal/codekg|\bCODEKG_[A-Z_]+)" $(BOOK_DIR) || (echo "FAIL: author's private project name leaked in book/ (use 'the code-layer / prose-layer reference implementation' instead)" && exit 1)
+	@# Note: lazy-kb-wiki is the renamed prose-layer reference impl and is now
+	@# allowed in source/ (it's intentionally a neutral, public name). Only the
+	@# unreleased code-layer impl (lazy-ai-coder / internal/codekg) is still
+	@# considered private and must not appear in source/.
+	@! rg -n $(REDACTION_EXCLUDE) "(lazy-ai-coder|internal/codekg|\bCODEKG_[A-Z_]+)" $(BOOK_DIR) || (echo "FAIL: author's private project name leaked in source/ (use 'the code-layer reference implementation' instead)" && exit 1)
 	@echo "OK — no redaction invariants triggered."
 
 # ── Build ────────────────────────────────────────────────────────────
 
-build: html-all ## Build the book to HTML (bilingual: en + zh under book/_build/html/)
+build: html-all ## Build the book to HTML (bilingual: en + zh under source/_build/html/)
 	@echo "Book built (bilingual):"
 	@echo "  English : $(BOOK_BUILD_DIR)/html/en/index.html"
 	@echo "  Chinese : $(BOOK_BUILD_DIR)/html/zh/index.html"
 	@echo "  Landing : $(BOOK_BUILD_DIR)/html/index.html"
 
-html-en: check check-redaction ## Build English HTML (book/_build/html/en/)
+html-en: check check-redaction ## Build English HTML (source/_build/html/en/)
 	BOOK_LANG=en $(SPHINXBUILD) -b html -W --keep-going \
 	    -D language=en \
 	    $(BOOK_DIR) $(BOOK_BUILD_DIR)/html/en
 
-html-zh: check check-redaction intl-build ## Build Chinese HTML (book/_build/html/zh/)
+html-zh: check check-redaction intl-build ## Build Chinese HTML (source/_build/html/zh/)
 	BOOK_LANG=zh_CN $(SPHINXBUILD) -b html --keep-going \
 	    -D language=zh_CN \
 	    $(BOOK_DIR) $(BOOK_BUILD_DIR)/html/zh
@@ -133,14 +137,15 @@ check-excerpts: ## Fail if any vendored excerpt is out-of-date (used in CI)
 
 # ── Clean ────────────────────────────────────────────────────────────
 
-clean: ## Remove book build artifacts (keeps source)
+clean: ## Remove book build artifacts (keeps source/)
 	rm -rf $(BOOK_BUILD_DIR)
 
 # ── Back-compat aliases ──────────────────────────────────────────────
 #
-# The previous repo (lazy-rabbit-wiki) exposed the same targets prefixed with
-# `book-*`. Keep the aliases so muscle memory + existing CI snippets keep
-# working. New docs and scripts should use the short names above.
+# The previous repo (lazy-kb-wiki, fka lazy-rabbit-wiki) exposed the same
+# targets prefixed with `book-*`. Keep the aliases so muscle memory + existing
+# CI snippets keep working. New docs and scripts should use the short names
+# above.
 
 book-setup:            setup
 book-check:            check

@@ -8,10 +8,10 @@ __pycache__/
 .python-version
 
 # ── Sphinx build artifacts ───────────────────────────────────────────
-book/_build/
+source/_build/
 
 # ── Compiled i18n catalogs (regenerate with `make intl-build`) ───────
-book/locale/**/*.mo
+source/locale/**/*.mo
 
 # ── Editor / OS noise ────────────────────────────────────────────────
 .DS_Store

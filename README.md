@@ -10,7 +10,7 @@
 | | English | 中文 |
 |---|---|---|
 | Quickstart | [English ↓](#english-quickstart) | [中文 ↓](#中文-quickstart) |
-| Source | `book/` | `book/`（MyST Markdown，zh 通过 gettext 翻译） |
+| Source | `source/` | `source/`（MyST Markdown，zh 通过 gettext 翻译） |
 | Build | `make build` | `make build` |
 | Preview | `make serve` → http://localhost:8800 | `make serve` → http://localhost:8800 |
 
@@ -24,7 +24,7 @@ lazy-harness-book/
 ├── pyproject.toml        # Poetry: Sphinx, MyST, bibtex, mermaid, intl
 ├── poetry.lock
 ├── poetry.toml           # virtualenvs.in-project = true
-└── book/
+└── source/
     ├── conf.py                       # Sphinx config (self-contained)
     ├── references.bib                # BibTeX, filtered per chapter
     ├── index.md                      # Book root
@@ -45,7 +45,7 @@ lazy-harness-book/
 
 The book builds bilingually out of one source tree: **English is the source of
 truth, zh_CN is maintained via `sphinx-intl` gettext catalogs under
-`book/locale/zh_CN/LC_MESSAGES/`.** Both editions render from the same MyST
+`source/locale/zh_CN/LC_MESSAGES/`.** Both editions render from the same MyST
 Markdown, the same mermaid diagrams, and the same BibTeX bibliography.
 
 ---
@@ -72,7 +72,7 @@ kept to a minimal Python + Sphinx stack so it builds from a clean venv.
 make setup                  # → poetry install --no-root
 
 # 2. Build both languages + landing page
-make build                  # writes book/_build/html/{en,zh,index.html}
+make build                  # writes source/_build/html/{en,zh,index.html}
 
 # 3. Preview locally
 make serve                  # http://localhost:8800
@@ -87,13 +87,13 @@ make html-zh                # Chinese only (auto-compiles .po → .mo first)
 | Target | What it does |
 |:--|:--|
 | `make check` | Validate frontmatter schema, blog-quote policy, PKB-skill non-copy policy. |
-| `make check-redaction` | Scan `book/` for internal URLs, product names, Jira ticket keys, and the author's private project names. **Run before every commit.** |
-| `make i18n` | Re-extract gettext strings → update `book/locale/zh_CN/LC_MESSAGES/*.po`. |
+| `make check-redaction` | Scan `source/` for internal URLs, product names, Jira ticket keys, and the author's private project names. **Run before every commit.** |
+| `make i18n` | Re-extract gettext strings → update `source/locale/zh_CN/LC_MESSAGES/*.po`. |
 | `make intl-build` | Compile `.po` → `.mo` (required before `html-zh`; `html-zh` also runs it). |
 | `make refresh-excerpts` | Re-capture vendored code excerpts with fresh commit SHAs. |
 | `make check-excerpts` | Fail if any excerpt is out of date (used in CI). |
 | `make pdf` | Build a single-volume PDF via xelatex. Requires a local TeX installation. |
-| `make clean` | Remove `book/_build/`. |
+| `make clean` | Remove `source/_build/`. |
 
 All `book-*`-prefixed target names from the previous repo
 (`book-build`, `book-check`, `book-serve`, …) still work as back-compat
@@ -101,11 +101,11 @@ aliases — see the bottom of the `Makefile`.
 
 ### Authoring rhythm
 
-1.  Edit Markdown under `book/partN-*/`. Every page carries a frontmatter
+1.  Edit Markdown under `source/partN-*/`. Every page carries a frontmatter
     block (title, status, authors, `last_verified_commit`, `zh_status`,
     `keywords`) and a `<!-- PKB-metadata -->` footer (layer, `updated_by`,
     `review_status`, `review_score`, `commit`). See
-    `book/appendix-e-bilingual-publishing.md` for the full schema.
+    `source/appendix-e-bilingual-publishing.md` for the full schema.
 2.  `make check` — fast local lint.
 3.  `make html-en` — Sphinx builds with `-W --keep-going`; any reference or
     cross-link problem fails loudly.
@@ -123,7 +123,7 @@ aliases — see the bottom of the `Makefile`.
 make setup                  # → poetry install --no-root
 
 # 2. 构建双语 + 落地页
-make build                  # 产出：book/_build/html/{en,zh,index.html}
+make build                  # 产出：source/_build/html/{en,zh,index.html}
 
 # 3. 本地预览
 make serve                  # http://localhost:8800
@@ -138,24 +138,24 @@ make html-zh                # 中文（会自动先把 .po 编译成 .mo）
 | Target | 作用 |
 |:--|:--|
 | `make check` | 校验 frontmatter、博客引用政策、PKB-skill 非复制政策 |
-| `make check-redaction` | 扫描 `book/` 里**内部 URL / 产品名 / Jira ticket key / 作者私有项目名**是否泄漏。**每次提交前都应跑一遍** |
+| `make check-redaction` | 扫描 `source/` 里**内部 URL / 产品名 / Jira ticket key / 作者私有项目名**是否泄漏。**每次提交前都应跑一遍** |
 | `make i18n` | 重新提取 gettext 字符串 → 更新 `.po` |
 | `make intl-build` | 把 `.po` 编译成 `.mo`（`html-zh` 会自动跑） |
 | `make refresh-excerpts` | 重新抓取 vendored 代码片段，更新 commit SHA |
 | `make check-excerpts` | 任何 excerpt 过期就失败（CI 用） |
 | `make pdf` | xelatex 出 PDF，需要本地 TeX |
-| `make clean` | 清理 `book/_build/` |
+| `make clean` | 清理 `source/_build/` |
 
 前一个 repo 用的 `book-*` 前缀的 target（`book-build`、`book-check`、
 `book-serve`…）依然可用，作为兼容别名。
 
 ### 写作节奏
 
-1.  在 `book/partN-*/` 下改 Markdown。每页都有 frontmatter
+1.  在 `source/partN-*/` 下改 Markdown。每页都有 frontmatter
     （title / status / authors / `last_verified_commit` / `zh_status` /
     `keywords`）和 `<!-- PKB-metadata -->` footer
     （layer / `updated_by` / `review_status` / `review_score` / `commit`）。
-    完整 schema 见 `book/appendix-e-bilingual-publishing.md`。
+    完整 schema 见 `source/appendix-e-bilingual-publishing.md`。
 2.  `make check` —— 本地快速 lint。
 3.  `make html-en` —— Sphinx 用 `-W --keep-going` 构建；任何交叉引用问题都
     会大声报错。
@@ -177,7 +177,7 @@ make html-zh                # 中文（会自动先把 .po 编译成 .mo）
 3.  **No PKB-skill copy** —— 作者的 skill 库内容不得搬运到书里。
     `check_pkb_quotes.py` 负责扫描。
 4.  **No redaction leaks** —— 内部 URL、产品名、Jira 工单号、作者私有
-    project 名字，一律不许出现在 `book/` 里。`check-redaction` 在每次
+    project 名字，一律不许出现在 `source/` 里。`check-redaction` 在每次
     `html-*` build 前跑。
 5.  **Bilingual round-trip** —— 英文是 source of truth，中文必须通过 `.po`
     走。`html-zh` 不允许中文作为平行 Markdown 存在。
@@ -189,18 +189,21 @@ make html-zh                # 中文（会自动先把 .po 编译成 .mo）
 
 ## Project genealogy
 
-这个 repo 是从 [`lazy-rabbit-wiki`](https://github.com/walterfan/lazy-rabbit-wiki)
-抽离出来的独立项目。原仓库里 `book/` 太大，跟 wiki-cli（Go 后端 + Vue 前端）
-放一起显得不伦不类；抽出来后各自职责清晰：
+这个 repo 是从 [`lazy-kb-wiki`](https://github.com/walterfan/lazy-kb-wiki)
+（前身 `lazy-rabbit-wiki`）抽离出来的独立项目。原仓库里书稿目录太大，
+跟 wiki-cli（Go 后端 + Vue 前端）放一起显得不伦不类；抽出来后各自职责清晰：
 
-- **`lazy-rabbit-wiki`** —— *Prose layer* 的参考实现：Go wiki-cli + Vue 前端，
+- **`lazy-kb-wiki`** —— *Prose layer* 的参考实现：Go wiki-cli + Vue 前端，
   处理 Markdown + Git 型 wiki 的导入、校验、静态构建。
 - **`lazy-harness-book`**（本仓库）—— 设计笔记与教程的**文本载体**：
   把"用 AI 给软件项目造知识库"这件事的方法论、trade-off、工程纪律
   系统写下来。
 
-原仓库下的 `book/` 现在是一个指向本 repo 的 symlink —— 历史构建命令
+原仓库下的书稿目录现在是一个指向本 repo `source/` 的 symlink —— 历史构建命令
 （`make book-build` 等）在原仓库里仍然可用，但真正的内容维护发生在这里。
+本 repo 里的 `source/_tools/refresh_excerpts.py` 反过来也通过 sibling 路径
+（默认 `../lazy-kb-wiki`，可由 `LAZY_KB_WIKI_PATH` 覆盖）读取那边的源代码
+来刷新 vendored excerpts。
 
 ## License
 
