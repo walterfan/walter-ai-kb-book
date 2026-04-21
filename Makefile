@@ -1,5 +1,5 @@
 .PHONY: help setup check check-redaction build serve clean pdf i18n intl-build \
-        html-en html-zh html-all landing refresh-excerpts check-excerpts \
+        html html-en html-zh html-all landing refresh-excerpts check-excerpts \
         book-setup book-check book-check-redaction book-build book-serve \
         book-clean book-pdf book-i18n book-intl-build book-html-en \
         book-html-zh book-html-all book-landing book-refresh-excerpts \
@@ -26,8 +26,10 @@ unexport POETRY_ACTIVE
 POETRY         ?= poetry
 POETRY_RUN     := $(POETRY) run
 PYTHON         ?= $(POETRY_RUN) python
-SPHINXBUILD    ?= $(POETRY_RUN) sphinx-build
-SPHINXINTL     ?= $(POETRY_RUN) sphinx-intl
+# Prefer module invocation over console-script wrappers so a moved/renamed repo
+# does not keep stale shebangs inside .venv/bin/.
+SPHINXBUILD    ?= $(PYTHON) -m sphinx
+SPHINXINTL     ?= $(PYTHON) -m sphinx_intl
 
 # Redaction scan (keeps internal-URL / product / ticket / private-project
 # invariants out of the public book). See README for the rationale.
@@ -68,6 +70,8 @@ build: html-all ## Build the book to HTML (bilingual: en + zh under source/_buil
 	@echo "  English : $(BOOK_BUILD_DIR)/html/en/index.html"
 	@echo "  Chinese : $(BOOK_BUILD_DIR)/html/zh/index.html"
 	@echo "  Landing : $(BOOK_BUILD_DIR)/html/index.html"
+
+html: html-en ## Compatibility alias for a single-language HTML build
 
 html-en: check check-redaction ## Build English HTML (source/_build/html/en/)
 	BOOK_LANG=en $(SPHINXBUILD) -b html -W --keep-going \

@@ -1,11 +1,15 @@
-# Lazy Harness — Use AI to Build a Knowledge Base for a Software Project
+# lazy-code-kb-book — Knowledge-base engineering for software projects
 
-> **Lazy harness** — do the *boring* scaffolding once, so the LLM-and-agent era
-> doesn't catch you writing docs by hand.
+> **Knowledge building for a software project** means turning prose (wikis,
+> ADRs, runbooks) and code (repos, graphs, embeddings) into a **single,
+> trustworthy layer** that teams and coding agents can query, cite, and keep
+> in sync as the system evolves.
 >
-> This repo holds the book *"Use AI to build a knowledge base for a software
-> project"*: a six-part field guide to building, maintaining, and operating a
-> project-level knowledge base that serves both humans and AI agents.
+> This repository is the **Sphinx + MyST source and toolchain** for the book
+> *Use AI to build a knowledge base for a software project*: a six-part field
+> guide to **designing, populating, maintaining, and governing** that layer —
+> from IR/RAG basics through hybrid retrieval, operations, and responsible use
+> of AI on top of your project's knowledge.
 
 | | English | 中文 |
 |---|---|---|
@@ -19,7 +23,7 @@
 ## What's inside
 
 ```
-lazy-harness-book/
+lazy-code-kb-book/
 ├── Makefile              # setup / check / build / serve / pdf / i18n
 ├── pyproject.toml        # Poetry: Sphinx, MyST, bibtex, mermaid, intl
 ├── poetry.lock
@@ -195,9 +199,9 @@ make html-zh                # 中文（会自动先把 .po 编译成 .mo）
 
 - **`lazy-kb-wiki`** —— *Prose layer* 的参考实现：Go wiki-cli + Vue 前端，
   处理 Markdown + Git 型 wiki 的导入、校验、静态构建。
-- **`lazy-harness-book`**（本仓库）—— 设计笔记与教程的**文本载体**：
-  把"用 AI 给软件项目造知识库"这件事的方法论、trade-off、工程纪律
-  系统写下来。
+- **`lazy-code-kb-book`**（本仓库）—— 面向**软件项目知识库**的设计与教程的
+  **文本与构建载体**：把“如何为代码库建立、维护、运营知识层”的方法论、
+  trade-off 和工程纪律写成可构建的书稿。
 
 原仓库下的书稿目录现在是一个指向本 repo `source/` 的 symlink —— 历史构建命令
 （`make book-build` 等）在原仓库里仍然可用，但真正的内容维护发生在这里。
