@@ -1,5 +1,5 @@
 ---
-title: 'Part III — The Code Layer'
+title: "第三部分 —— 代码层"
 status: review
 authors:
   - Walter (Yamin) Fan
@@ -9,12 +9,9 @@ keywords:
   - code-layer
 ---
 
-# Part III — The Code Layer
+# 第三部分 —— 代码层
 
-Part III on one page — six chapters turn the "wiki works, grep
-doesn't" pain of Part II into a dual-stack (vector + graph)
-retriever that answers structural, identifier, and fuzzy
-questions with citations:
+第三部分一图览 —— 六章把第二部分“wiki 好用、grep 不行”的痛点，升级成一个双栈（向量 + 图谱）检索器，能为结构化、标识符精确匹配以及模糊自然语言三类问题都给出带引用的答案：
 
 ```{mermaid}
 mindmap
@@ -51,123 +48,50 @@ ch12-hybrid-retrieval-and-rrf
 ch13-prompt-and-generation
 ```
 
-## Why
+## Why —— 为什么
 
-Part II's prose layer solves one class of question — *"what do we
-know about X?"* — and fails on the other — *"where in the code
-base is X used?"*. Chapter 8 makes the failure precise; the rest
-of Part III builds the dual-stack (vector + graph) pipeline that
-answers the second class, grounded in the code-layer reference
-implementation (paths under `reference-impl/code-kg/`).
+第二部分的文稿层解决了一类问题 —— * “我们对 X 了解多少？” * —— 但对另一类 —— * “代码库里哪里用到了 X？” * —— 束手无策。第 8 章会把这个失败讲得更精确；第三部分其余各章则围绕“代码层参考实现”（路径位于 `reference-impl/code-kg/` 下）构建起一条能回答第二类问题的双栈（向量 + 图谱）流水线。
 
-The failure is not a gap in the wiki — it is a category error.
-A human writes a wiki page about *"how sync works"* but not about
-*"who calls `runSync`"*, because the first sentence is worth
-writing and the second is derivable from the code. A code-layer
-KB is the machine that *does* the deriving, continuously, so
-that every engineer gets the answer in two seconds rather than
-twenty minutes of grep-and-scroll.
+这个失败并不是 wiki 的遗漏，而是范畴错误。人会写一篇 * “同步是怎么工作的” * 的 wiki 页，却不会去写 * “谁调用了 `runSync`” * —— 因为前一句值得动笔写，后一句可以从代码推导。代码层知识库就是那台 * 持续做推导 * 的机器，让每个工程师都能在两秒内拿到答案，而不是 grep 二十分钟再滚动翻看。
 
-## What
+## What —— 是什么
 
-Everything needed to answer structural, identifier, and fuzzy
-natural-language questions over a codebase with *citations* — one
-chapter per stage of the pipeline introduced in the blog's
-§§2–8 {cite}`fanyamin2026deepwiki`:
+覆盖一切：在代码库上回答结构化、标识符精确匹配以及模糊自然语言三类问题，并 * 为每条结论给出引用 * 。按博客 §§2–8 {cite}`fanyamin2026deepwiki` 所划分的流水线阶段，每章对应一个阶段：
 
-- **Chapter 8 — Why code is not prose.** Three structural claims
-  (parse first, embed identity, graph carries relations); one
-  measured experiment (vector-only vs hybrid on real code queries);
-  four anti-patterns that cause first-time code-KB builds to fail.
-- **Chapter 9 — Parsing and entity extraction.** A real parser
-  (tree-sitter {cite}`brunsfeld_treesitter`); a closed entity
-  schema (`package`, `type`, `method`, `function`); stable IDs
-  from `sha256(repoID + filePath + entityType + name +
-  startLine)[:16]`; resource-leak, closure-noise, and
-  multi-line-signature pitfalls.
-- **Chapter 10 — Embeddings and vector stores.** A five-line
-  identity template (`Language / Type / Name / Signature /
-  Doc`) that beats body-embedding by roughly 2x on recall@10;
-  batch + backoff + rate-limit discipline; `sqlite-vec`
-  {cite}`sqlite_vec` / `pgvector` {cite}`pgvector` /
-  `Milvus` {cite}`milvus` decision matrix; theory anchor on
-  bi-encoders {cite}`reimers2019sbert`, cross-encoders
-  {cite}`nogueira2019passage`, and HNSW {cite}`malkov2018hnsw`.
-- **Chapter 11 — Code knowledge graph.** A closed
-  eight-edge taxonomy on a graph database (e.g.
-  Memgraph {cite}`memgraph`); location-aware node IDs;
-  full-rebuild-per-repo write pattern; theory anchor on
-  graph locality and the GraphCodeBERT data-flow prior
-  {cite}`guo2021graphcodebert`.
-- **Chapter 12 — Hybrid retrieval and RRF.** Three-tier
-  strategy (vector primary → keyword fallback →
-  graph expansion); why score-level fusion is meaningless
-  and rank-level fusion (RRF {cite}`cormack2009rrf`) is
-  the upgrade path; query-routing heuristics that save
-  latency.
-- **Chapter 13 — Prompt and generation.** Two hard rules
-  (always cite `file:line`; refuse when context is
-  insufficient); structured-context format; measurable
-  faithfulness {cite}`es2024ragas`; the indirect
-  prompt-injection threat model {cite}`greshake2023injection`.
+- **第 8 章 —— 为什么代码不是文稿。** 三个结构性论断（先解析、嵌入身份、图承载关系）；一个实测实验（纯向量 vs. 混合检索在真实代码查询上的表现）；四个让初次构建代码知识库翻车的反模式。
+- **第 9 章 —— 解析与实体提取。** 一个真正的 parser（tree-sitter {cite}`brunsfeld_treesitter`）；一套封闭的实体 schema（`package`、`type`、`method`、`function`）；由 `sha256(repoID + filePath + entityType + name + startLine)[:16]` 生成的稳定 ID；资源泄漏、闭包噪声和多行签名陷阱。
+- **第 10 章 —— Embedding 与向量存储。** 一个五行的身份模板（`Language / Type / Name / Signature / Doc`），在 recall@10 上大约以 2 倍优势胜过直接嵌入函数体；batch + backoff + rate-limit 纪律；`sqlite-vec` {cite}`sqlite_vec` / `pgvector` {cite}`pgvector` / `Milvus` {cite}`milvus` 的决策矩阵；基于 bi-encoder {cite}`reimers2019sbert`、cross-encoder {cite}`nogueira2019passage` 和 HNSW {cite}`malkov2018hnsw` 的理论锚点。
+- **第 11 章 —— 代码知识图谱。** 在图数据库（如 Memgraph {cite}`memgraph`）上的八种封闭边分类法；位置感知的节点 ID；按仓库全量重建的写模式；基于图局部性和 GraphCodeBERT 数据流先验 {cite}`guo2021graphcodebert` 的理论锚点。
+- **第 12 章 —— 混合检索与 RRF。** 三层策略（向量优先 → 关键词兜底 → 图扩展）；为什么分数级融合没意义，而排名级融合（RRF {cite}`cormack2009rrf`）才是升级路径；节省延迟的查询路由启发式。
+- **第 13 章 —— Prompt 与生成。** 两条硬规则（必须引用 `file:line`；上下文不足时拒绝回答）；结构化上下文格式；可度量的 faithfulness {cite}`es2024ragas`；间接 prompt 注入威胁模型 {cite}`greshake2023injection`。
 
-## How
+## How —— 怎么做
 
-Every chapter ships at least one `{literalinclude}` from a
-vendored excerpt (see `examples/SOURCE.md`), at least three
-citations, and at least one measurement the blog did not report —
-the book's non-copy policy. Excerpts are refreshed with
-`make book-refresh-excerpts` and verified byte-stable with
-`make book-check-excerpts`.
+每章都至少附带一段来自 vendored 代码节选的 `{literalinclude}`（见 `examples/SOURCE.md`）、至少三条引用，以及至少一项博客中未出现的测量数据 —— 这是本书的“不照搬”原则。节选通过 `make book-refresh-excerpts` 刷新，并用 `make book-check-excerpts` 做字节级稳定性校验。
 
-Each chapter also follows the same Part II-inspired
-five-section spine: a *Monday-morning hook* connecting the
-chapter to a pain you have lived through; the *Why / What /
-How* that reads as engineering, not survey; a *Theory anchor*
-(ch10–ch13) that names the published results behind the
-design; a *Common mistakes* section that lists the
-anti-patterns; and an *Example* block reproducible against
-the code-layer reference implementation in Appendix B.
+每一章也沿用第二部分立下的五段式骨架： * 周一早晨的钩子 * 把本章和你真实踩过的坑连起来；* Why / What / How * 段读起来像工程而非综述；* Theory anchor * 段（第 10–13 章）明确点出设计背后的已发表结果；* Common mistakes * 段列出反模式；* Example * 段给出可在附录 B 的代码层参考实现上复现的操作步骤。
 
-## Operational model
+## 运维模型
 
-The code layer inherits Part II's verification-first mindset
-and specialises it:
+代码层继承了第二部分“先验证后相信”的思路，并做了针对代码的特化：
 
-- **Build** — `code-kg sync --repo-id <id>` parses, embeds,
-  and rebuilds the graph. Idempotent; safe to re-run.
-- **Verify** — recall@5 on a held-out query set (identifier,
-  structural, fuzzy) is the primary retrieval health metric.
-  Prompt metrics (citation compliance, refusal rate) are
-  secondary and *only move* when recall is not the bottleneck.
-- **Operate** — the retriever degrades gracefully: no
-  embedding API key → keyword-only mode; no graph
-  connectivity → vector + keyword only; no vectors → keyword
-  only. Every mode is still useful; no mode is a hard fail.
+- **Build** —— `code-kg sync --repo-id <id>` 执行解析、嵌入并重建图。幂等；可安全重跑。
+- **Verify** —— 在保留查询集（标识符、结构化、模糊）上的 recall@5 是首要检索健康指标。Prompt 指标（引用合规率、拒绝率）是次要的，且*仅在* recall 不再是瓶颈时才值得调。
+- **Operate** —— 检索器优雅降级：没有 embedding API key → 纯关键词模式；图连接不可用 → 向量 + 关键词模式；没有向量 → 纯关键词模式。每种模式都仍然有用；没有哪种模式是硬性失败。
 
-## Example
+## Example —— 范例
 
-Appendix B runs the full pipeline end-to-end: register the repo,
-sync, ask three questions (one per retriever tier), then do an
-incremental sync on a one-line diff to measure the speedup ratio.
+附录 B 端到端跑一遍完整流水线：注册仓库、全量同步、按三个检索层各问一个问题，再对一行改动做增量同步，实测增量相对全量的加速比。
 
-## Pointer checklist
+## 要点清单
 
-For a one-screen summary of the six key decisions you carry
-forward from Part III into your own system, jump to the
-**"Part III pointer checklist"** section at the end of
-Chapter 13. Each item is a commit-before-coding decision,
-not a retrospective.
+若需要一屏内看完“从第三部分可以带走的六个关键决策”，直接跳到第 13 章末尾的 **“Part III pointer checklist”** 段。每一条都是“写代码前要先拍板”的决策，而非事后总结。
 
-## Conclusion
+## Conclusion —— 小结
 
-With Parts II and III in place, the KB answers both prose and
-code questions with cited, reproducible responses. Parts IV–VI
-make the result *operationally durable* (drift, evaluation,
-governance) and extend it to hybrid workflows (AI coding
-assistants, agents).
+有了第二部分和第三部分，这个知识库就能用带引用、可复现的方式同时回答文稿问题和代码问题。第四 —— 第六部分会让结果 * 在运维上持续可靠 * （漂移、评估、治理），并把它扩展到混合工作流（AI 编码助手、智能体）。
 
-## References
+## 参考文献
 
 ```{bibliography}
 :filter: keywords % "code-layer"

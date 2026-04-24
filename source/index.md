@@ -136,17 +136,22 @@ appendix-d-glossary
 appendix-e-bilingual-publishing
 ```
 
+```{toctree}
+:maxdepth: 2
+:caption: 参考文献
+
+reference/index
+```
+
 ## Colophon
 
 Built with **Sphinx + MyST** using `sphinx-rtd-theme`, `sphinxcontrib-bibtex`,
-and `sphinxcontrib-mermaid`. Chinese translations are maintained with
-`sphinx-intl` under `locale/zh_CN/LC_MESSAGES/`.
+and `sphinxcontrib-mermaid`.
 
 Build locally:
 
 ```bash
-make book-build   # HTML  → book/_build/html/
-make book-serve   # HTTP  → http://localhost:8800
-make book-pdf     # PDF   → book/_build/latex/ai-kb-for-software.pdf
-make book-i18n    # refresh zh_CN gettext catalogs
+make build        # HTML  → source/_build/html/
+make serve        # HTTP  → http://localhost:8800
+make pdf          # PDF   → source/_build/latex/ai-kb-for-software.pdf
 ```

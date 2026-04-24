@@ -789,3 +789,100 @@
   note         = {Formalises the indirect-prompt-injection threat model that RAG systems inherit the moment retrieved documents can contain attacker-controlled text. Cited in Chapter 13 as the named threat model the two-step defence (system preamble + context escaping) addresses, and re-visited in Chapter 23's red-teaming treatment.},
   keywords     = {hybrid-layer, security, prompt-injection, red-team, foundations}
 }
+
+% ── Reference papers: 7 entries from source/reference/ not yet in bib ──────
+
+@article{li2024repoformer,
+  author       = {Li, Di and Wei, Jingyi and Peng, Yewen and Bai, Hanbin and Chen, Bei and Li, Yong},
+  title        = {Repoformer: Selective Retrieval for Repository-Level Code Completion},
+  journal      = {Proceedings of the 41st International Conference on Machine Learning (ICML 2024)},
+  year         = {2024},
+  eprint       = {2403.10059},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CL},
+  url          = {https://arxiv.org/abs/2403.10059},
+  note         = {Trains a lightweight classifier to predict whether retrieval will help a given code-completion task, skipping it when the local context suffices. Key insight for Chapter 12: not every query needs retrieval, and a retrieval-necessity signal can cut latency and noise.},
+  keywords     = {code-layer, hybrid-layer, selective-retrieval, rag}
+}
+
+@article{bairi2024codeplan,
+  author       = {Bairi, Ramakrishna and Sonwane, Atharv and Kanade, Aditya and C, Vageesh D and Iyer, Arun and Parthasarathy, Suresh and Rajamani, Sriram and Ashok, B. and Shet, Shashank},
+  title        = {{CodePlan}: Repository-level Coding using {LLMs} and Planning},
+  journal      = {Proceedings of the ACM on Software Engineering (FSE 2024)},
+  year         = {2024},
+  url          = {https://www.microsoft.com/en-us/research/publication/codeplan-repository-level-coding-using-llms-and-planning-2/},
+  note         = {Models repo-level code changes as a planning problem: seed edit → change-impact analysis on the dependency graph → ordered sub-task list → iterative LLM execution with validation. Key insight for Chapter 20: KB-backed AI coding assistants can generate structured multi-file refactoring plans using the same dependency graph the KB already maintains.},
+  keywords     = {hybrid-layer, planning, multi-step-editing, agents}
+}
+
+@article{ouyang2025repograph,
+  author       = {Ouyang, Siru and Yu, Jingqing and Zan, Daoguang and Xu, Xiangyu and Liu, Wei and Shi, Shuai and Peng, Hao},
+  title        = {{RepoGraph}: Enhancing {AI} Software Engineering with Repository-level Code Graph},
+  journal      = {ICLR 2025 Poster},
+  year         = {2025},
+  url          = {https://openreview.net/forum?id=dw9VUsSHGB},
+  note         = {Builds a typed repository-level code graph (calls, imports, inherits, defines) and uses graph-enhanced retrieval to expand seed hits along structural edges. Key insight for Chapter 11: code graphs are not just for storage; they are retrieval primitives that produce structurally complete context, not just semantically similar chunks.},
+  keywords     = {code-layer, hybrid-layer, graph, graph-rag}
+}
+
+@article{zhang2023repocoder,
+  author       = {Zhang, Fengji and Chen, Bei and Zhang, Yue and Keung, Jacky and Liu, Jin and Zan, Daoguang and Mao, Yi and Chen, Jian-Guang and Chen, Wenqiang},
+  title        = {{RepoCoder}: Repository-Level Code Completion Through Iterative Retrieval and Generation},
+  journal      = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)},
+  year         = {2023},
+  eprint       = {2303.12570},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CL},
+  url          = {https://arxiv.org/abs/2303.12570},
+  note         = {Proposes a retrieve-generate-re-retrieve iterative loop: the LLM draft becomes a better retrieval query for the next round. Key insight for Chapter 12: multi-round retrieval converges on better context, especially for complex cross-file queries.},
+  keywords     = {code-layer, hybrid-layer, rag, iterative-retrieval}
+}
+
+@article{xu2024llmkgsynergy,
+  author       = {Xu, Chuxin and Geng, Zhicheng and Liao, Zhengtao and Wei, Yifan},
+  title        = {Synergizing {LLMs} and Knowledge Graphs: A Novel Approach to Software Repository-Related Question Answering},
+  journal      = {arXiv preprint arXiv:2412.03815},
+  year         = {2024},
+  eprint       = {2412.03815},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.SE},
+  url          = {https://arxiv.org/abs/2412.03815},
+  note         = {Designs a software-specific KG ontology (Repository, Module, File, Class, Function, Dependency, Issue, Commit, Developer) and a synergistic LLM+KG QA framework that routes structural queries to KG and semantic queries to dense retrieval. Key insight for Chapter 6 and Chapter 11: a purpose-built software ontology plus hybrid query routing covers both structural and semantic questions better than either approach alone.},
+  keywords     = {code-layer, hybrid-layer, graph, knowledge-graph, software-ontology}
+}
+
+@inproceedings{shrivastava2023rlpg,
+  author       = {Shrivastava, Disha and Larochelle, Hugo and Tarlow, Daniel},
+  title        = {Repository-Level Prompt Generation for Large Language Models of Code},
+  booktitle    = {Proceedings of the 40th International Conference on Machine Learning (ICML 2023)},
+  year         = {2023},
+  url          = {https://proceedings.mlr.press/v202/shrivastava23a.html},
+  note         = {The conceptual origin of repo-level RAG: even without fine-tuning, selecting the right cross-file context (imports, similar code, usage examples, type definitions) substantially improves code completion. Key insight for Chapter 12 and Chapter 19: context assembly is a first-class retrieval problem, not a prompt-engineering afterthought.},
+  keywords     = {code-layer, hybrid-layer, prompt-generation, context-assembly}
+}
+
+@article{liu2023repobench,
+  author       = {Liu, Tianyang and Xu, Canwen and McAuley, Julian},
+  title        = {{RepoBench}: Benchmarking Repository-Level Code Auto-Completion Systems},
+  journal      = {arXiv preprint arXiv:2306.03091},
+  year         = {2023},
+  eprint       = {2306.03091},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CL},
+  url          = {https://arxiv.org/abs/2306.03091},
+  note         = {Decomposes evaluation into Retrieval (R), Completion (C), and Pipeline (P) layers, enabling precise diagnosis of whether the bottleneck is retrieval quality or generation quality. Key insight for Chapter 15: layered evaluation (retrieval health → generation health → end-to-end) is the right structure for KB benchmarking.},
+  keywords     = {code-layer, operations, benchmark, evaluation}
+}
+
+@article{bogomolov2024longcodearena,
+  author       = {Bogomolov, Egor and Eliseeva, Aleksandra and Galimzyanov, Timur and Glukhov, Evgeniy and Shapkin, Anton and Shmelev, Maria and Smirnov, Yaroslav and Golubev, Sergei and Bryksin, Timofey and Bacchelli, Alberto},
+  title        = {Long Code Arena: a Set of Benchmarks for Long-Context Code Models},
+  journal      = {arXiv preprint arXiv:2406.11612},
+  year         = {2024},
+  eprint       = {2406.11612},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.SE},
+  url          = {https://arxiv.org/abs/2406.11612},
+  note         = {Covers six long-context code tasks: project-level completion, CI repair, bug localization, module summarization, repo QA, and commit-message generation. Key insight for Chapter 15 and Chapter 24: real-world KB evaluation must go beyond single-file metrics to cover these project-scale tasks.},
+  keywords     = {code-layer, operations, benchmark, long-context, evaluation}
+}

@@ -4,7 +4,7 @@ status: review
 authors:
   - Walter (Yamin) Fan
 last_verified_commit: HEAD
-zh_status: none
+zh_status: partial
 keywords:
   - presentation
   - deepwiki
@@ -27,7 +27,7 @@ keywords:
   方便复制到 slidev / reveal / Keynote。
 
 书中所有用到的概念、数字、引用，都指向后续章节里的某一章。
-这一讲只给"主脊"——不陷入任何一个细节——细节请回到相应 Part。
+这一讲只走**主线**——不陷入任何一个细节——细节请回到相应 Part。
 
 **术语约定**：讲稿里直接用英文的概念 —— `Prose / Code / Dual Stack /
 frontmatter / footer / tuple / retrieval / embedding / graph / RRF /
@@ -129,7 +129,7 @@ flowchart LR
 大多数团队的 KB 都是在 **Part IV** 那里死掉的：能建，不能维护。今天的六个
 灵魂概念里，有一半直接对着 Part IV 写的。
 
-今天这一小时，我只讲**主脊上的六个灵魂概念**：
+今天这一小时，我只讲**主线上的六个灵魂概念**：
 
 1.  *Prose 的两块契约*：frontmatter（出处）+ footer（审阅状态）
 2.  *Code 不是 Prose*：三条结构性主张 + Dual Stack（vector + graph）
@@ -373,6 +373,19 @@ $O(\text{change rate})$**。KB 再大都可以，因为每次 commit 的开销�
 ## Example —— 一次完整的同步 + 一次 agent 问答（20 分钟 demo）
 
 这一段**最好现场跑**。讲稿里保留命令与预期输出，以便演示不成功时可以切到截图 fallback。
+
+```{admonition} 可运行的 demo 脚本
+:class: tip
+
+三个 demo 都有对应的自包含 Python 脚本，位于
+`source/examples/part0-presentation/`，零外部依赖，一键可跑：
+
+- **Demo 1**：`poetry run python source/examples/part0-presentation/demo1_incremental_sync.py`
+- **Demo 2**：`poetry run python source/examples/part0-presentation/demo2_agent_kb_query.py`
+- **Demo 3**：`poetry run python source/examples/part0-presentation/demo3_publish_gates.py`
+
+详见 `source/examples/part0-presentation/README.md`。
+```
 
 ### Demo 1 —— 一次增量同步：36× / 180× / 9×（8 分钟）
 

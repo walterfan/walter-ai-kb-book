@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "lazy-harness-book"
 version = "0.1.0"
-description = "Sphinx + MyST toolchain for the book 'Use AI to build a knowledge base for a software project' (Lazy Harness series) and its content-validation tools."
+description = "Sphinx + MyST toolchain for the book 'Use AI to build a knowledge base for a software project' and its content-validation tools."
 authors = ["Walter (Yamin) Fan <waltefan@ustc.edu>"]
 license = "CC-BY-SA-4.0"
 readme = "README.md"
@@ -14,11 +14,9 @@ myst-parser = ">=3.0,<5.0"
 sphinx-rtd-theme = ">=2.0,<4.0"
 sphinxcontrib-bibtex = ">=2.6,<3.0"
 sphinxcontrib-mermaid = ">=0.9,<2.0"
-sphinx-intl = ">=2.2,<3.0"
 linkify-it-py = ">=2.0,<3.0"
 PyYAML = ">=6.0"
 beautifulsoup4 = ">=4.12"
-polib = ">=1.2,<2.0"
 
 [tool.poetry.group.pdf]
 optional = true

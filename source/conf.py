@@ -3,16 +3,16 @@
 "Use AI to build a knowledge base for a software project"
 
 Kept deliberately minimal and self-contained so that the book builds from a
-clean Python venv with only the packages listed in requirements.txt.
+clean Python venv with only the packages listed in pyproject.toml.
 
-Language strategy: English is the source of truth; zh_CN is maintained via
-sphinx-intl gettext catalogs under locale/zh_CN/LC_MESSAGES/.
+Language strategy: the Markdown source is written directly in Chinese
+(with English technical terms retained). A single Sphinx build produces
+the Chinese HTML output.
 """
 
 from __future__ import annotations
 
 import datetime
-import os
 import sys
 from pathlib import Path
 
@@ -22,9 +22,10 @@ sys.path.insert(0, str(HERE / "_tools"))
 # -- Project information -----------------------------------------------------
 
 project = "Use AI to build a knowledge base for a software project"
-author = "Walter (Yamin) Fan"
+author = "Walter Fan"
 copyright_year = datetime.datetime.now().year
-project_copyright = f"{copyright_year}, {author}"
+project_copyright = f"AI 辅助创作 {copyright_year}, {author}"
+copyright = project_copyright  # noqa: A001 — Sphinx requires this name
 release = "0.1.0-draft"
 version = "0.1"
 
@@ -77,11 +78,7 @@ exclude_patterns = [
     "_tools",
 ]
 
-language = os.environ.get("BOOK_LANG", "en")
-locale_dirs = ["locale/"]
-gettext_compact = False
-gettext_uuid = True
-gettext_additional_targets = ["image"]
+language = "zh_CN"
 
 # -- Bibliography (sphinxcontrib-bibtex) -------------------------------------
 
@@ -107,22 +104,6 @@ html_theme_options = {
     "sticky_navigation": True,
     "prev_next_buttons_location": "both",
     "style_external_links": True,
-}
-
-# -- Language switcher -------------------------------------------------------
-#
-# Consumed by _templates/layout.html. Each entry declares:
-#   code  : Sphinx language code (matches the ``language`` setting)
-#   label : human-readable name rendered in the switcher
-#   dir   : per-language output directory under ``_build/html/``
-#
-# The build is expected to produce ``_build/html/en/`` and ``_build/html/zh/``;
-# see the book-html-en / book-html-zh targets in the top-level Makefile.
-html_context = {
-    "available_languages": [
-        {"code": "en", "label": "English", "dir": "en"},
-        {"code": "zh_CN", "label": "中文", "dir": "zh"},
-    ],
 }
 
 # -- LaTeX / PDF output ------------------------------------------------------
@@ -170,47 +151,3 @@ suppress_warnings = [
     "bibtex.duplicate_label",
     "bibtex.duplicate_citation",
 ]
-
-# -- MyST H1 translation hook ------------------------------------------------
-#
-# MyST-parser turns the first ``# Heading`` into a title node that Sphinx's
-# gettext i18n transform does not translate — h2 and below translate fine,
-# but the page title stays in English. We fix it by consulting the compiled
-# gettext catalog at ``doctree-resolved`` time and swapping the title text
-# if a translation exists.
-
-from docutils import nodes  # noqa: E402
-
-
-def _translate_titles(app, doctree, docname):
-    if app.config.language in (None, "", "en"):
-        return
-    try:
-        import gettext as _gettext
-
-        translator = _gettext.translation(
-            domain=docname,
-            localedir=str(HERE / "locale"),
-            languages=[app.config.language],
-            fallback=True,
-        )
-    except Exception:
-        return
-
-    for title_node in doctree.traverse(nodes.title):
-        original = title_node.astext()
-        if not original:
-            continue
-        translated = translator.gettext(original)
-        if translated and translated != original:
-            title_node.clear()
-            title_node += nodes.Text(translated)
-
-
-def setup(app):
-    app.connect("doctree-resolved", _translate_titles)
-    return {
-        "version": release,
-        "parallel_read_safe": True,
-        "parallel_write_safe": True,
-    }

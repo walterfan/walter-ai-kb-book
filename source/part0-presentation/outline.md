@@ -4,7 +4,7 @@ status: review
 authors:
   - Walter (Yamin) Fan
 last_verified_commit: HEAD
-zh_status: none
+zh_status: partial
 keywords:
   - presentation
   - outline
@@ -78,7 +78,7 @@ MCP / agent / commit-not-pages / L-git / L-entity / L-link`。
 - **目标**：让听众**拥有一张地图**。之后任何时候他们脑子里都有
   "我现在在哪儿" 这个坐标。
 - **钩子**：这一张 mermaid flowchart 是全场**唯一的架构总图**。
-  指着它说 *"我接下来只讲主脊上的 6 个灵魂概念，别的部分指给你们看，
+  指着它说 *"我接下来只讲主线上的 6 个灵魂概念，别的部分指给你们看，
   不展开。"*
 - **操作**：在投影上**停留 30 秒** —— 不讲话，让图自己进脑子。
 - **可选 research anchor（+2 min，可从缓冲里拿）**：如果现场有人担心
@@ -89,7 +89,7 @@ MCP / agent / commit-not-pages / L-git / L-entity / L-link`。
 
   **不要展开论文细节。**
 - **深一层**：可以顺手点一句 —— "很多团队的 KB 在 Part IV 那里死掉：
-  能建不能维护。今天的主脊有一半内容是讲 Part IV 的。"
+  能建不能维护。今天的主线有一半内容是讲 Part IV 的。"
 - **可跳（−1 min）**：可以只念 Part II、III、V 的 one-liner。
 - **别讲**：**别**开始讲 Diátaxis、BM25、HNSW 这些名词。留到对应段落。
 

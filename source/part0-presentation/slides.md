@@ -4,7 +4,7 @@ status: review
 authors:
   - Walter (Yamin) Fan
 last_verified_commit: HEAD
-zh_status: none
+zh_status: partial
 keywords:
   - presentation
   - slides
@@ -40,7 +40,7 @@ graph / RRF / MCP / agent / commit-not-pages / L-git / L-entity / L-link`。
 - Walter (Yamin) Fan
 
 > 开场不要急着讲话。让标题停 10 秒。报家门 1 句。
-> 承诺："我今天只讲主脊，不陷细节；留 10 分钟给大家 Q&A。"
+> 承诺："我今天只走主线，不陷细节；留 10 分钟给大家 Q&A。"
 
 ---
 
@@ -94,13 +94,13 @@ graph / RRF / MCP / agent / commit-not-pages / L-git / L-entity / L-link`。
 - Part VI **Governance & Outlook** — 成本 / 隐私 / 安全
 
 > **停 30 秒不讲话**，让地图进脑子。
-> 然后说："接下来 50 分钟只讲主脊，不讲任何细节。"
+> 然后说："接下来 50 分钟只走主线，不讲任何细节。"
 > 顺带点一句："Part I–II 是背景，III–IV 是系统，V–VI 是治理。
 > 很多团队的 KB 在 Part IV 那里死掉 —— 能建不能维护。"
 
 ---
 
-## Slide 6 —— 今天的主脊（6 条）
+## Slide 6 —— 今天的主线（6 条）
 
 1.  frontmatter + footer（Ch 5）
 2.  Code ≠ Prose（Ch 8）
@@ -413,8 +413,8 @@ make book-check
 
 ## Slide 25 —— 谢谢 / 入口
 
-- 书的入口：`book/_build/html/zh/` 或 `http://localhost:8800/zh/`
-- 反馈：PR 到 `book/part0-presentation/`
+- 书的入口：`source/_build/html/` 或 `http://localhost:8800`
+- 反馈：PR 到 `source/part0-presentation/`
 - **用 AI 给软件项目造一个知识库**
 
 > "希望今天讲的六条，明天有一条你会去试。"

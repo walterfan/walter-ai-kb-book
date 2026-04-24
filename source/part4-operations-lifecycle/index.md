@@ -1,5 +1,5 @@
 ---
-title: 'Part IV — Operations & Lifecycle'
+title: "第四部分 —— 运维与生命周期"
 status: draft
 authors:
   - Walter (Yamin) Fan
@@ -9,7 +9,7 @@ keywords:
   - operations
 ---
 
-# Part IV — Operations & Lifecycle
+# 第四部分 —— 运维与生命周期
 
 ```{toctree}
 :maxdepth: 1
@@ -19,27 +19,27 @@ ch15-evaluation-and-benchmarks
 ch16-maintenance-drift-and-link-rot
 ```
 
-## Why
+## Why —— 为什么
 
-Keeping a code KB healthy is harder than building one.
+让一个代码知识库一直保持健康，比从零搭出一个更难。
 
-## What
+## What —— 是什么
 
-Git-diff-driven incremental sync, RAG evaluation, drift and link rot.
+由 git diff 驱动的增量同步、RAG 评测、漂移与链接腐化。
 
-## How
+## How —— 怎么做
 
-Three chapters, anchored in blog §10 {cite}`fanyamin2026deepwiki` and in the `SyncJob` state machine.
+三章内容，锚定在博客 §10 {cite}`fanyamin2026deepwiki` 以及 `SyncJob` 状态机上。
 
-## Example
+## Example —— 范例
 
-A worked incremental-sync run reproducing the 36×/180×/9× speedups reported in the blog.
+一次完整走完的增量同步过程，复现博客中报告的 36×/180×/9× 提速。
 
-## Conclusion
+## Conclusion —— 小结
 
-Operations discipline is the line between a prototype KB and one a team actually relies on.
+运维纪律是“原型级知识库”与“一个团队真正敢依赖的知识库”之间的那条分界线。
 
-## References
+## 参考文献
 
 ```{bibliography}
 :filter: keywords % "operations"
