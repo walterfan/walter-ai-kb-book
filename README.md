@@ -1,4 +1,4 @@
-# lazy-code-kb-book — Knowledge-base engineering for software projects
+# async-pkb-book — Knowledge-base engineering for software projects
 
 > **Knowledge building for a software project** means turning prose (wikis,
 > ADRs, runbooks) and code (repos, graphs, embeddings) into a **single,
@@ -21,7 +21,7 @@
 ## What's inside
 
 ```
-lazy-code-kb-book/
+async-pkb-book/
 ├── Makefile              # setup / check / build / serve / pdf
 ├── pyproject.toml        # Poetry: Sphinx, MyST, bibtex, mermaid
 ├── poetry.lock
@@ -133,7 +133,7 @@ make serve                  # http://localhost:8800
 
 - **`lazy-kb-wiki`** —— *Prose layer* 的参考实现：Go wiki-cli + Vue 前端，
   处理 Markdown + Git 型 wiki 的导入、校验、静态构建。
-- **`lazy-code-kb-book`**（本仓库）—— 面向**软件项目知识库**的设计与教程的
+- **`async-pkb-book`**（本仓库）—— 面向**软件项目知识库**的设计与教程的
   **文本与构建载体**：把“如何为代码库建立、维护、运营知识层”的方法论、
   trade-off 和工程纪律写成可构建的书稿。
 

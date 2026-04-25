@@ -1,4 +1,4 @@
-# lazy-code-kb-book
+# async-pkb-book
 
 Sphinx + MyST source and toolchain for the book *Use AI to build a
 knowledge base for a software project* — a six-part field guide to
@@ -32,7 +32,7 @@ Example / Common mistakes / Conclusion` skeleton.
 ## Repository layout
 
 ```
-lazy-code-kb-book/
+async-pkb-book/
 ├── Makefile                  # All build/check/serve targets
 ├── pyproject.toml            # Poetry: Sphinx, MyST, bibtex, mermaid
 ├── poetry.lock

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "lazy-harness-book"
+name = "async-pkb-book"
 version = "0.1.0"
 description = "Sphinx + MyST toolchain for the book 'Use AI to build a knowledge base for a software project' and its content-validation tools."
 authors = ["Walter (Yamin) Fan <waltefan@ustc.edu>"]
