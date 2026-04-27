@@ -19,6 +19,7 @@ ch05-frontmatter-provenance-trust
 ch06-llm-classification-pipeline
 ch07-publish-and-search
 ch07a-prose-operational-model
+ch07b-cold-start-migration
 ```
 
 第二部分的五章，浓缩在一页：一个**存储选型**（第 4 章），它的**信任属性**（第 5 章）必须被**流水线**（第 6 章）一路保住，经由搜索和静态站点（第 7 章）对外服务，再加上一套**运维模型**（第 7a 章）—— 在底下的代码持续变化时，让整套东西仍然是诚实的：

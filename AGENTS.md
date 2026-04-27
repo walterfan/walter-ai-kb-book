@@ -21,7 +21,7 @@ The book content lives entirely under `source/`. Start here:
 | `source/part5-hybrid-layer/` | Document layering L0-L4, graph-guided context, AI agents on the KB |
 | `source/part6-governance-and-outlook/` | Cost/privacy/security, trust/provenance, open problems |
 | `source/reference/` | 10 annotated research paper summaries |
-| `source/appendix-*.md` | Glossary, bilingual publishing guide, DeepWiki checklist |
+| `source/appendix/appendix-*.md` | Glossary, bilingual publishing guide, DeepWiki checklist |
 | `source/references.bib` | BibTeX bibliography, filtered per chapter via `:filter: keywords` |
 | `README.md` | Project overview, quickstart, design invariants |
 
@@ -53,8 +53,7 @@ async-pkb-book/
     ├── part5-hybrid-layer/   # ch17–ch21
     ├── part6-governance-and-outlook/  # ch22–ch24
     ├── reference/            # Research paper summaries
-    ├── appendix-a-example-wiki/
-    ├── appendix-b-example-code-kg/
+    ├── appendix/              # Appendix A-E standalone pages
     ├── examples/             # Runnable code excerpts (vendored)
     ├── sources/              # Raw source materials
     ├── _tools/               # Validation scripts

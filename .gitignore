@@ -10,9 +10,6 @@ __pycache__/
 # ── Sphinx build artifacts ───────────────────────────────────────────
 source/_build/
 
-# ── Compiled i18n catalogs (regenerate with `make intl-build`) ───────
-source/locale/**/*.mo
-
 # ── Editor / OS noise ────────────────────────────────────────────────
 .DS_Store
 Thumbs.db

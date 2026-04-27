@@ -37,11 +37,10 @@ async-pkb-book/
     ├── part4-operations-lifecycle/   # Incremental sync, drift, evaluation
     ├── part5-hybrid-layer/           # L0–L4 tuple, graph-guided context, MCP agents
     ├── part6-governance-and-outlook/ # Cost, privacy, security, open problems
-    ├── appendix-*.md                 # Glossary, bilingual publishing, checklist
+    ├── appendix/                     # Appendix A-E standalone pages
     ├── _tools/                       # check_frontmatter / check_blog_quotes
     ├── _static/ _templates/          # CSS
-    ├── examples/ sources/            # Runnable snippets, vendored code excerpts
-    └── appendix-a-example-wiki/ appendix-b-example-code-kg/
+    └── examples/ sources/            # Runnable snippets, vendored code excerpts
 ```
 
 The book source is written directly in Chinese (with English technical terms
@@ -98,7 +97,7 @@ make serve                  # http://localhost:8800
     （title / status / authors / `last_verified_commit` / `zh_status` /
     `keywords`）和 `<!-- PKB-metadata -->` footer
     （layer / `updated_by` / `review_status` / `review_score` / `commit`）。
-    完整 schema 见 `source/appendix-e-bilingual-publishing.md`。
+    完整 schema 见 `source/appendix/appendix-e-bilingual-publishing.md`。
 2.  `make check` —— 本地快速 lint。
 3.  `make build` —— Sphinx 构建 HTML；任何交叉引用问题都会报错。
 4.  `make check-redaction` —— 防止把内部 URL / 产品名 / 工单号推出去。

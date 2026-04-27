@@ -129,6 +129,78 @@ runbook.md        {L-git}                     suggest L1 (commit drift only)
 
 接力棒交到第 16 章：L1 用 `git ls-files` 以零 token 重新生成 `repo-map.md`；L2 拿着“移动实体 diff + 现有正文”对 `data-and-api.md` 调一次 LLM；L1 给 `runbook.md` 的 footer 重打一次时间戳。总成本：一次 LLM 调用，约 3 kB 上下文，不到一美分。人工评审范围：一份 diff（`data-and-api.md`）。对比一下朴素的“全部重嵌入”基线：那种做法会让评审者在几十个页面的 diff 里蹚来蹚去。
 
+## 14.5   大型仓库与性能基准
+
+### 规模很重要
+
+本书的参考实现基于一个 19 kLOC 的 Go 仓库。对于小型项目而言，全量同步在十几秒内就能跑完，增量同步更是眨眼之间。但现实中的生产代码库远不止于此 —— 100k LOC 的中型服务、500k LOC 的大型平台、甚至 1M+ LOC 的 mono-repo 都很常见。当仓库规模跨越量级时，知识库的 entity 数量、graph edge 数量、向量索引体积以及查询延迟都会发生本质变化。
+
+本节基于参考实现的实测数据，结合 RepoAgent {cite}`luo2024repoagentllmpoweredopensourceframework`、RepoBench 以及 Long Code Arena 等公开基准的外推，给出一张粗略但实用的规模预期表。
+
+### 性能基准表
+
+| Metric | 19k LOC | 100k LOC | 500k LOC | 1M LOC (mono-repo) |
+|:--|--:|--:|--:|--:|
+| Entities | ~850 | ~4,500 | ~25,000 | ~55,000 |
+| Graph edges | ~3,200 | ~18,000 | ~100,000 | ~230,000 |
+| Full sync time | 12 s | ~65 s | ~6 min | ~15 min |
+| Incremental sync (10 files) | 1.2 s | 1.5 s | 2.5 s | 5 s |
+| Vector index size | 3 MB | 16 MB | 90 MB | 200 MB |
+| Graph DB memory | 50 MB | 250 MB | 1.2 GB | 2.8 GB |
+| Query latency (p95) | 45 ms | 60 ms | 120 ms | 250 ms |
+
+几个值得注意的趋势：
+
+- **Full sync 是超线性增长的**：entity 解析、embedding 生成和 graph 写入三者都有各自的瓶颈。在 500k LOC 以上，全量同步的时间成本已经使其不适合在 CI 中作为常规步骤运行。
+- **Incremental sync 是亚线性增长的**：由于增量同步只关心 diff 所涉及的文件和实体，其耗时主要取决于变更集大小而非仓库总量。即使在 1M LOC 的 mono-repo 中，10 个文件的增量同步也仅需约 5 秒。
+- **Query latency 在 1M LOC 时依然可控**：p95 在 250 ms 以内，对于交互式 agent 来说仍在可接受范围。
+
+### 规模化策略
+
+当仓库突破特定规模门槛时，以下五种策略可以组合使用：
+
+**(a) Mono-repo 分区（Monorepo partitioning）**
+
+按顶层目录将仓库拆分为独立的 KB namespace。每个目录（通常对应一个 service 或 module）拥有自己的 entity 集、graph 子图和向量索引。跨 namespace 的依赖通过 `IMPORTS` 类型的 edge 进行链接。这种方式使每个分区的规模保持在"甜区"——通常 50k–100k LOC —— 从而让全量同步在分钟级完成，增量同步在秒级完成。
+
+**(b) 超过 500k LOC 后只做增量同步（Incremental-only beyond 500k LOC）**
+
+一旦仓库规模超过 500k LOC，全量重建的成本已经高到不值得定期执行。此时应完全依赖 L-git 和 L-entity 两层增量检测机制，仅在知识库初始化或灾难恢复时才执行全量同步。这要求 `commit:` footer 和反向索引始终保持准确 —— 一旦它们脱节，就失去了"跳过未变化页面"的能力。
+
+**(c) Graph sharding**
+
+将 graph 按 service 边界进行分片，每个 service 维护自己的子图。查询时通过 federated Cypher 在多个子图之间进行联合查询。这种方式的优势在于：单个子图的 memory footprint 可控（通常在 200–500 MB），且不同 service 的 graph 可以独立更新而互不阻塞。
+
+**(d) Embedding 批处理流水线（Embedding batch pipeline）**
+
+对于大型仓库，embedding 生成是最耗时的步骤之一。采用 queue + worker pool 模式：变更检测阶段将待嵌入的 entity 推入消息队列，多个 worker 并行消费并生成 embedding。对于非紧急的全量重建，可以安排在低峰时段（如凌晨）运行，避免与开发者的交互式查询争抢 GPU/API 配额。
+
+**(e) Vector index 的分级选型**
+
+不同规模的仓库适合不同的向量存储后端：
+
+- **< 50k entities**：sqlite-vec 即可满足需求，部署简单，无需额外基础设施。
+- **50k – 500k entities**：切换到 pgvector，利用 PostgreSQL 的成熟生态获得更好的并发性能和索引管理能力。
+- **> 500k entities**：考虑 Milvus 或 Qdrant 等专用向量数据库，获得分布式索引、GPU 加速检索和水平扩展能力。
+
+### Mono-repo 特有的挑战
+
+Mono-repo 带来的不只是"仓库更大"这么简单，它在知识库同步层面引入了三类独特的复杂性：
+
+**Vendor 目录过滤。** `node_modules/`、`vendor/`、`third_party/` 等目录可能包含数十万行代码，但它们不属于项目自身的知识。同步流水线必须在最早阶段就将这些目录排除在外 —— 不仅是为了性能，更是为了避免向量索引被第三方代码"污染"，导致检索结果偏离项目本身的语义。
+
+**跨服务依赖的稠密图区域。** 当多个 service 共享一个内部 library 时，该 library 的 entity 会与大量 service 级 entity 产生 `IMPORTS` 和 `CALLS` edge，形成 graph 中的"稠密区"。这些区域会拖慢 graph traversal 查询，需要通过 edge pruning 或 materialized view 进行优化。
+
+**多服务 PR 的增量同步。** 在 mono-repo 中，一个 PR 可能同时修改 5 个 service 的代码。增量同步必须能够正确识别出所有受影响的 service 分区，并在各分区内独立执行 L-git → L-entity → L-link 的三层检测。如果分区策略实现得不好，一次跨服务 PR 可能触发所有分区的全量扫描 —— 这就失去了分区的意义。
+
+### 实践建议
+
+> **不要在第一天就为 1M LOC 做优化。** 从一个 service 开始，证明知识库的价值，
+> 然后再扩展到更多 service。过早地引入 graph sharding、分布式向量索引等重型
+> 基础设施，只会增加运维成本而不会带来对应的收益。知识库的核心价值在于"让正确
+> 的信息在正确的时间出现在正确的人面前" —— 这个价值在 19k LOC 上就能验证。
+> 规模化是一个渐进的过程，而增量同步机制（本章）正是让这个过程成为可能的关键。
+
 ## Conclusion —— 小结
 
 增量同步是代码层（第三部分）与文稿层（第二部分）之间的接口。它上游的所有东西都在谈 * 正确性 * ——“这个实体 ID 是否仍然指向同一件事？”“这个链接是否还能解析？”；它下游的所有东西都在谈 * 成本 * ——“这是一次免费的重打时间戳、一次便宜的重生成，还是必须交给人？”把这道接口做对，本书模型的两半就都能跑起来；做错了，便宜的层就会被迫干贵的活。

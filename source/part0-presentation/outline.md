@@ -42,7 +42,7 @@ MCP / agent / commit-not-pages / L-git / L-entity / L-link`。
 | How —— 六个灵魂概念 | 22 | 35 | **保留 1 分钟缓冲** |
 | Example —— 三段 demo | 20 | 55 | **必演**，失败切截图 |
 | Conclusion —— 带走的三句话 | 2 | 57 | 快收尾 |
-| Q&A | 3+ | 60 | 留给同事 |
+| Q&A | 3–10 | 60+ | 弹性收尾，尽量留 5+ 分钟 |
 
 **排演过两轮以上再上台**。第一轮光讲稿（不开 demo 也不放片），确认自己对
 *流畅度* 有信心；第二轮完整跑一次 demo，**一定**用 live 代码跑过，记下
@@ -165,15 +165,17 @@ MCP / agent / commit-not-pages / L-git / L-entity / L-link`。
 - **深一层**：它的反面是一条漂亮的死路 —— "KB 越有用越大 → 每次 commit
   越贵 → 预算爆掉 → 停止维护"。commit-not-pages 就是把这条曲线
   **从 O(KB size) 拽回 O(change rate)**。
-- **数字**：*"19 candidates、每 repo 每周几美分。naive baseline 贵十倍
-  以上。"* 不用细讲公式，数字就够。
+- **数字**：*"一周 47 commits → 19 candidates（12→L1、5→L2、2→L3），
+  5 次 L2 共 18k token ≈ $0.02/周。naive baseline 贵十倍以上。"*
+  不用细讲公式，数字就够。
 - **可跳**：不可跳 —— 这是本场的收尾句式。
 - **别讲**：不讲 `text-embedding-3-small` 的具体单价。
 
 ### 0:35 – 0:35（+1 min 缓冲）
 
 如果时间超了，从缓冲里扣。如果时间还早，扩展概念 2 的第 3 条
-（"Graph-free design" 那条反 pattern 特别好讲）。
+（"两个签名相同但分别住在 HTTP handler 层和后台 worker 层的函数，
+在向量里挨得很近但语义天差地别"—— 这条反直觉点特别好讲）。
 
 ## 0:35 – 0:55  Example —— 三段 demo（20 分钟）
 
@@ -261,3 +263,12 @@ MCP / agent / commit-not-pages / L-git / L-entity / L-link`。
   - **不硬答**。一个诚实的 "这是好问题，会后补" 比十个漂亮的 hallucination
     有价值。今天整本书讲的就是这个。
   - **不会答的问题**：记下来，说 "会后写在分享频道里"。
+
+<!-- PKB-metadata
+layer:         L2
+updated_by:    ai+human
+review_status: pending
+review_score:  0
+reviewed_by:
+commit:        HEAD
+-->

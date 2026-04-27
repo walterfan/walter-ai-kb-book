@@ -45,6 +45,7 @@ ch17-prose-meets-code
 ch18-document-layering-L0-L4
 ch19-graph-guided-context-assembly
 ch20-harnessing-ai-coding
+ch20a-team-sdlc-integration
 ch21-ai-agents-on-the-kb
 ```
 

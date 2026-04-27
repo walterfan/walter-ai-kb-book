@@ -144,6 +144,132 @@ runIncrementalSync (recursion guard) | reference-impl/code-kg/service.go | 278
 
 这种结构上的精确，单靠嵌入是达不到的。
 
+## 11.5   图数据库选型对比
+
+图数据库是基础设施级别的赌注。选错了，迁移成本会远超你一开始省下的部署时间。本节把我们评估过的六个候选者放在同一张表里，给出本书代码知识图谱场景下的推荐路径。
+
+### 候选者一览
+
+| Graph Store | License | Protocol | Clustering | Max Edges (tested) | Write Pattern | Query Latency (1-hop) | Notes |
+|---|---|---|---|---|---|---|---|
+| Memgraph | BSL + Community | Bolt / Cypher | No built-in | ~10M | Full rebuild fast | <5 ms | In-memory, simple ops |
+| Neo4j Community | GPL v3 | Bolt / Cypher | No | ~100M+ | Transaction-based | <10 ms | Mature ecosystem |
+| Neo4j Enterprise | Commercial | Bolt / Cypher | Causal cluster | Billions | Transaction-based | <10 ms | Expensive license |
+| FalkorDB | MIT | Bolt / Cypher-ish | No | ~50M | Transaction-based | <3 ms | Redis-based, very fast reads |
+| SQLite + recursive CTE | Public domain | SQL | N/A | ~1M | File-based | ~20 ms | Zero dependency |
+| NetworkX (in-memory) | BSD | Python API | N/A | ~500K | In-memory dict | <1 ms | No persistence, testing/prototype only |
+
+几点说明：
+
+- **Memgraph** 的 Community Edition 采用 BSL 许可证，生产使用需注意条款。它的最大优势是纯内存架构——对于本章的"先 `DETACH DELETE`、再 `UNWIND` + `MERGE`"全量重建模式，写入速度极快，冷启动也只是把 snapshot 加载进 RAM。
+- **Neo4j Community** 是生态最成熟的选择：驱动覆盖 Go / Python / Java / JS，社区文档丰富。GPL v3 许可证意味着如果你要分发嵌入了 Neo4j 的产品，需要做合规审查；但如果只是作为内部服务运行，通常不受影响。
+- **FalkorDB**（前身为 RedisGraph）基于 Redis，读延迟极低（<3 ms），MIT 许可证也最宽松。缺点是 Cypher 方言与标准 openCypher 有细微差异，部分高级语法不支持。
+- **SQLite + recursive CTE** 是"零依赖"方案：不需要任何外部进程，一个 `.db` 文件即可。代价是没有原生图语义——你需要自己用 `WITH RECURSIVE` 手写遍历，且在多跳查询上性能会急剧下降。适合 CI 环境里的集成测试或极小型项目。
+- **NetworkX** 只适用于单元测试和原型验证。它没有持久化、没有并发安全、没有查询语言——但在 pytest 里造一个 fixture 图快得无与伦比。
+
+### 本书场景的决策矩阵
+
+代码知识图谱的典型工作负载有四个特征：
+
+1. **规模有限。** 1k–50k 实体，5k–200k 边。即使是百万行级别的 monorepo，经过噪声过滤后的实体数也很少超过 50k。
+2. **读多写少，写是批量。** 日常使用全是只读查询（第 12 章的检索器）；写入只发生在同步时，且是全量重建。
+3. **需要 Cypher 或 Cypher-like 查询语言。** 第 12 章的混合检索器需要在运行时动态拼 Cypher，包括 `MATCH`、`OPTIONAL MATCH`、`WITH`、`RETURN`。
+4. **必须支持 `DETACH DELETE` + `MERGE` 模式。** 这是本章"每仓库全量重建"策略的核心原语。
+
+综合以上约束，我们的推荐是：
+
+- **<50k 实体（绝大多数单仓项目）：Memgraph。** 部署最简单（一个 Docker 容器），全量重建最快，Cypher 兼容性最好。本书参考实现的默认后端。
+- **>50k 实体（大型 monorepo 或多仓聚合）：Neo4j Community。** 磁盘存储不受 RAM 限制，事务语义更完整，社区插件丰富。
+- **零依赖回退方案：SQLite + recursive CTE。** 当你无法运行任何外部数据库（CI pipeline、serverless function、嵌入式场景）时，这是唯一的选择。需要自行实现一个 `SQLiteGraphStore` 适配器，把 Cypher 翻译成 SQL——工作量约 200–300 行代码。
+
+### 迁移路径
+
+除 SQLite 外，上述所有候选者都通过 Bolt 协议通信。这意味着本章定义的 `GraphStore` 接口（`UpsertRepositoryGraph`、`QueryGraph`）对上层完全透明——切换后端只需替换连接字符串和适配器实现，检索器代码无需改动。
+
+```
+应用层 (Retriever / CLI)
+      │
+      ▼
+GraphStore interface  ← 本章定义的抽象
+      │
+      ├─ MemgraphStore   (bolt://localhost:7687)
+      ├─ Neo4jStore       (bolt://localhost:7687)
+      ├─ FalkorDBStore    (bolt://localhost:6379)
+      └─ SQLiteStore      (file:///path/to/graph.db)  ← 需自行翻译 Cypher → SQL
+```
+
+从 Memgraph 迁移到 Neo4j Community，实测只需要改三处：连接 URI、认证方式、以及一个 `MERGE` 语法的微小差异（Neo4j 要求 `ON CREATE SET` 而 Memgraph 允许省略）。总迁移时间不应超过半天。
+
+### 为什么不用通用分布式图数据库
+
+Amazon Neptune、JanusGraph、TigerGraph 等分布式图数据库在社交网络、欺诈检测等十亿边级别场景下有不可替代的优势。但对于代码知识图谱：
+
+- **规模不匹配。** 一个 100 万行的仓库，过滤后的图也就几万个节点、十几万条边。这甚至不到 Memgraph 内存模型的 1% 容量。
+- **增加云依赖。** Neptune 绑定 AWS VPC，JanusGraph 需要 Cassandra/HBase + Elasticsearch 后端。每多一个外部组件，运维半径就扩大一圈。
+- **查询模型过重。** Gremlin（Neptune / JanusGraph 的原生语言）比 Cypher 更通用但也更冗长。本书的查询模式——1-hop 邻居、2-hop 路径、`MATCH ... WHERE ... RETURN`——在 Cypher 里是一行，在 Gremlin 里是五行。
+- **成本不对称。** Neptune 的最低实例费用（db.r5.large）约 $0.58/h，一年 $5,000+。Memgraph Community 在一台 2 GB RAM 的 VM 上就能跑。
+
+**底线是：如果你的图装得进一台机器的内存，就不要引入分布式图数据库。** 代码知识图谱几乎总是满足这个条件。
+
+## 11.6   图谱可视化与探索
+
+一张你看不见的图，就是一张你无法信任的图。上面几节讨论了如何构建和存储代码知识图谱，但如果你从来不把它渲染出来，三类问题会悄悄潜伏：缺失的边（两个应该有 `CALLS` 关系的函数之间什么都没有）、孤立节点（过滤器遗漏导致噪声实体残留）、以及意料之外的聚类（本该独立的两个子系统被一条错误的 `IMPORTS` 边粘在了一起）。可视化不是图谱的"附加功能" —— 它是你验证图谱质量的第一道防线。
+
+### 工具对比
+
+下表汇总了六种适合代码知识图谱场景的可视化工具。"可用节点上限"是指在交互操作仍然流畅的前提下的经验值，而非硬性限制。
+
+| 工具 | 协议 | 交互式？ | 可用节点上限 | 可自托管？ | 备注 |
+|---|---|---|---|---|---|
+| Memgraph Lab | Bolt | 是 | ~5,000 | 是（Docker） | Memgraph 用户的首选 |
+| Neo4j Browser | Bolt | 是 | ~3,000 | 是 | 经典方案，社区广泛使用 |
+| Gephi | GEXF 文件 | 是 | ~100,000 | 桌面应用 | 大规模分析的最佳选择 |
+| D3.js (force layout) | JSON API | 是 | ~2,000 | 自定义代码 | 可嵌入 KB Web UI |
+| Cytoscape.js | JSON | 是 | ~5,000 | 自定义代码 | 适合生物信息/代码图谱 |
+| yEd | GraphML | 是 | ~10,000 | 桌面应用 | 自动布局算法丰富 |
+
+### 本书的推荐方案
+
+针对代码知识图谱的三种典型使用场景，我们推荐不同的工具链：
+
+- **日常开发与调试：Memgraph Lab。** 免费、Docker 一键部署、通过 Bolt 协议直连。你在上一节选好的 Memgraph 实例上什么都不用额外配置，打开浏览器访问 `http://localhost:3000` 即可开始探索。输入一条 Cypher，节点和边立刻以力导向布局渲染在画布上。
+- **团队汇报与演示：导出子图为 JSON，用 D3.js force layout 渲染。** 当你需要把一个子系统的调用关系展示给不使用 Bolt 客户端的同事时，把 Cypher 查询结果序列化为 `{nodes: [...], links: [...]}` 格式的 JSON 文件，然后用一个不到 100 行的 D3.js 页面渲染。这种方式可以嵌入内部文档站或 Confluence 页面。
+- **深度分析：导出完整图为 GEXF 格式，在 Gephi 中打开。** 当你需要做社区检测（哪些模块形成了紧密耦合的集群？）、度分布分析（是否存在超级 hub 节点？）、或者生成出版级别的图谱插图时，Gephi 的可视化能力和统计插件是其他工具无法替代的。导出命令只需要一行：`MATCH (n)-[r]->(m) RETURN n, r, m` 然后用脚本转成 GEXF。
+
+### 用于可视化的实用 Cypher 查询
+
+以下三条查询覆盖了可视化场景中最常见的需求。它们可以直接粘贴到 Memgraph Lab 或 Neo4j Browser 中执行：
+
+```cypher
+// 围绕特定实体的子图 —— 查看某个函数的 1~2 跳邻居
+MATCH path = (e:Entity {name: 'HandleRequest'})-[*1..2]-()
+RETURN path
+
+// 孤立节点检测 —— 没有任何边的实体，通常是噪声过滤遗漏
+MATCH (e:Entity) WHERE NOT (e)-[]-() RETURN e
+
+// 最高连接度实体（hub 检测）—— 度数最高的 20 个节点
+MATCH (e:Entity)-[r]-()
+RETURN e.name, count(r) AS degree
+ORDER BY degree DESC LIMIT 20
+```
+
+**第一条**查询是日常使用频率最高的：输入你正在调查的函数名，立刻看到它的调用者、被调用者、所在文件、实现的接口。在 Memgraph Lab 中，结果会自动渲染为可交互的力导向图。
+
+**第二条**查询用于质量审计。如果你的图里有大量孤立节点，说明 builder 的关系抽取存在遗漏，或者噪声过滤器的停用表需要更新。一个健康的代码知识图谱，孤立节点比例应低于 5%。
+
+**第三条**查询帮你发现图中的 hub 节点。在代码图谱中，hub 通常是工具函数（如 `log`、`handleError`）或核心入口（如 `main`、`router`）。如果一个不起眼的辅助函数出现在 top-20，可能意味着边的抽取存在误报。
+
+### 在 KB Web UI 中嵌入可视化
+
+如果你的知识库有一个 Web 前端（即使只是一个内部工具），添加一个 `/graph` 端点可以极大提升可发现性。推荐的架构是：
+
+1. 后端提供 `/api/graph?filter=package:service` 接口，接收过滤参数（按 package、module、file），执行对应的 Cypher 查询，返回 `{nodes, links}` JSON。
+2. 前端用 D3.js force layout（或 Cytoscape.js）渲染。节点颜色按 `entityType` 区分（函数 = 蓝色，接口 = 绿色，文件 = 灰色），边的粗细按关系类型区分。
+3. 支持点击节点跳转到对应的源码位置（利用节点上的 `filePath` + `startLine` 属性）。
+
+这个端点不需要很复杂 —— 一个 50 行的 handler + 一个 100 行的 D3.js 模板就够了。它的价值在于：让每一位团队成员都能在浏览器里直接"看见"代码之间的结构关系，而不必安装 Bolt 客户端或学习 Cypher 语法。
+
 ## 常见错误
 
 代码图设计里有四个反模式贡献了我们见过的大多数失败。每一个都源自：把做 * 文档 * 图时的先验直接搬到一个先验并不成立的领域。

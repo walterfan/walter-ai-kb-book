@@ -74,7 +74,6 @@ exclude_patterns = [
     ".venv",
     "sources",
     "examples",
-    "locale",
     "_tools",
 ]
 

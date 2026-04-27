@@ -32,7 +32,7 @@ SPHINXBUILD    ?= $(PYTHON) -m sphinx
 # Redaction scan (keeps internal-URL / product / ticket / private-project
 # invariants out of the public book). See README for the rationale.
 REDACTION_EXCLUDE := -g '!**/_tools/**' -g '!**/_build/**' \
-                     -g '!**/sources/**' -g '!**/locale/**' -g '!**/.venv/**'
+                     -g '!**/sources/**' -g '!**/.venv/**'
 
 # ── Setup ────────────────────────────────────────────────────────────
 

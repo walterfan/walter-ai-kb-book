@@ -19,7 +19,7 @@ keywords:
 
 这一部分不是一章独立的技术内容，而是**整本书的 60 分钟分享版**。
 面向的是 *部门内部同事* —— 前后端工程师，大多数人用过 Cursor / Codex / Claude Code，
-但没专门做过 RAG / KG。节奏是 **30 分钟讲 + 20 分钟 demo + 10 分钟 Q&A**。
+但没专门做过 RAG / KG。节奏是 **30 分钟讲 + 20 分钟 demo + 5–10 分钟 Q&A**。
 
 - `index.md`（本文）—— 可直接通读的讲稿，讲者可以当"口水稿"用。
 - `outline.md` —— 分钟级 speaker outline，精确到每分钟讲什么。
@@ -144,7 +144,7 @@ flowchart LR
 
 ---
 
-## 一个研究脉络 —— 为什么这件事在 2024–2025 变得"成形"（3 分钟，可压缩）
+## 一个研究脉络 —— 为什么这件事在 2024–2025 变得"成形"（可选，2–3 分钟，可压缩或跳过）
 
 如果你担心今天讲的只是一个工程师的私有偏好，其实这两年论文里的脉络已经很清楚了：
 
@@ -328,7 +328,7 @@ $$
 
 ### 6. Commit-not-pages 预算：KB 应该有多贵？（第 22 章）
 
-最后一条，也是今天最想大家带走的一条工程纪律：
+最后一条，也是今天最想让大家带走的一条工程纪律：
 
 > **一个 KB 的 LLM 成本，应该是 *提交次数* 的可预测函数，而不是
 > *页面数* 的函数。**
@@ -349,20 +349,22 @@ $$
 \text{cost}_\text{3L} \approx N_\text{L1}\cdot 0 + N_\text{L2}\cdot C_\text{bounded} + N_\text{L3}\cdot 0
 $$
 
-L1 和 L3 都 **不花 LLM token**。L2 上限约 5 k token。
+L1 和 L3 都 **不花 LLM token**。L2 上限约 5 k token（实测平均约 3 k token）。
 
 commit-not-pages 真正做的事，是把成本曲线 **从 $O(\text{KB size})$ 拽回
 $O(\text{change rate})$**。KB 再大都可以，因为每次 commit 的开销只跟
 *这次改动* 的规模有关。
 
-具体到第 16 章那个例子（一周 19 个候选：12→L1、5→L2、2→L3），按 2024 年
-`text-embedding-3-small` / `gpt-4o-mini` 的定价 {cite}`openai_embeddings_v3`
-算下来是 **每仓库每周几美分**。Naive baseline 在同样 19 个候选上花费
-**高出十倍以上**，*而且* 会烧掉评审者的时间 —— 那才是更贵的资源。
+具体到第 16 章那个例子（一周 47 次 commit、19 个候选页面：12→L1、5→L2、2→L3），
+5 次 L2 调用共约 18 k token，按 2024 年 `gpt-4o-mini` 定价
+{cite}`openai_embeddings_v3` 算下来约 **$0.02/周/仓库**
+（第 22 章更完整的月度审计是 $0.73/月）。Naive baseline 在同样 19 个候选上
+按每页约 15 k token 计，花费 **高出十倍以上**，*而且* 会产出 19 份 diff
+烧掉评审者的时间 —— 那才是更贵的资源。
 
 三条可以今天就开始做的规则：
 
-1.  **按 commit 定预算**（例如小团队每次 commit $\$0.10$ 上限）。
+1.  **按 commit 定预算**（例如小团队每次 commit `$0.10` 上限）。
 2.  **L1 比例是一项 KPI。** 50 % 健康，90 % 优秀，低于 20 % 说明规则
     没覆盖常见场景。
 3.  **L3 的瓶颈是人的注意力，不是钱。** 不要试图拿 L3 换 L2 省钱 ——
@@ -412,13 +414,15 @@ code-kg sync --repo-id demo-repo --incremental
 # → graph:    20 s  (small subgraph rebuild)
 ```
 
-把数字摆上来（Appendix B 里可复现）{cite}`fanyamin2026deepwiki`：
+把数字摆上来（Appendix B 里可复现）{cite}`fanyamin2026deepwiki`。
+三个加速比分别对应 **三条不同管线**（keyword / vector / graph）上
+「全量 sync 约 3 分钟 → 一行 diff 后的增量 sync」的提速比，不是三个独立 demo：
 
-| 场景 | 全量 | 增量 | 加速比 |
-|:--|--:|--:|--:|
-| 关键词 | ~3 分钟 | ~5 秒 | **36×** |
-| 向量检索 | ~3 分钟 | <1 秒 | **180×** |
-| 图重建 | ~3 分钟 | ~20 秒 | **9×** |
+| 管线 | 全量 | 增量 | 加速比 | 含义 |
+|:--|--:|--:|--:|:--|
+| 关键词（BM25 索引重建） | ~3 分钟 | ~5 秒 | **36×** | 不含 embedding，是"地板"加速比 |
+| 向量（embedding 端到端）| ~3 分钟 | <1 秒 | **180×** | stable ID 使绝大多数实体向量无需重算 |
+| 图重建（subgraph rebuild）| ~3 分钟 | ~20 秒 | **9×** | 子图仍需实质更新，故比向量小得多 |
 
 > **要讲的观点**：这个 180× 不是 "vector 很快"，而是 *stable entity ID +
 > L-git / L-entity / L-link 三层过滤* 让绝大多数 commit 只需要碰 1-2 个
@@ -548,3 +552,12 @@ make book-check
 outline
 slides
 ```
+
+<!-- PKB-metadata
+layer:         L2
+updated_by:    ai+human
+review_status: pending
+review_score:  0
+reviewed_by:
+commit:        HEAD
+-->

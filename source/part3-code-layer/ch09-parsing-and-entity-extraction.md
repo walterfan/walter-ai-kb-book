@@ -144,6 +144,122 @@ function|412
 
 比例比绝对数字更重要：一个健康的 Go 代码库是“函数密集”的。如果你在一个 50 kLOC 的 Java 仓库上看到 5000 个“函数”，那就是你的解析器把每个闭包都当成了实体 —— 去修那个 visitor。
 
+## 9.5   多语言仓库解析
+
+现实中的代码仓库很少只有一种语言。一个典型的产品 monorepo 可能前端是 TypeScript，后端是 Go 或 Java，脚本工具链是 Python，还有少量 Rust 写的性能关键路径。本节讨论 polyglot（多语言）仓库给解析与实体抽取带来的特殊挑战，以及应对它们的实用模式。
+
+### 为什么多语言仓库需要特殊处理
+
+单语言解析器只需加载一份 tree-sitter grammar、写一个 visitor、维护一份实体映射表。当仓库里出现第二种语言，下面三个假设立刻失效：
+
+1. **节点类型名不再通用。** Go 里的 `function_declaration` 在 Python 里叫 `function_definition`，在 TypeScript 里叫 `function_declaration` *和* `arrow_function`。如果你的 visitor 硬编码了节点名，增加语言就意味着到处加 `if`。
+2. **实体语义不再对齐。** Python 的 `class` 和 Java 的 `class` 在语法树层面都叫"类"，但 Python class 可以在函数体内定义、支持多继承且没有访问修饰符。把两者无差别地映射到同一个 `EntityType.CLASS` 会丢失下游图谱推理所需的上下文。
+3. **文件发现逻辑需要分发。** `.go` 文件走 Go grammar，`.py` 走 Python grammar，`.ts` / `.tsx` 走 TypeScript grammar。分发的注册表越早变成显式配置，后期维护越轻松。
+
+### Language adapter registry 模式
+
+推荐的做法是维护一张 **language adapter registry**——一份从文件扩展名到 tree-sitter grammar 及对应 visitor 的配置映射：
+
+```yaml
+# language_registry.yaml
+adapters:
+  - extensions: [".go"]
+    grammar: "tree-sitter-go"
+    visitor: "go_visitor"
+    entity_kinds: ["package", "function", "struct", "interface"]
+
+  - extensions: [".py", ".pyi"]
+    grammar: "tree-sitter-python"
+    visitor: "python_visitor"
+    entity_kinds: ["module", "function", "class", "decorator"]
+
+  - extensions: [".ts", ".tsx"]
+    grammar: "tree-sitter-typescript"
+    visitor: "typescript_visitor"
+    entity_kinds: ["function", "class", "module", "type_alias"]
+
+  - extensions: [".java"]
+    grammar: "tree-sitter-java"
+    visitor: "java_visitor"
+    entity_kinds: ["package", "method", "class", "interface", "enum", "annotation"]
+
+  - extensions: [".rs"]
+    grammar: "tree-sitter-rust"
+    visitor: "rust_visitor"
+    entity_kinds: ["function", "struct", "enum", "trait", "mod", "impl"]
+```
+
+运行时解析器只需根据文件扩展名查表，加载对应 grammar 并委托给正确的 visitor。新增语言 = 新增一条配置 + 一个约 150 行的 visitor 文件。
+
+### 各语言实体模型差异
+
+下表汇总了五种常见语言在实体抽取层面的关键差异：
+
+| Language   | Function           | Class                  | Module / Package  | Special            |
+|:-----------|:-------------------|:-----------------------|:------------------|:-------------------|
+| Go         | `func`             | `struct`               | `package`         | `interface`        |
+| Python     | `def`              | `class`                | `module` (file)   | `decorator`        |
+| TypeScript | `function` / arrow | `class`                | `module` / `namespace` | `type alias`  |
+| Java       | `method`           | `class` / `interface` / `enum` | `package`  | `annotation`       |
+| Rust       | `fn`               | `struct` / `enum` / `trait`    | `mod`      | `impl` block       |
+
+要点：每种语言的"函数"和"类"在 tree-sitter 语法树里的节点类型名各不相同。adapter registry 的一项职责就是把这些异构的节点类型**归一化**到第 9 章定义的 `CodeEntity` IR，同时在 `metadata` 字段里保留语言特有的信息（例如 Rust 的 `impl` 目标类型、Python 的 decorator 列表）。
+
+### 跨语言实体链接的挑战
+
+在 polyglot 仓库中，不同语言的实体可能共享同一个名字但语义完全不同。例如：
+
+- `utils.Parse` 在 Go 里是一个 package-level function，在 TypeScript 里可能是一个 class 的 static method。
+- `Config` 在 Python 里可能是一个 dataclass，在 Java 里是一个 interface，在 Rust 里是一个 trait。
+
+第 11 章的图谱 builder 在创建跨语言引用边时，必须用 **完全限定名**（`language:package/module:entity_name`）作为节点 ID 的一部分，而不是裸名。否则同名实体会在图谱中被错误合并，导致检索和回答出现严重的语义漂移。
+
+### 配置示例：Python + TypeScript monorepo
+
+以下是一个典型的 Python + TypeScript monorepo 的解析配置：
+
+```yaml
+# repo_parse_config.yaml
+repository:
+  name: "acme-platform"
+  root: "."
+
+languages:
+  - name: python
+    source_roots: ["backend/", "scripts/"]
+    extensions: [".py"]
+    skip_dirs: ["__pycache__", ".venv", "migrations"]
+    max_file_size_kb: 512
+
+  - name: typescript
+    source_roots: ["frontend/src/", "shared/"]
+    extensions: [".ts", ".tsx"]
+    skip_dirs: ["node_modules", "dist", ".next", "__tests__"]
+    max_file_size_kb: 512
+
+entity_normalization:
+  # 将 Python def 和 TypeScript function/arrow 都映射到统一的 "function" 类型
+  function: ["function_definition", "function_declaration", "arrow_function"]
+  class: ["class_definition", "class_declaration"]
+  module: ["module", "program"]
+
+cross_language_linking:
+  enabled: true
+  id_format: "{language}:{relative_path}:{entity_type}:{name}:{start_line}"
+```
+
+这份配置把"哪些目录属于哪种语言"、"跳过哪些目录"、"实体类型如何归一化"这三件事都变成了**声明式配置**，而不是埋在代码里的 `if-else`。
+
+### 实用建议
+
+**从两种语言起步，而不是五种。** 在第一次为仓库建索引时，先只支持占代码量最大的两种语言。原因有三：
+
+1. 每新增一种语言，adapter 的测试矩阵就多一列；两种语言的组合测试量是可控的，五种的组合会让 CI 时间翻倍。
+2. 跨语言链接的边界情况（编码差异、路径约定、import 风格）在前两种语言上暴露得最充分，第三种语言开始收益递减。
+3. 你的下游（嵌入、图谱、检索）需要时间适配多语言 IR；同时推五种语言意味着下游也要同时处理五种边界情况。
+
+先让两种语言端到端跑通——从解析到嵌入到检索到回答——确认质量达标后，再逐步增加。这是 DeepWiki 方法论中"渐进式扩展"原则在解析层的具体体现。
+
 ## Conclusion —— 小结
 
 解析器很小，但第三部分的每一层都靠它立下的三条契约活着：跨语言统一的 IR（主张 1）、每个实体都忠实保留源码坐标（主张 2）、以及对 vendor 目录的激进默认跳过名单（主张 3）。这三条哪一条破了，下游每一章也跟着破。

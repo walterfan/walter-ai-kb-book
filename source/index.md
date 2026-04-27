@@ -129,11 +129,11 @@ part6-governance-and-outlook/index
 :maxdepth: 1
 :caption: Appendices
 
-appendix-a-example-wiki/index
-appendix-b-example-code-kg/index
-appendix-c-deepwiki-checklist
-appendix-d-glossary
-appendix-e-bilingual-publishing
+appendix/appendix-a-example-wiki
+appendix/appendix-b-example-code-kg
+appendix/appendix-c-deepwiki-checklist
+appendix/appendix-d-glossary
+appendix/appendix-e-bilingual-publishing
 ```
 
 ```{toctree}

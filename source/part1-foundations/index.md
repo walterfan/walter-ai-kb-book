@@ -15,6 +15,7 @@ keywords:
 :maxdepth: 1
 
 ch01-why-kb-for-software
+ch01a-quickstart-30min
 ch02-ir-rag-primer
 ch03-diataxis-and-software-docs
 ```

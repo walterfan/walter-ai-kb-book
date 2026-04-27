@@ -180,6 +180,123 @@ code-kg search --repo-id demo "is there a tokenizer licence mismatch"
 
 第二条查询是关键：系统 * 拒答 * ，而不是编一个答案出来。这个行为是两条规则提示词的回报，不是检索器失败。
 
+## 13.5   提示词版本管理与生命周期
+
+上面的 `BuildAnswerPrompt` 只有 12 行，但改动其中一个词就能把引用合规率从 97% 打回 60%。提示词模板是核心配置，不是随手写的字符串。它值得拥有和代码一样严格的版本管理。
+
+### Prompt-as-Code 原则
+
+把提示词当代码管理，需要遵守四条纪律：
+
+- **提示词住在文件里，不住在数据库行或环境变量里。** 文件可以 `git diff`，可以 blame，可以 revert。数据库行做不到这些。
+- **提示词文件走 PR 评审。** 每一次改动都有 reviewer 签字，就像改业务逻辑一样。
+- **每份提示词带语义化版本号（semver: major.minor.patch）。**
+  - **Major**：结构性变更 —— 新增 section、移除约束、改变输出 schema。
+  - **Minor**：措辞调整，可能影响输出质量 —— 比如把"必须"改成"应当"。
+  - **Patch**：错别字修正、格式微调，不影响模型行为。
+- **变更日志（CHANGELOG）与提示词文件同目录。** 未来排查"为什么上周五开始幻觉率上升了"时，这份日志是第一个要看的东西。
+
+### Prompt registry 模式
+
+当系统中有多份提示词时，一个注册表（registry）把名称映射到当前活跃版本：
+
+```text
+prompts/
+├── answer_prompt.v3.2.1.txt
+├── overview_prompt.v2.0.0.txt
+├── classification_prompt.v1.4.0.txt
+└── manifest.yaml   # maps prompt_name → active version
+```
+
+`manifest.yaml` 的内容很简单：
+
+```yaml
+# manifest.yaml — prompt registry
+answer_prompt:
+  active_version: "3.2.1"
+  file: answer_prompt.v3.2.1.txt
+overview_prompt:
+  active_version: "2.0.0"
+  file: overview_prompt.v2.0.0.txt
+classification_prompt:
+  active_version: "1.4.0"
+  file: classification_prompt.v1.4.0.txt
+```
+
+运行时只需读 `manifest.yaml`，加载对应文件。部署、回滚、审计都围绕这一份清单进行。
+
+### Prompt A/B 测试
+
+每次提示词变更在合入前，都应当跑一轮 golden query set 对比：
+
+1. 取出一组固定查询（推荐 40–100 条，覆盖常见问题和边界场景）。
+2. 分别用旧版本（如 v3.2.1）和新版本（如 v3.3.0）生成答案。
+3. 对比三项核心指标：引用合规率（citation compliance）、忠实度得分（faithfulness score）、拒答率（refusal rate）。
+4. 仅当所有指标 ≥ baseline 时才允许升级。
+
+以下是一份极简测试框架的 Python 伪代码：
+
+```python
+# prompt_ab_test.py — prompt regression harness (pseudocode)
+import yaml
+from evaluation import run_golden_set, compare_metrics
+
+GOLDEN_QUERIES = load_queries("golden_queries.json")  # 40-100 queries
+BASELINE_THRESHOLD = 0.05  # max allowed regression: 5%
+
+def test_prompt_upgrade(old_version: str, new_version: str):
+    """Run golden set against two prompt versions; fail if any metric regresses."""
+    results_old = run_golden_set(GOLDEN_QUERIES, prompt_version=old_version)
+    results_new = run_golden_set(GOLDEN_QUERIES, prompt_version=new_version)
+
+    for metric in ["citation_compliance", "faithfulness", "refusal_rate"]:
+        old_val = results_old[metric]
+        new_val = results_new[metric]
+        regression = old_val - new_val
+        assert regression <= BASELINE_THRESHOLD, (
+            f"{metric} regressed by {regression:.2%}: "
+            f"v{old_version}={old_val:.2%} → v{new_version}={new_val:.2%}"
+        )
+    print(f"✅ Prompt v{new_version} passes all regression checks.")
+```
+
+### 模型升级时的提示词迁移
+
+当底层模型从 `gpt-4o-mini` 切换到 `claude-sonnet`（或任何其他模型）时，同一份提示词的表现可能发生显著变化。应对策略有两种：
+
+**策略 A —— 模型特化变体。** 为每个模型维护独立的提示词文件：
+
+```text
+answer_prompt.v3.2.1.gpt4o.txt
+answer_prompt.v3.2.1.claude.txt
+```
+
+`manifest.yaml` 中增加 `model` 维度。优点是针对性强，缺点是维护成本翻倍。
+
+**策略 B —— 模型无关主体 + 模型特化后缀。** 主提示词保持不变，在末尾追加一小段模型特化指令（如 Claude 需要的 XML tag 偏好，或 GPT 系列对 markdown 格式的响应倾向）。实践中，策略 B 对 80% 的场景够用；只有当两个模型在核心约束上行为差异很大时，才需要退回策略 A。
+
+无论哪种策略，切换模型后的第一件事永远是：**重跑 golden query set**，确认指标没有回退。
+
+### 回滚
+
+如果生产环境的忠实度指标在提示词变更后下降，回滚操作极其简单：
+
+1. 修改 `manifest.yaml`，将 `active_version` 指回上一个版本。
+2. 重新部署（或热加载，如果架构支持）。
+3. 零停机，零数据迁移。
+
+这就是"提示词住在文件里"的回报 —— 回滚一个提示词和 `git revert` 一样快。
+
+### 与 CI 门禁集成
+
+在第 15 章的评估体系中，我们会引入 soft gate S7 —— **提示词回归测试**。它的逻辑是：
+
+- 每次包含提示词文件变更的 PR 自动触发 golden query set 评估。
+- 如果任何核心指标（引用合规率、忠实度、拒答率）下降超过 5%，CI 标红。
+- Reviewer 可以选择覆盖（override），但必须留下书面理由。
+
+这条门禁把"提示词质量"从一种主观判断，变成了一个可以在 CI 里自动执行的工程纪律 —— 与代码覆盖率门禁同级。
+
 ## 常见错误
 
 五个生成阶段的反模式。每一个都直接对应一项可度量的回归 —— 幻觉率、引用率、或用户信任率 —— 每一个也都可以被救回来。

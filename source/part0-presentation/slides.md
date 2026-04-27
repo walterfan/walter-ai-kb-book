@@ -40,7 +40,7 @@ graph / RRF / MCP / agent / commit-not-pages / L-git / L-entity / L-link`。
 - Walter (Yamin) Fan
 
 > 开场不要急着讲话。让标题停 10 秒。报家门 1 句。
-> 承诺："我今天只走主线，不陷细节；留 10 分钟给大家 Q&A。"
+> 承诺："我今天只走主线，不陷细节；留 5–10 分钟给大家 Q&A。"
 
 ---
 
@@ -277,7 +277,7 @@ $$
 - Naive：$N_\text{cand} \times 15k$ token
 - 三级：$N_\text{L1}\cdot 0 + N_\text{L2}\cdot 5k + N_\text{L3}\cdot 0$
 
-> 这是今天**最想大家记住的一句工程纪律**。慢一点、重一点。
+> 这是今天**最想让大家记住的一句工程纪律**。慢一点、重一点。
 > 它的反面是一条漂亮的死路："KB 越有用越大 → 每次 commit 越贵 →
 > 预算爆掉 → 停止维护"。commit-not-pages 就是把这条曲线**从 O(KB size)
 > 拽回 O(change rate)**。
@@ -286,10 +286,14 @@ $$
 
 ## Slide 17 —— 数字落地
 
-- 一周 19 candidates：12 → L1，5 → L2，2 → L3
-- L2 调用 ≈ 3k token × 5 = 15k token
-- **每 repo 每周几美分**
-- Naive baseline：**贵十倍以上**
+- 一周 **47** commits（项目的自然提交频率）
+  → 经三级派发后仅 **19** 页需处理（候选页面，即 commit 影响到的知识库页面）
+  → 12 → L1（机械操作，0 token）、5 → L2（受限 LLM，有界 token）、2 → L3（交给人）
+- 5 次 L2 调用 ≈ 平均 **3.6k** token/次 ≈ 共 **18k** token
+  - 3.6k 是实测平均值（ch16 数据：18k ÷ 5 次）
+  - 5k 是单次上限（ch22 的架构约束）
+- **$0.02/周/仓库**（按 2024 年 `gpt-4o-mini` 定价）；月度审计 **$0.73/月**（ch22）
+- Naive baseline：19 页 × 15k token/页 = **285k** token → **贵十倍以上**
 
 > "贵十倍以上" 这个数字不是在讲节省美金 ——
 > 真正贵的是**评审者的注意力**，不是 token。
@@ -309,11 +313,11 @@ code-kg sync --incremental
 # graph:    20 s
 ```
 
-| 场景 | Full | Incremental | 加速 |
-|:--|--:|--:|--:|
-| keyword | ~3 min | ~5 s | **36×** |
-| vector | ~3 min | <1 s | **180×** |
-| graph | ~3 min | ~20 s | **9×** |
+| 管线 | Full | Incremental | 加速 | 含义 |
+|:--|--:|--:|--:|:--|
+| keyword (BM25) | ~3 min | ~5 s | **36×** | 纯索引重建，不含 embedding，是"地板" |
+| vector (embedding) | ~3 min | <1 s | **180×** | stable ID 使 99% 向量免重算 |
+| graph (subgraph) | ~3 min | ~20 s | **9×** | 子图仍需实质更新，故最小 |
 
 > 这不是"向量很快"，是 **stable ID + 三层过滤 (L-git / L-entity / L-link)**
 > 把 99 % 的工作挡在了增量处理之外。
@@ -418,3 +422,12 @@ make book-check
 - **用 AI 给软件项目造一个知识库**
 
 > "希望今天讲的六条，明天有一条你会去试。"
+
+<!-- PKB-metadata
+layer:         L2
+updated_by:    ai+human
+review_status: pending
+review_score:  0
+reviewed_by:
+commit:        HEAD
+-->
