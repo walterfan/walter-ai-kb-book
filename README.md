@@ -126,7 +126,7 @@ make serve                  # http://localhost:8800
 
 ## Project genealogy
 
-这个 repo 是从 [`lazy-kb-wiki`](https://github.com/walterfan/lazy-kb-wiki)
+这个 repo 是从 [`lazy-kb-wiki`](https://github.com/[REDACTED_NAME]/lazy-kb-wiki)
 （前身 `lazy-rabbit-wiki`）抽离出来的独立项目。原仓库里书稿目录太大，
 跟 wiki-cli（Go 后端 + Vue 前端）放一起显得不伦不类；抽出来后各自职责清晰：
 

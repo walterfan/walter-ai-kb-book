@@ -10,6 +10,10 @@ __pycache__/
 # ── Sphinx build artifacts ───────────────────────────────────────────
 source/_build/
 
+# ── AgentBox local artifacts ─────────────────────────────────────────
+.abx/
+node_modules/
+
 # ── Editor / OS noise ────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
