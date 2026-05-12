@@ -18,16 +18,16 @@
 # Internal URLs
 forbid:docs.zoom.us
 forbid:dg01docs.zoom.us
-forbid:git.zoom.us
-forbid:git.ops.corp.zoom.us
-forbid:qa.zoomdev.us
+forbid:[REDACTED_INTERNAL_HOST]
+forbid:[REDACTED_INTERNAL_HOST]
+forbid:[REDACTED_INTERNAL_HOST]
 forbid:jenkins.zoom.us
-forbid:jenkins.client.corp.zoom.us
-forbid:artifacts.corp.zoom.us
-forbid:eng.corp.zoom.com
-forbid:new-dayone.zoomdev.us
-forbid:zoomvideo.atlassian.net
-forbid:ai-hub.corp.zoom.us
+forbid:[REDACTED_INTERNAL_HOST]
+forbid:[REDACTED_INTERNAL_HOST]
+forbid:[REDACTED_INTERNAL_HOST]
+forbid:[REDACTED_INTERNAL_HOST]
+forbid:[REDACTED_INTERNAL_HOST]
+forbid:[REDACTED_INTERNAL_HOST]
 
 # Internal product / service names
 forbid:AgentBox

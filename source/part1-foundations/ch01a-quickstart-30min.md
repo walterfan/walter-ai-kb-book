@@ -81,12 +81,12 @@ curl -sSL https://install.python-poetry.org | python3 -
 
 ```bash
 # 克隆文本层参考实现
-git clone https://github.com/walterfan/lazy-kb-wiki.git
+git clone https://github.com/[REDACTED_NAME]/lazy-kb-wiki.git
 cd lazy-kb-wiki
 
 # 克隆本书仓库（含构建工具链和示例文件）
 cd ..
-git clone https://github.com/walterfan/async-pkb-book.git
+git clone https://github.com/[REDACTED_NAME]/async-pkb-book.git
 ```
 
 安装书稿仓库的 Python 依赖（后续步骤会用到）：

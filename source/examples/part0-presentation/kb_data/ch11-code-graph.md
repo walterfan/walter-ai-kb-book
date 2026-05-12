@@ -2,7 +2,7 @@
 title: "Ch 11 — Code Knowledge Graph"
 status: draft
 authors:
-  - Walter Fan
+  - [REDACTED_NAME]
 last_verified_commit: a1b2c3d
 ---
 

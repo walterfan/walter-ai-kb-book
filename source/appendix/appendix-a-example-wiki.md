@@ -122,7 +122,7 @@ $ ./backend/wiki-cli --wiki-dir=/tmp/book-appx-a/wiki init kb
 ========================================
   Default admin account created
   Username: admin
-  Password: 9b65b923a6f2980b
+  Password: [REDACTED_PASSWORD]
   Please change the password after login.
 ========================================
 Wiki initialized (kind=kb) in /tmp/book-appx-a/wiki
