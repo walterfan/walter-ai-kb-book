@@ -78,13 +78,6 @@ at build time.
 
 ```{toctree}
 :maxdepth: 2
-:caption: Part 0 — 60-minute presentation
-
-part0-presentation/index
-```
-
-```{toctree}
-:maxdepth: 2
 :caption: Part I — Foundations
 
 part1-foundations/index

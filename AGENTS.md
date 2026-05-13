@@ -1,4 +1,4 @@
-# async-pkb-book
+# Build Knowledge Base by AI
 
 Sphinx + MyST source and toolchain for the book *Use AI to build a
 knowledge base for a software project* — a six-part field guide to
@@ -13,7 +13,6 @@ The book content lives entirely under `source/`. Start here:
 | Entry point | What it covers |
 |:--|:--|
 | `source/index.md` | Book root table of contents |
-| `source/part0-presentation/` | 60-minute talk (outline, slides) |
 | `source/part1-foundations/` | What is a software KB; IR/RAG primer; Diataxis |
 | `source/part2-prose-layer/` | Markdown+Git wiki, frontmatter/footer, LLM classification, publish/search, operational model |
 | `source/part3-code-layer/` | Parse, embed, graph, hybrid retrieval, prompt and generation |

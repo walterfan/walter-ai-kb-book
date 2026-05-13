@@ -1,18 +1,25 @@
 .PHONY: help setup check check-redaction build serve clean pdf \
-        html refresh-excerpts check-excerpts \
+        html refresh-excerpts check-excerpts publish publish-status \
         book-setup book-check book-check-redaction book-build book-serve \
-        book-clean book-pdf book-html \
+        book-clean book-pdf book-html book-publish book-publish-status \
         book-refresh-excerpts book-check-excerpts
 
 # ── Layout ───────────────────────────────────────────────────────────
 #
 # The book sources live under ./source/ (self-contained Sphinx project:
 # conf.py, references.bib, _tools/, _templates/, _static/).
-# All build artifacts go to ./source/_build/.
+# All build artifacts go to ./build/.
 
 BOOK_DIR       := source
-BOOK_BUILD_DIR := $(BOOK_DIR)/_build
+BOOK_BUILD_DIR := build
 BOOK_PORT      ?= 8800
+
+PUBLISH_REMOTE       ?= origin
+PUBLISH_PAGES_BRANCH ?= gh-pages
+# Supports git@github.com:owner/repo.git and https://github.com/owner/repo(.git).
+PUBLISH_SLUG         ?= $(shell git remote get-url $(PUBLISH_REMOTE) 2>/dev/null | sed -E -e 's|^git@github\.com:||' -e 's|^https?://github\.com/||' -e 's|\.git$$||')
+PUBLISH_OWNER        ?= $(firstword $(subst /, ,$(PUBLISH_SLUG)))
+PUBLISH_REPO         ?= $(lastword $(subst /, ,$(PUBLISH_SLUG)))
 
 # Poetry drives the Sphinx toolchain. Override with e.g. `make build POETRY=poetry2`.
 # Unexport any stale VIRTUAL_ENV the caller's shell may leak in (leftover
@@ -63,9 +70,9 @@ check-redaction: ## Scan source+references.bib for internal URLs / product / tic
 
 # ── Build ────────────────────────────────────────────────────────────
 
-build: html ## Build the book to HTML (Chinese, under source/_build/html/)
+build: html ## Build the book to HTML (Chinese, under build/html/)
 
-html: check check-redaction ## Build Chinese HTML (source/_build/html/)
+html: check check-redaction ## Build Chinese HTML (build/html/)
 	$(SPHINXBUILD) -b html --keep-going \
 	    $(BOOK_DIR) $(BOOK_BUILD_DIR)/html
 
@@ -80,6 +87,43 @@ pdf: check ## Build the book to PDF via xelatex (requires a TeX distribution)
 	$(SPHINXBUILD) -b latex $(BOOK_DIR) $(BOOK_BUILD_DIR)/latex
 	$(MAKE) -C $(BOOK_BUILD_DIR)/latex all-pdf LATEXMKOPTS="-xelatex"
 	@echo "PDF built: $(BOOK_BUILD_DIR)/latex/ai-kb-for-software.pdf"
+
+# ── Publish ──────────────────────────────────────────────────────────
+
+publish: html ## Build and force-push build/html/ to GitHub Pages
+	@if [ ! -d "$(BOOK_BUILD_DIR)/html" ]; then \
+	  echo "No HTML build found after 'make html'."; exit 1; \
+	fi
+	@REMOTE_URL="$$(git remote get-url $(PUBLISH_REMOTE) 2>/dev/null)"; \
+	if [ -z "$$REMOTE_URL" ]; then \
+	  echo "Could not resolve remote '$(PUBLISH_REMOTE)'."; exit 1; \
+	fi; \
+	TMPDIR="$$(mktemp -d)"; \
+	trap 'rm -rf "$$TMPDIR"' EXIT; \
+	cp -R "$(BOOK_BUILD_DIR)/html/." "$$TMPDIR/"; \
+	touch "$$TMPDIR/.nojekyll"; \
+	echo "Publishing $(BOOK_BUILD_DIR)/html/ to $$REMOTE_URL ($(PUBLISH_PAGES_BRANCH))"; \
+	cd "$$TMPDIR" && \
+	  git init -q && \
+	  git checkout -q -b "$(PUBLISH_PAGES_BRANCH)" && \
+	  git add -A && \
+	  git -c user.name="$$(git -C "$(CURDIR)" config user.name)" \
+	      -c user.email="$$(git -C "$(CURDIR)" config user.email)" \
+	      commit -q -m "publish: $$(date -u +%Y-%m-%dT%H:%M:%SZ)" && \
+	  git push --force "$$REMOTE_URL" "$(PUBLISH_PAGES_BRANCH):$(PUBLISH_PAGES_BRANCH)"
+	@echo ""
+	@echo "Deployed site: https://$(PUBLISH_OWNER).github.io/$(PUBLISH_REPO)/"
+	@echo "First publish? Enable Pages at https://github.com/$(PUBLISH_SLUG)/settings/pages"
+	@echo "Source: 'Deploy from a branch' -> Branch: '$(PUBLISH_PAGES_BRANCH)' / root"
+
+publish-status: ## Print GitHub Pages settings, branch, and site URLs
+	@if [ -z "$(PUBLISH_SLUG)" ]; then \
+	  echo "Could not detect github.com slug from remote '$(PUBLISH_REMOTE)'."; \
+	  exit 1; \
+	fi
+	@echo "Pages settings:  https://github.com/$(PUBLISH_SLUG)/settings/pages"
+	@echo "gh-pages branch: https://github.com/$(PUBLISH_SLUG)/tree/$(PUBLISH_PAGES_BRANCH)"
+	@echo "Deployed site:   https://$(PUBLISH_OWNER).github.io/$(PUBLISH_REPO)/"
 
 # ── Excerpts ─────────────────────────────────────────────────────────
 
@@ -109,6 +153,8 @@ book-serve:            serve
 book-clean:            clean
 book-pdf:              pdf
 book-html:             html
+book-publish:          publish
+book-publish-status:   publish-status
 book-refresh-excerpts: refresh-excerpts
 book-check-excerpts:   check-excerpts
 

@@ -87,7 +87,7 @@ bibtex_reference_style = "author_year"
 
 # -- HTML output -------------------------------------------------------------
 
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_book_theme"
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
 html_title = project
@@ -99,10 +99,6 @@ html_last_updated_fmt = "%Y-%m-%d"
 html_theme_options = {
     "collapse_navigation": False,
     "navigation_depth": 4,
-    "titles_only": False,
-    "sticky_navigation": True,
-    "prev_next_buttons_location": "both",
-    "style_external_links": True,
 }
 
 # -- LaTeX / PDF output ------------------------------------------------------
