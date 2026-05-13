@@ -111,7 +111,14 @@ def strip_code_fences(text: str) -> str:
     return text
 
 
-def iter_runs(haystack: str, needle: str, n: int):
+def build_run_index(text: str, n: int) -> set[str]:
+    """Return all length-n substrings in text for fast membership checks."""
+    if len(text) < n:
+        return set()
+    return {text[i : i + n] for i in range(0, len(text) - n + 1)}
+
+
+def iter_runs(haystack_runs: set[str], needle: str, n: int):
     """Yield every length-n substring of needle that appears in haystack."""
     seen: set[str] = set()
     for i in range(0, len(needle) - n + 1):
@@ -119,7 +126,7 @@ def iter_runs(haystack: str, needle: str, n: int):
         if run in seen:
             continue
         seen.add(run)
-        if run in haystack:
+        if run in haystack_runs:
             yield run
 
 
@@ -140,6 +147,7 @@ def main() -> int:
 
     # Normalize whitespace so line wrapping does not defeat the check.
     blog_norm = re.sub(r"\s+", " ", blog_text)
+    blog_runs = build_run_index(blog_norm, MIN_RUN)
 
     failures: list[tuple[Path, str]] = []
 
@@ -154,7 +162,7 @@ def main() -> int:
             continue
         prose_norm = re.sub(r"\s+", " ", stripped)
 
-        for run in iter_runs(blog_norm, prose_norm, MIN_RUN):
+        for run in iter_runs(blog_runs, prose_norm, MIN_RUN):
             # Allow the run if the chapter cites the blog nearby.
             # Nearby = same chapter, any location. (Stricter policies
             # could require proximity, but that is noisier for drafts.)
