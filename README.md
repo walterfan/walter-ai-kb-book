@@ -122,25 +122,6 @@ make serve                  # http://localhost:8800
     `:filter: keywords % "xxx"` 按关键字过滤 `references.bib`，不允许
     手写脚注。
 
----
-
-## Project genealogy
-
-这个 repo 是从 [`lazy-kb-wiki`](https://github.com/[REDACTED_NAME]/lazy-kb-wiki)
-（前身 `lazy-rabbit-wiki`）抽离出来的独立项目。原仓库里书稿目录太大，
-跟 wiki-cli（Go 后端 + Vue 前端）放一起显得不伦不类；抽出来后各自职责清晰：
-
-- **`lazy-kb-wiki`** —— *Prose layer* 的参考实现：Go wiki-cli + Vue 前端，
-  处理 Markdown + Git 型 wiki 的导入、校验、静态构建。
-- **`async-pkb-book`**（本仓库）—— 面向**软件项目知识库**的设计与教程的
-  **文本与构建载体**：把“如何为代码库建立、维护、运营知识层”的方法论、
-  trade-off 和工程纪律写成可构建的书稿。
-
-原仓库下的书稿目录现在是一个指向本 repo `source/` 的 symlink —— 历史构建命令
-（`make book-build` 等）在原仓库里仍然可用，但真正的内容维护发生在这里。
-本 repo 里的 `source/_tools/refresh_excerpts.py` 反过来也通过 sibling 路径
-（默认 `../lazy-kb-wiki`，可由 `LAZY_KB_WIKI_PATH` 覆盖）读取那边的源代码
-来刷新 vendored excerpts。
 
 ## License
 
